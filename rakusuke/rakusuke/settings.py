@@ -29,7 +29,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rakusukeapp.apps.RakusukeappConfig',
-    'accounts.apps.AccountsConfig'
+    'accounts.apps.AccountsConfig',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -41,6 +45,38 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    #管理サイト用（ユーザ名認証）
+    'allauth.account.auth_backends.AuthenticationBackend',
+    #一般ユーザ用（メールアドレス認証）
+)
+
+#django-allauthで利用するdjango.contrib.sitesを使うためにサイト識別用IDを設定
+SITE_ID = 1
+
+#メールアドレス認証に変更する設定
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = False
+
+#サインアップにメールアドレス確認を挟むよう設定
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_REQUIRED = True
+
+#ログイン/ログアウト後の遷移先を設定
+LOGIN_REDIRECT_URL = 'rakusukeapp:index'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
+
+#ログアウトリンクのクリック一発でログアウトする設定
+ACCOUNT_LOGOUT_ON_GET = True
+
+#django-allauthが送信するメールの件名に自動付与される接頭辞をブランクにする設定
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+
+#デフォルトのメール送信元を設定
+DEFAULT_FROM_EMAIL = os.environ.get('FROM_EMAIL')
 
 ROOT_URLCONF = 'rakusuke.urls'
 
@@ -122,3 +158,5 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

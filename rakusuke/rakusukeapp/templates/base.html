@@ -7,6 +7,27 @@
         {% block head %}{% endblock %}
     </head>
     <body>
+        <nav>
+            <div>
+                <a class="navbar-brand" href="{% url 'rakusukeapp:index' %}">らく助</a>
+                <div>
+                    <ul>
+                        {% if user.is_authenticated %}
+                          <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_logout' %}">Log Out</a>
+                          </li>
+                        {% else %}
+                          <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_login' %}">Log In</a>
+                          </li>
+                          <li class="nav-item ml-auto">
+                            <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
+                          </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
         {% block header%}{% endblock %}
         {% block contents%}{% endblock %}
 
