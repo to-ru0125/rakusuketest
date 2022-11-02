@@ -37,34 +37,13 @@
                 </ul>
             </div>
         </nav>
-        <nav>
-            <div>
-                <a class="navbar-brand" href="{% url 'rakusukeapp:index' %}">らく助</a>
-                <div>
-                    <ul>
-                        {% if user.is_authenticated %}
-                          <li class="nav-item">
-                            <a class="nav-link" href="{% url 'account_logout' %}">Log Out</a>
-                          </li>
-                        {% else %}
-                          <li class="nav-item">
-                            <a class="nav-link" href="{% url 'account_login' %}">Log In</a>
-                          </li>
-                          <li class="nav-item ml-auto">
-                            <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
-                          </li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-        </nav>
         {% block header%}{% endblock %}
         {% block contents%}{% endblock %}
 
         <!-- Footer -->
         <footer class="py-5 bg-black">
           <div class="container">
-            <p class="black">Copyright &copy; らく助 2022</p>
+            <p class="black text-center">Copyright &copy; らく助 2022</p>
           </div>
         </footer>
 

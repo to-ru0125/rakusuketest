@@ -5,3 +5,7 @@ masthead-heading mb-0 {
 masthead-subheading mb-0 {
     color: black;
 }
+
+div h1 {
+  padding: 15px 0px 0px;
+}
