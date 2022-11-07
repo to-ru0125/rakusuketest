@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 {% block title %}らくらくスケジュール生成アプリ | らく助{% endblock %}
 
 
@@ -17,36 +16,36 @@
             <div>
                 <ul >
                     {% if user.is_authenticated %}
-                      <li>
-                        <a class="btn" href=#>スケジュールを作成する</a>
-                        <a class="btn" href=#>スケジュールを見る</a>
+                        <li>
+                            <a class="btn" href=#>スケジュールを作成する</a>
+                            <a class="btn" href=#>スケジュールを見る</a>
 
-                         <h6>動画を見る</h6>
-                         <h7>ひかきん</h7></br>
-                          <iframe width="300"
-                            src="https://www.youtube.com/embed/2Li5jhNIRIs"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></br>
+                            <h6>動画を見る</h6>
+                            <h7>ひかきん</h7></br>
+                            <iframe width="300"
+                                src="https://www.youtube.com/embed/2Li5jhNIRIs"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></br>
 
-                          <h7>よねつ</h7></br>
-                          <iframe width="300"
-                                  src="https://www.youtube.com/embed/1sjtSgdbsAg"
-                                  title="YouTube video player" frameborder="0"
-                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></br>
+                            <h7>よねつ</h7></br>
+                            <iframe width="300"
+                                src="https://www.youtube.com/embed/1sjtSgdbsAg"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></br>
 
-                          <h7>レッツゴー</h7></br>
-                          <iframe width="300"
-                                  src="https://www.youtube.com/embed/MeIr__26dAw"
-                                  title="YouTube video player" frameborder="0"
-                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></br>
-                      </li>
+                            <h7>レッツゴー</h7></br>
+                            <iframe width="300"
+                                src="https://www.youtube.com/embed/MeIr__26dAw"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></br>
+                        </li>
                     {% else %}
-                      <li>
-                        <a class="btn" href="{% url 'account_login' %}">Log In</a>
-                      </li>
-                      <li>
-                        <a class="btn" href="{% url 'account_signup' %}">Sign Up</a>
-                      </li>
+                        <li>
+                            <a class="btn" href="{% url 'account_login' %}">Log In</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="{% url 'account_signup' %}">Sign Up</a>
+                        </li>
                     {% endif %}
                 </ul>
             </div>
