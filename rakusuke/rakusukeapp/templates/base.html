@@ -25,16 +25,24 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">リンク１</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">リンク２</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">リンク３</a>
-                    </li>
+
                     {% if user.is_authenticated %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">１日のスケジュールを見る</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">週のスケジュールを見る</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">スケジュールを作成する</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">固定スケジュールを登録する</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">パスワードを変更する</a>
+                    </li>
                     <div>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'account_logout' %}">Log Out</a>
