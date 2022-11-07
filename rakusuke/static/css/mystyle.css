@@ -28,3 +28,10 @@ nav div div ul {
   margin-top: 0.5rem !important;
   margin-bottom: 0.5rem !important;
 }
+.btn {
+  border-radius: 5px;
+  background-color: lightblue;
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+}
