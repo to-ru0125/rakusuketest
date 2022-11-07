@@ -7,14 +7,10 @@ masthead-subheading mb-0 {
 }
 
 nav div div ul {
-  display: flex;
-  flex-direction: column;
-  padding-left: 0;
-  margin-bottom: 0;
-  list-style: none;
-  margin-left: auto !important;
-  margin-top: 0.5rem !important;
-  margin-bottom: 0.5rem !important;
+    display:flex;
+    justify-content: center;
+    list-style: none;
+    padding: 10px 0px 100px 0px;
 }
 
 .navbar-nav {
