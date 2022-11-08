@@ -35,3 +35,38 @@ nav div div ul {
   text-decoration: none;
   color: white;
 }
+
+cross {
+  position: relative;
+  width: 1px; /* 縦棒の幅 */
+  height: 4px; /* 縦棒の長さ */
+  background: #000000; /* 縦棒の色 */
+}
+
+cross::after {
+  content: "";
+  position: absolute;
+  top: 45px; /* 横棒のy位置 */
+  left: -45px; /* 横棒のX位置 */
+  width: 4px; /* 横棒の長さ */
+  height: 1px; /* 横棒の幅 */
+  background: #000000; /* 横棒の色 */
+}
+
+batu {
+  position: relative;
+  width: 1px; /* 縦棒の幅 */
+  height: 4px; /* 縦棒の長さ */
+  background: #000000; /* 縦棒の色 */
+  transform: rotate(-45deg); /* 角度 */
+}
+
+batu::after {
+  content: "";
+  position: absolute;
+  top: 45px; /* 横棒のy位置 */
+  left: -45px; /* 横棒のX位置 */
+  width: 4px; /* 横棒の長さ */
+  height: 1px; /* 横棒の幅 */
+  background: #000000; /* 横棒の色 */
+}
