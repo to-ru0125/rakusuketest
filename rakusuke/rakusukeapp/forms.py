@@ -4,11 +4,12 @@ from django import forms
 class ScheduleCreateForm(forms.ModelForm):
     class Meta:
         model = RakusukeSchedule
-        fields = ('schedule_priority',
-                  'schedule_start_date',
+        fields = ('schedule_start_date',
                   'schedule_end_date',
+                  'schedule_do',
+                  'schedule_category',
                   'schedule_worktime',
-                  'sucedule_creation_stage',
+                  'schedule_priority',
                   'sucedule_ditching')
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
