@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class rakusuke_schedule(models.Model):
+class RakusukeSchedule(models.Model):
     schedule_do = models.TextField(verbose_name='やるべきこと', max_length=40)
     schedule_priority = models.IntegerField(verbose_name='優先度', default=2)
     schedule_start_date = models.DateTimeField(verbose_name='開始日時', auto_now=True)
@@ -11,7 +11,7 @@ class rakusuke_schedule(models.Model):
     sucedule_ditching = models.TextField(verbose_name='サボり日', blank=True, null=True)
 
     class Meta:
-        verbose_name_plural = 'rakusuke_schedule'
+        verbose_name_plural = 'RakusukeSchedule'
 
     def __str__(self):
         return self.title
