@@ -26,10 +26,10 @@
                     {% if user.is_authenticated %}
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">１日のスケジュールを見る</a>
+                        <a class="nav-link" href="{% url 'rakusukeapp:onedayschedulelist' %}">１日のスケジュールを見る</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">週のスケジュールを見る</a>
+                        <a class="nav-link" href="{% url 'rakusukeapp:oneweekschedulelist' %}">週のスケジュールを見る</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">スケジュールを作成する</a>
