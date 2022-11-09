@@ -26,15 +26,13 @@
     　<div class="row">
         <form method="POST" enctype="multipart/form-data">
               {% csrf_token %}
-              <table class="table">
-                  <tr>
-                     <input class="batu" type="button" />
-                  </tr>
+              <table>
+                  <input class="batu" type="button" />
                   {{ form.as_table }}
               </table>
               <input class="cross" type="button" onclick="appendForm()" />
-            　<button class="" onclick="location.href='{% url '戻る先のページ %}'">戻る</button>
-            　<button class="" type="submit" onclick="location.href='{% url '作成後遷移ページ %}'">作成</button>
+            　<button class="" onclick="location.href='#'">戻る</button>
+            　<button class="" type="submit" onclick="location.href='#'">作成</button>
         </form>
       </div>
 

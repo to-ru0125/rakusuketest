@@ -36,14 +36,14 @@ nav div div ul {
   color: white;
 }
 
-cross {
+.cross {
   position: relative;
   width: 1px; /* 縦棒の幅 */
   height: 4px; /* 縦棒の長さ */
   background: #000000; /* 縦棒の色 */
 }
 
-cross::after {
+.cross::after {
   content: "";
   position: absolute;
   top: 45px; /* 横棒のy位置 */
@@ -53,7 +53,7 @@ cross::after {
   background: #000000; /* 横棒の色 */
 }
 
-batu {
+.batu {
   position: relative;
   width: 1px; /* 縦棒の幅 */
   height: 4px; /* 縦棒の長さ */
@@ -61,7 +61,7 @@ batu {
   transform: rotate(-45deg); /* 角度 */
 }
 
-batu::after {
+.batu::after {
   content: "";
   position: absolute;
   top: 5px; /* 横棒のy位置 */

@@ -17,7 +17,7 @@
                 <ul >
                     {% if user.is_authenticated %}
                         <li>
-                            <a class="btn" href=#>スケジュールを作成する</a>
+                            <a class="btn" href="{% url 'rakusukeapp:makescheduleview' %}">スケジュールを作成する</a>
                             <a class="btn" href="{% url 'rakusukeapp:onedayschedulelist' %}">スケジュールを見る</a>
 
                             <h6>動画を見る</h6>

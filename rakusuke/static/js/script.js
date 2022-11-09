@@ -1,6 +1,6 @@
 function appendForm(){
 
-   <table class="table">
+   <table>
         <input class="batu" type="button"  />
         {{ form.as_table }}
    </table>
