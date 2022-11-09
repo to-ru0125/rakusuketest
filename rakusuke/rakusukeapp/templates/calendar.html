@@ -16,19 +16,31 @@
 
 {% block contents %}
 <section style="padding: 50px 0px 10px" class="masthead text-center text-black">
-    <dev style="text-align:center">
-        <table border="1">
+    <dev>
+        <script type="text/javascript">
+        var days = new Array("日","月","火","水","木","金","土");
+        document.getElementById("text").innerHTML = showDay();
+        function showDay() {
+        var now = new Date();
+        var month = now.getMonth()+1;
+        var date = now.getDate();
+        var day = days[now.getDay()];
+        document.write("<p>", now,"</p>");
+        document.write("<p>今は", month, "月", date, "日", day,"曜日です</p>");
+        }
+        </script>
+        <table align="center" border="1">
             <tr>
                 <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
             </tr>
             <tr>
-                <td><a>1</a></td>
-                <td><a>2</a></td>
-                <td><a>3</a></td>
-                <td><a>4</a></td>
-                <td><a>5</a></td>
-                <td><a>6</a></td>
-                <td><a>7</a></td>
+                <td><button>1</button></td>
+                <td><button>2</button></td>
+                <td><button>3</button></td>
+                <td><button>4</button></td>
+                <td><button>5</button></td>
+                <td><button>6</button></td>
+                <td><button>7</button></td>
             </tr>
         </table>
     </dev>
