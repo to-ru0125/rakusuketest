@@ -23,14 +23,14 @@
 
    {% block contents %}
     <section>
-    　<div class="row">
+    　<div class="row" style="text-align:center">
         <form method="POST" enctype="multipart/form-data">
               {% csrf_token %}
               <table>
                   <input class="batu" type="button" />
                   {{ form.as_table }}
               </table>
-              <input class="cross" type="button" onclick="appendForm()" />
+              <input class="cross" name="addFormBtn" type="button" onclick="appendForm()" />
             　<button class="" onclick="location.href='#'">戻る</button>
             　<button class="" type="submit" onclick="location.href='#'">作成</button>
         </form>
