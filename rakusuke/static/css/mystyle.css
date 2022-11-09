@@ -64,8 +64,8 @@ batu {
 batu::after {
   content: "";
   position: absolute;
-  top: 45px; /* 横棒のy位置 */
-  left: -45px; /* 横棒のX位置 */
+  top: 5px; /* 横棒のy位置 */
+  right: -5px; /* 横棒のX位置 */
   width: 4px; /* 横棒の長さ */
   height: 1px; /* 横棒の幅 */
   background: #000000; /* 横棒の色 */
