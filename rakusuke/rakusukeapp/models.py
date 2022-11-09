@@ -1,7 +1,8 @@
 from django.db import models
-
+from accounts.models import CustomUser
 
 class RakusukeSchedule(models.Model):
+    user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.PROTECT)
     schedule_do = models.TextField(verbose_name='やるべきこと', max_length=40)
     schedule_priority = models.IntegerField(verbose_name='優先度', default=2)
     schedule_start_date = models.DateTimeField(verbose_name='開始日時', auto_now=True)
