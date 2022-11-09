@@ -1,6 +1,25 @@
 from django.views import generic
-
+from .models import RakusukeSchedule
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from .forms import ScheduleCreateForm
+
+class CreateView(LoginRequiredMixin,generic.FormView):
+    model = RakusukeSchedule
+    template_name = 'make_schedule.html'
+    form_class = ScheduleCreateForm
+    success_url = reverse_lazy('成功後ページ')
+
+    def form_valid(self, form):
+        histories = form.save(commit=False)
+        histories.user = self.request.user
+        histories.save()
+        messages.success(self.request, '投稿しました。')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "投稿に失敗しました。")
+        return super().form_invalid(form)
 
 class IndexView(generic.TemplateView):
     template_name = "index.html"
@@ -12,19 +31,6 @@ class OneweekschedulelistView(generic.TemplateView,LoginRequiredMixin):
     template_name = "oneweekschedulelist.html"
 
 class CalendarView(generic.TemplateView,LoginRequiredMixin):
-    # model = RakusukeSchedule
+    model = RakusukeSchedule
     template_name = "calendar.html"
 
-    # def get_queryset(self):
-    #     diaries = Shopping.objects.filter(user=self.request.user).order_by('-created_at')
-    #     return diaries
-    #
-    # def get_queryset(self):
-    #     q_word = self.request.GET.get('query')
-    #
-    #     if q_word:
-    #         diaries = Shopping.objects.filter((Q(product1__icontains=q_word) | Q(product2__icontains=q_word) | Q(product3__icontains=q_word) | Q(product4__icontains=q_word) | Q(product5__icontains=q_word) | Q(product6__icontains=q_word)), user = self.request.user).order_by('-created_at')
-    #         return diaries
-    #     else:
-    #         diaries = Shopping.objects.filter(user=self.request.user).order_by('-created_at')
-    #         return diaries
