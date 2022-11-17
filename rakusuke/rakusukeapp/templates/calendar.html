@@ -15,34 +15,68 @@
 
 
 {% block contents %}
-<section style="padding: 50px 0px 10px" class="masthead text-center text-black">
-    <dev>
-        <script type="text/javascript">
-        var days = new Array("日","月","火","水","木","金","土");
-        document.getElementById("text").innerHTML = showDay();
-        function showDay() {
-        var now = new Date();
-        var month = now.getMonth()+1;
-        var date = now.getDate();
-        var day = days[now.getDay()];
-        document.write("<p>", now,"</p>");
-        document.write("<p>今は", month, "月", date, "日", day,"曜日です</p>");
-        }
-        </script>
-        <table align="center" border="1">
+    <a href="{% url 'app:month' month_previous.year month_previous.month %}">前月</a>
+    {{ month_current | date:"Y年m月" }}
+    <a href="{% url 'app:month' month_next.year month_next.month %}">次月</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            {% for w in week_names %}
+                <th>{{ w }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for week in month_days %}
             <tr>
-                <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
+                {% for day in week %}
+                    {% if now == day %}
+                        <td class="table-success">
+                            {% else %}
+                        <td>
+                    {% endif %}
+
+                {% if month_current.month != day.month %}
+                    {{ day | date:"m/d" }}
+                {% else %}
+                    {{ day.day }}
+                {% endif %}
+
+                </td>
+                {% endfor %}
             </tr>
-            <tr>
-                <td><button>1</button></td>
-                <td><button>2</button></td>
-                <td><button>3</button></td>
-                <td><button>4</button></td>
-                <td><button>5</button></td>
-                <td><button>6</button></td>
-                <td><button>7</button></td>
-            </tr>
-        </table>
-    </dev>
-</section>
+        {% endfor %}
+        </tbody>
+    </table>
+<!--<section style="padding: 50px 0px 10px" class="masthead text-center text-black">-->
+<!--    <dev>-->
+<!--        <script type="text/javascript">-->
+<!--        var days = new Array("日","月","火","水","木","金","土");-->
+<!--        document.getElementById("text").innerHTML = showDay();-->
+<!--        function showDay() {-->
+<!--        var now = new Date();-->
+<!--        var month = now.getMonth()+1;-->
+<!--        var date = now.getDate();-->
+<!--        var day = days[now.getDay()];-->
+<!--        document.write("<p>", now,"</p>");-->
+<!--        document.write("<p>今は", month, "月", date, "日", day,"曜日です</p>");-->
+<!--        }-->
+<!--        </script>-->
+<!--        <table align="center" border="1">-->
+<!--            <tr>-->
+<!--                <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><button>1</button></td>-->
+<!--                <td><button>2</button></td>-->
+<!--                <td><button>3</button></td>-->
+<!--                <td><button>4</button></td>-->
+<!--                <td><button>5</button></td>-->
+<!--                <td><button>6</button></td>-->
+<!--                <td><button>7</button></td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--    </dev>-->
+<!--</section>-->
 {% endblock %}

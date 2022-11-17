@@ -20,7 +20,7 @@ class RakusukeSchedule(models.Model):
     def __str__(self):
         return self.title
 
-class RakusukeFunny(models.Model):
+class RakusukeFunny( models.Model):
     user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.PROTECT)
     funny_onoff = models.IntegerField(verbose_name='面白機能ONOFF')
 
