@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import CustomUser
+import datetime
 
 class RakusukeSchedule(models.Model):
     user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.PROTECT)
