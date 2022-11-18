@@ -1,17 +1,30 @@
 from django.db import models
 from accounts.models import CustomUser
 import datetime
+from django import forms
 
 class RakusukeSchedule(models.Model):
+    PRIORITY = (
+        (1,"強"),
+        (2,"中"),
+        (3,"弱"),
+    )
+
+    CATEGORIES = (
+        (1, "遊び"),
+        (2, "勉強"),
+        (3, "その他"),
+    )
+
     user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.PROTECT)
     schedule_do = models.TextField(verbose_name='スケジュール', max_length=40)
-    schedule_priority = models.IntegerField(verbose_name='優先度', default=2)
+    schedule_priority = models.IntegerField(verbose_name='優先度', choices=PRIORITY ,default=2)
     schedule_start_date = models.DateField(verbose_name='開始日時', auto_now=True)
     schedule_end_date = models.DateField(verbose_name='終了日時', auto_now=True)
     schedule_worktime = models.IntegerField(verbose_name='１日の作業時間')
     schedule_creation_stage = models.IntegerField(verbose_name='作成段階')
     schedule_ditching = models.TextField(verbose_name='サボり日', blank=True, null=True)
-    schedule_category = models.IntegerField(verbose_name='カテゴリ')
+    schedule_category = models.IntegerField(verbose_name='カテゴリ', choices=PRIORITY ,default=2)
     schedule_achieved = models.IntegerField(verbose_name='スケジュール達成済み')
     schedule_subject = models.TextField(verbose_name='科目')
 

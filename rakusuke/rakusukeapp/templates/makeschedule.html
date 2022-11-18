@@ -23,16 +23,40 @@
 
    {% block contents %}
     <section>
-    　<div class="row" style="text-align:center">
+    　<div style="text-align:center">
         <form method="POST" enctype="multipart/form-data">
               {% csrf_token %}
-              <table>
-                  <input class="batu" type="button" />
-                  {{ form.as_table }}
-              </table>
-              <input class="cross" name="addFormBtn" type="button" onclick="appendForm()" />
-            　<button class="" onclick="location.href='#'">戻る</button>
-            　<button class="" type="submit" onclick="location.href='#'">作成</button>
+             <table style="text-align:center">
+                <tbody>
+                    <tr>
+                        <th width="150" height="50">{{ form.schedule_do.label_tag }}</th>
+                        <td>{{ form.schedule_do }}</td>
+                    </tr>
+                    <tr>
+                        <th width="150" height="50">{{ form.schedule_category.label_tag }}</th>
+                        <td>{{ form.schedule_category }}</td>
+                    </tr>
+                    <tr>
+                        <th width="150" height="50">{{ form.schedule_worktime.label_tag }}</th>
+                        <td>{{ form.schedule_worktime }}</td>
+                    </tr>
+                    <tr>
+                        <th width="150" height="50">{{ form.schedule_priority.label_tag }}</th>
+                        <td>
+                            {% for priority in form.schedule_priority %}
+                            <input type="radio">{{ priority }}</input>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="150" height="50">{{ form.schedule_ditching.label_tag }}</th>
+                        <td>{{ form.schedule_ditching }}</td>
+                    </tr>
+                </tbody>
+             </table>
+             <input class="cross" name="addFormBtn" type="button" onclick="appendForm()" />
+             <button class="" onclick="location.href='#'">戻る</button>
+             <button class="" type="submit" onclick="location.href='#'">作成</button>
         </form>
       </div>
 
