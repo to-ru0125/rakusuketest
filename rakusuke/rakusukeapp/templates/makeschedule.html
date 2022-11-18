@@ -12,7 +12,6 @@
    {% block header%}
     <header class="masthead text-center text-black">
         <div class="masthead-content">
-             <link rel="stylesheet" href="mystyle.css">
             <div class="container">
                 <h1 class="masthead-heading mb-0">らく助</h1>
                 <h3 class="masthead-subheading mb-0">スケジュール作成</h3>
@@ -22,39 +21,43 @@
     {% endblock %}
 
    {% block contents %}
-    <section>
-    　<div style="text-align:center">
+    <section style="text-align:center">
+    　<div>
         <form method="POST" enctype="multipart/form-data">
               {% csrf_token %}
-             <table style="text-align:center">
+             <table>
                 <tbody>
-                    <tr>
-                        <th width="150" height="50">{{ form.schedule_do.label_tag }}</th>
+                    <tr width="150" height="50" style="text-align:center">
+                        <th>{{ form.schedule_do.label_tag }}</th>
                         <td>{{ form.schedule_do }}</td>
                     </tr>
-                    <tr>
-                        <th width="150" height="50">{{ form.schedule_category.label_tag }}</th>
-                        <td>{{ form.schedule_category }}</td>
-                    </tr>
-                    <tr>
-                        <th width="150" height="50">{{ form.schedule_worktime.label_tag }}</th>
-                        <td>{{ form.schedule_worktime }}</td>
-                    </tr>
-                    <tr>
-                        <th width="150" height="50">{{ form.schedule_priority.label_tag }}</th>
+                    <tr width="150" height="50" style="text-align:center">
+                        <th>{{ form.schedule_category.label_tag }}</th>
                         <td>
-                            {% for priority in form.schedule_priority %}
-                            <input type="radio">{{ priority }}</input>
-                            {% endfor %}
+                        {% for category in form.schedule_category %}
+                            <input type="radio" name="category" value={{ category }}
+                        {% endfor %}
                         </td>
                     </tr>
-                    <tr>
-                        <th width="150" height="50">{{ form.schedule_ditching.label_tag }}</th>
+                    <tr width="150" height="50" style="text-align:center">
+                        <th>{{ form.schedule_worktime.label_tag }}</th>
+                        <td>{{ form.schedule_worktime }}</td>
+                    </tr>
+                    <tr width="150" height="50" style="text-align:center">
+                        <th>{{ form.schedule_priority.label_tag }}</th>
+                        <td>
+                        {% for priority in form.schedule_priority %}
+                            <input type="radio" name="priority" value={{ priority }}
+                        {% endfor %}
+                        </td>
+                    </tr>
+                    <tr width="150" height="50" style="text-align:center">
+                        <th>{{ form.schedule_ditching.label_tag }}</th>
                         <td>{{ form.schedule_ditching }}</td>
                     </tr>
                 </tbody>
              </table>
-             <input class="cross" name="addFormBtn" type="button" onclick="appendForm()" />
+             <input class="cross" name="addFormBtn" type="button" onclick="appendForm()">
              <button class="" onclick="location.href='#'">戻る</button>
              <button class="" type="submit" onclick="location.href='#'">作成</button>
         </form>
