@@ -49,9 +49,16 @@ class MonthCalendarMixin(BaseCalendarMixin):
         else:
             return date.replace(month=date.month+1, day=1)
 
+    def get_now_month(self, date):
+        # 今月を返す
+        if date.month == 12:
+            return date.replace(year=date.year)
+        else:
+            return date.replace(month=date.month)
+
     def get_month_days(self, date):
         # yearが0の場合今の年月とする
-        if date.year == "0":
+        if date.year == "":
             date.year = datetime.year
             date.month = datetime.month
         # その月の全ての日を返す
@@ -77,16 +84,13 @@ class MonthCalendarMixin(BaseCalendarMixin):
             'month_current': current_month,
             'month_previous': self.get_previous_month(current_month),
             'month_next': self.get_next_month(current_month),
+            'month_now': self.get_now_month(current_month),
             'week_names': self.get_week_names(),
         }
         return calendar_data
 class CalendarView(MonthCalendarMixin, generic.TemplateView,LoginRequiredMixin):
     """月間カレンダーを表示するビュー"""
     template_name = "calendar.html"
-    def some_view(request):
-        a = datetime.year, b = datetime.month
-        query_string = urlencode({'year': a, 'month': b})  # id=1&category_id=2
-        url = f'rakusukeapp:calendar?{query_string}'  # /products?id=1&category_id=2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
