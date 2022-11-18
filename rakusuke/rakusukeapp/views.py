@@ -9,7 +9,7 @@ import datetime
 
 class BaseCalendarMixin:
     """カレンダー関連Mixinの、基底クラス"""
-    first_weekday = 0  # 0は月曜から、1は火曜から。6なら日曜日からになります。お望みなら、継承したビューで指定してください。
+    first_weekday = 6  # 0は月曜から、1は火曜から。6なら日曜日からになります。お望みなら、継承したビューで指定してください。
     week_names = ['月', '火', '水', '木', '金', '土', '日']  # これは、月曜日から書くことを想定します。['Mon', 'Tue'...
 
     def setup_calendar(self):
@@ -76,6 +76,7 @@ class MonthCalendarMixin(BaseCalendarMixin):
 class CalendarView(MonthCalendarMixin, generic.TemplateView,LoginRequiredMixin):
     """月間カレンダーを表示するビュー"""
     template_name = "calendar.html"
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
