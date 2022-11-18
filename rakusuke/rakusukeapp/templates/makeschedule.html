@@ -23,7 +23,7 @@
 
    {% block contents %}
     <section>
-    　<div style="text-align:center">
+    　<div>
         <form method="POST" enctype="multipart/form-data">
               {% csrf_token %}
              <table>
@@ -55,12 +55,11 @@
                     <th>{{ form.schedule_ditching.label_tag }}</th>
                     <td>{{ form.schedule_ditching }}</td>
                 </tr>
-                <tr>
-                    <input class="cross" name="addFormBtn" type="button" onclick="appendForm()">
-                </tr>
              </table>
-             <button class="" onclick="location.href='#'">戻る</button>
-             <button class="" type="submit" onclick="location.href='#'">作成</button>
+             <input class="cross" name="addFormBtn" type="button" onclick="appendForm()">
+             <br>
+            <button class="left-btn" onclick="location.href='#'" >戻る</button>
+            <button class="right-btn" type="submit" onclick="location.href='#'" >作成</button>
         </form>
       </div>
 
