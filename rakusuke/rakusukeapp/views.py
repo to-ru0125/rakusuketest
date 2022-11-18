@@ -6,6 +6,9 @@ from .forms import ScheduleCreateForm
 import calendar
 from collections import deque
 import datetime
+import webbrowser
+from django.shortcuts import redirect
+from django.http import HttpResponse
 
 class BaseCalendarMixin:
     """カレンダー関連Mixinの、基底クラス"""
@@ -47,6 +50,10 @@ class MonthCalendarMixin(BaseCalendarMixin):
             return date.replace(month=date.month+1, day=1)
 
     def get_month_days(self, date):
+        # yearが0の場合今の年月とする
+        if date.year == "0":
+            date.year = datetime.year
+            date.month = datetime.month
         # その月の全ての日を返す
         return self._calendar.monthdatescalendar(date.year, date.month)
 
@@ -76,7 +83,10 @@ class MonthCalendarMixin(BaseCalendarMixin):
 class CalendarView(MonthCalendarMixin, generic.TemplateView,LoginRequiredMixin):
     """月間カレンダーを表示するビュー"""
     template_name = "calendar.html"
-
+    def some_view(request):
+        a = datetime.year, b = datetime.month
+        query_string = urlencode({'year': a, 'month': b})  # id=1&category_id=2
+        url = f'rakusukeapp:calendar?{query_string}'  # /products?id=1&category_id=2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
