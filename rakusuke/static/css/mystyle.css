@@ -6,6 +6,10 @@ masthead-subheading mb-0 {
     color: black;
 }
 
+table {
+    border: 2px solid black;
+}
+
 nav div div ul {
     display:flex;
     justify-content: center;
