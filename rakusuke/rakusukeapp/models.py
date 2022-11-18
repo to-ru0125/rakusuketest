@@ -11,8 +11,8 @@ class RakusukeSchedule(models.Model):
     )
 
     CATEGORIES = (
-        (1, "遊び"),
-        (2, "勉強"),
+        (1, "勉強"),
+        (2, "遊び"),
         (3, "その他"),
     )
 
@@ -24,7 +24,7 @@ class RakusukeSchedule(models.Model):
     schedule_worktime = models.IntegerField(verbose_name='１日の作業時間')
     schedule_creation_stage = models.IntegerField(verbose_name='作成段階')
     schedule_ditching = models.TextField(verbose_name='サボり日', blank=True, null=True)
-    schedule_category = models.IntegerField(verbose_name='カテゴリ', choices=PRIORITY ,default=2)
+    schedule_category = models.IntegerField(verbose_name='カテゴリ', choices=CATEGORIES ,default=1)
     schedule_achieved = models.IntegerField(verbose_name='スケジュール達成済み')
     schedule_subject = models.TextField(verbose_name='科目')
 
