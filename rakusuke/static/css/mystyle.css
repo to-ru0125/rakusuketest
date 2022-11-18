@@ -7,7 +7,17 @@ masthead-subheading mb-0 {
 }
 
 table {
-    border: 2px solid black;
+    margin: auto;
+    table-layout: fixed;
+}
+
+th {
+    text-align-last: justify;
+    padding: 0px;
+}
+
+td {
+    height: 10px;
 }
 
 nav div div ul {
@@ -42,18 +52,17 @@ nav div div ul {
 
 .cross {
   position: relative;
-  width: 1px; /* 縦棒の幅 */
-  height: 4px; /* 縦棒の長さ */
+  width: 7.5px; /* 縦棒の幅 */
+  height: 30px; /* 縦棒の長さ */
   background: #000000; /* 縦棒の色 */
 }
 
 .cross::after {
-  content: "";
   position: absolute;
   top: 45px; /* 横棒のy位置 */
   left: -45px; /* 横棒のX位置 */
-  width: 4px; /* 横棒の長さ */
-  height: 1px; /* 横棒の幅 */
+  width: 30px; /* 横棒の長さ */
+  height: 7.5px; /* 横棒の幅 */
   background: #000000; /* 横棒の色 */
 }
 
