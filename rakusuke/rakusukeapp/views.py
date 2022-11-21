@@ -1,5 +1,6 @@
 from django.views import generic
 from .models import RakusukeSchedule
+from .models import RakusukeDetail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .forms import ScheduleCreateForm
@@ -88,6 +89,10 @@ class MonthCalendarMixin(BaseCalendarMixin):
             'week_names': self.get_week_names(),
         }
         return calendar_data
+
+class CalendarDetailView(LoginRequiredMixin,generic.DetailView):
+    model = RakusukeDetail
+    template_name = 'calendar_datail.html'
 class CalendarView(MonthCalendarMixin, generic.TemplateView,LoginRequiredMixin):
     """月間カレンダーを表示するビュー"""
     template_name = "calendar.html"

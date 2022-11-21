@@ -38,7 +38,7 @@
                 {% if month_current.month != day.month %}
                     {{ day | date:"m/d" }}
                 {% else %}
-                    {{ day.day }}
+                    <a href="{% url 'rakusukeapp:calendardetail' month_current.year month_current.month day.day %}">{{ day.day }}</a>
                 {% endif %}
 
                 </td>
