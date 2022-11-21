@@ -1,6 +1,7 @@
 from django.views import generic
 from .models import RakusukeSchedule
 from .models import RakusukeDetail
+from .models import RakusukeSubject
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .forms import ScheduleCreateForm
@@ -136,6 +137,24 @@ class MakescheduleView(LoginRequiredMixin,generic.FormView):
     # スケジュール作成画面表示
     model = RakusukeSchedule
     template_name = 'makeschedule.html'
+    form_class = ScheduleCreateForm
+    success_url = reverse_lazy('成功後ページ')
+
+    def form_valid(self, form):
+        histories = form.save(commit=False)
+        histories.user = self.request.user
+        histories.save()
+        messages.success(self.request, '作成しました。')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "作成に失敗しました。")
+        return super().form_invalid(form)
+
+class SubjectView(LoginRequiredMixin,generic.FormView):
+    # スケジュール作成画面表示
+    model = RakusukeSubject
+    template_name = 'subject.html'
     form_class = ScheduleCreateForm
     success_url = reverse_lazy('成功後ページ')
 
