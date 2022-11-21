@@ -56,7 +56,15 @@
                     <td>{{ form.schedule_ditching }}</td>
                 </tr>
              </table>
-             <input type="image" src="{% static assets/img/appendButton.drawio.png %}" name="addFormBtn" onclick="appendForm()">
+             <table class="table-add">
+                 <tr>
+                     <td>
+                         <button name="addFormBtn" onclick="appendForm()" class="add">
+                            <img src="{% static 'assets/img/appendButton.png' %}"></img>
+                         </button>
+                     </td>
+                 </tr>
+             </table>
              <button class="left-btn" onclick="location.href='#'" >戻る</button>
              <button class="right-btn" type="submit" onclick="location.href='#'" >作成</button>
         </form>
