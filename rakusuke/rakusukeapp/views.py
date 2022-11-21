@@ -5,6 +5,7 @@ from .models import RakusukeSubject
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .forms import ScheduleCreateForm
+from .forms import SubjectCreateForm
 import calendar
 from collections import deque
 import datetime
@@ -154,8 +155,8 @@ class MakescheduleView(LoginRequiredMixin,generic.FormView):
 class SubjectView(LoginRequiredMixin,generic.FormView):
     # スケジュール作成画面表示
     model = RakusukeSubject
-    template_name = 'subject.html'
-    form_class = ScheduleCreateForm
+    template_name = 'subjectlist.html'
+    form_class = SubjectCreateForm
     success_url = reverse_lazy('成功後ページ')
 
     def form_valid(self, form):
