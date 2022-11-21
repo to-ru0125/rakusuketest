@@ -13,6 +13,10 @@ table {
     border: 2px solid black;
 }
 
+.table-add {
+    border: 0px none;
+}
+
 tr {
     table-layout: fixed;
 }
@@ -54,6 +58,16 @@ nav div div ul {
   padding: 10px;
   text-decoration: none;
   color: white;
+}
+
+.add {
+  height: 50px;
+  width: 50px;
+}
+
+.add img {
+  max-width: 100%;
+  height: auto;
 }
 
 .right-btn {
