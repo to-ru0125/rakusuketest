@@ -153,11 +153,16 @@ class MakescheduleView(LoginRequiredMixin,generic.FormView):
         return super().form_invalid(form)
 
 class SubjectView(LoginRequiredMixin,generic.FormView):
-    # スケジュール作成画面表示
+    # 科目一覧画面表示
     model = RakusukeSubject
     template_name = 'subjectlist.html'
     form_class = SubjectCreateForm
-    success_url = reverse_lazy('成功後ページ')
+    success_url = reverse_lazy('rakusukeapp:subjectlist')
+    paginate_by = 3
+
+    def get_queryset(self):
+        diaries = RakusukeSubject.objects.filter(user=self.request.user)#.order_by('-subject_name')
+        return diaries
 
     def form_valid(self, form):
         histories = form.save(commit=False)
