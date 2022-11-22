@@ -1,15 +1,87 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}らくらくスケジュール生成アプリ | らく助{% endblock %}
 
-{% block header%}
-<header class="masthead text-center text-black">
-    <div class="masthead-content">
-         <link rel="stylesheet" href="mystyle.css">
-    </div>
-</header>
-{% endblock %}
-{% block contents %}
-<section>
-    <h1>固定スケジュール関連はここ</h1>
-</section>
-{% endblock %}
+<html lang="ja" dir="ltr">
+   <head>
+     <meta charset="utf-8">
+     <link ref="stylesheet" href="mystyle.css">
+     <!-- ここにJavaScriptを読み込むコード -->
+     <script src="{% static 'js/script.js' %}"></script>
+     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+   </head>
+   {% block header%}
+    <header class="masthead text-center text-black">
+        <div class="masthead-content">
+            <div class="container">
+                <h1 class="masthead-heading mb-0">らく助</h1>
+                <h3 class="masthead-subheading mb-0">固定スケジュール</h3>
+            </div>
+        </div>
+    </header>
+    {% endblock %}
+
+   {% block contents %}
+    <section>
+    　<div id="app">
+        <form method="POST" enctype="multipart/form-data">
+             {% csrf_token %}
+             <table <!-- v-for="(index, schedule) in schedules" v-bind:key="schedule.id" --> >
+                <tr style="text-align:center">
+                    <th><!-- 固定スケジュール: -->{{ form.fixed_do.label_tag }}</th>
+                    <td>{{ form.fixed_do }}</td>
+                </tr>
+                <tr style="text-align:center">
+                    <th><!-- 開始時間: -->{{ form.fixed_start_time.label_tag }}</th>
+                    <td>{{ form.fixed_start_time }}</td>
+                </tr>
+                <tr style="text-align:center">
+                    <th><!-- 終了時間: -->{{ form.fixed_end_time.label_tag }}</th>
+                    <td>{{ form.fixed_end_time }}</td>
+                </tr>
+                <tr style="text-align:center">
+                    <th><!-- 適応日: -->{{ form.fixed_adaptation.label_tag }}</th>
+                    <td>{{ form.fixed_adaptation }}</td>
+                </tr>
+             </table>
+             <table class="table-add">
+                 <tr>
+                     <td>
+                         <button name="addFormBtn" v-on:click="append" class="add">
+                            <img src="{% static 'assets/img/appendButton.png' %}"></img>
+                         </button>
+                     </td>
+                 </tr>
+             </table>
+             <button class="left-btn" onclick="location.href='#'" >戻る</button>
+             <button class="right-btn" type="submit" onclick="location.href='#'" >作成</button>
+          </form>
+        </div>
+
+        <script>
+            new Vue({
+                el: '#app',
+                data() {
+                    return {
+                        schedules: [{ do:{{ form.schedule_do }},
+                                      priority:{{ form.schedule_priority }},
+                                      worktime:{{ form.schedule_worktime }},
+                                      }]
+                    }
+                },
+
+                methods: {
+                    append: function(){
+                        this.users.push({ name: '', email: '' })
+                    },
+                    del: function(index){
+                        this.users.splice(index, 1)
+                    },
+                }
+            })
+         </script>
+    </section>
+
+    {% endblock %}
+
+</html>

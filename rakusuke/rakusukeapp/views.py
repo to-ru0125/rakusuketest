@@ -2,10 +2,12 @@ from django.views import generic
 from .models import RakusukeSchedule
 from .models import RakusukeDetail
 from .models import RakusukeSubject
+from .models import RakusukeFixed
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .forms import ScheduleCreateForm
 from .forms import SubjectCreateForm
+from .forms import FixedScheduleForm
 import calendar
 from collections import deque
 import datetime
@@ -127,9 +129,9 @@ class OneweekschedulelistView(generic.TemplateView,LoginRequiredMixin):
 
 
 class FixedscheduleView(LoginRequiredMixin,generic.FormView):
-    model = RakusukeSchedule
+    model = RakusukeFixed
     template_name = 'fixedschedule.html'
-    form_class = ScheduleCreateForm
+    form_class = FixedScheduleForm
     success_url = reverse_lazy('成功後ページ')
 
     def form_valid(self, form):
