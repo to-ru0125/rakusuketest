@@ -71,7 +71,17 @@ class RakusukeFixed(models.Model):
     fixed_do = models.TextField(verbose_name='固定スケジュール')
     fixed_start_time = models.DateTimeField(verbose_name='開始時間', auto_now=True)
     fixed_end_time = models.DateTimeField(verbose_name='終了時間', auto_now=True)
-    fixed_adaptation = models.TextField(verbose_name='適応日')
+    fixed_adaptation = models.IntegerField(verbose_name='適応日',choices=ADAPATATION)
+
+    ADAPATATION = (
+        (1, "月"),
+        (2, "火"),
+        (3, "水"),
+        (4, "木"),
+        (5, "金"),
+        (6, "土"),
+        (7, "日"),
+    )
 
     class Meta:
         verbose_name_plural = '固定スケジュールテーブル'

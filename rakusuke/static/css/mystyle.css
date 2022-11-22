@@ -79,7 +79,10 @@ nav div div ul {
   right: 10px;
   bottom: 150px;
 }
-
+.navbar-dark .navbar-toggler{
+  /* 枠線 */
+  border-color: rgba(212, 108, 228, 1);
+}
 .left-btn {
   position: absolute;
   border-radius: 1em;
