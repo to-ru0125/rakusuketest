@@ -17,5 +17,13 @@
 {% block contents %}
 <section>
     <h1>科目一覧はここ</h1>
+    {% for subject in subjectlist %}
+        <h2>
+            {{ subject.subject_name }}
+        </h2>
+    {% empty %}
+        <p>科目がありません。</p>
+    {% endfor %}
+
 </section>
 {% endblock %}
