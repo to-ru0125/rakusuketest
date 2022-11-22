@@ -67,12 +67,6 @@ class RakusukeDetail(models.Model):
         return self.title
 
 class RakusukeFixed(models.Model):
-    user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.PROTECT)
-    fixed_do = models.TextField(verbose_name='固定スケジュール')
-    fixed_start_time = models.DateTimeField(verbose_name='開始時間', auto_now=True)
-    fixed_end_time = models.DateTimeField(verbose_name='終了時間', auto_now=True)
-    fixed_adaptation = models.IntegerField(verbose_name='適応日',choices=ADAPATATION)
-
     ADAPATATION = (
         (1, "月"),
         (2, "火"),
@@ -82,6 +76,12 @@ class RakusukeFixed(models.Model):
         (6, "土"),
         (7, "日"),
     )
+
+    user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.PROTECT)
+    fixed_do = models.TextField(verbose_name='固定スケジュール')
+    fixed_start_time = models.DateTimeField(verbose_name='開始時間', auto_now=True)
+    fixed_end_time = models.DateTimeField(verbose_name='終了時間', auto_now=True)
+    fixed_adaptation = models.IntegerField(verbose_name='適応日',choices=ADAPATATION)
 
     class Meta:
         verbose_name_plural = '固定スケジュールテーブル'

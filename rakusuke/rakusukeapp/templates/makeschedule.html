@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}らくらくスケジュール生成アプリ | らく助{% endblock %}
 
-<html lang="ja" dir="ltr">
+<html lang="ja" dir="ltr" type="text/javascript">
    <head>
      <meta charset="utf-8">
      <link ref="stylesheet" href="mystyle.css">
@@ -69,7 +69,7 @@
         <script>
             new Vue({
                 el: '#app',
-                data() {
+                data(): {
                     return {
                         schedules: [{
                                       do:{{ form.schedule_do }},
@@ -79,7 +79,7 @@
                                       ditching:{{ form.schedule_ditching }},
                                    }]
                     }
-                }
+                },
 
                 methods: {
                     append: function(){
