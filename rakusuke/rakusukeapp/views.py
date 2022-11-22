@@ -126,13 +126,22 @@ class OneweekschedulelistView(generic.TemplateView,LoginRequiredMixin):
 #     template_name = "calendar.html"
 
 
-class FixedscheduleView(generic.TemplateView):
-    # 固定スケジュール表示
-    template_name = "fixedschedule.html"
+class FixedscheduleView(LoginRequiredMixin,generic.FormView):
+    model = RakusukeSchedule
+    template_name = 'fixedschedule.html'
+    form_class = ScheduleCreateForm
+    success_url = reverse_lazy('成功後ページ')
 
+    def form_valid(self, form):
+        histories = form.save(commit=False)
+        histories.user = self.request.user
+        histories.save()
+        messages.success(self.request, '作成しました。')
+        return super().form_valid(form)
 
-# class MakescheduleView(generic.TemplateView):
-#     template_name = 'makeschedule.html'
+    def form_invalid(self, form):
+        messages.error(self.request, "作成に失敗しました。")
+        return super().form_invalid(form)
 
 class MakescheduleView(LoginRequiredMixin,generic.FormView):
     # スケジュール作成画面表示
