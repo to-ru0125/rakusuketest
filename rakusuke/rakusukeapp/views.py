@@ -12,7 +12,7 @@ import calendar
 from collections import deque
 import datetime
 import webbrowser
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 
 class BaseCalendarMixin:
