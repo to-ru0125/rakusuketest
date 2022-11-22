@@ -26,34 +26,30 @@
     　<div id="app">
         <form method="POST" enctype="multipart/form-data">
              {% csrf_token %}
-             <table <!-- v-for="(index, schedule) in schedules" v-bind:key="schedule.id" --> >
+             <table v-for="(index, schedule) in schedules" v-bind:key="schedule.id">
                 <tr style="text-align:center">
                     <th><!-- やるべきこと: -->{{ form.schedule_do.label_tag }}</th>
-                    <td>{{ form.schedule_do }}</td>
+                    <td v-model="schedule.do"></td>
                 </tr>
                 <tr style="text-align:center">
                     <th><!-- カテゴリ: -->{{ form.schedule_category.label_tag }}</th>
-                    <td>
-                    {% for category in form.schedule_category %}
-                        <input type="radio" name="category" value={{ category }}
-                    {% endfor %}
+                    <td v-for="item in categories">
+                        <input type="radio" name="category" v-model="schedule.item">
                     </td>
                 </tr>
                 <tr style="text-align:center">
                     <th><!-- 1日の作業時間: -->{{ form.schedule_worktime.label_tag }}</th>
-                    <td>{{ form.schedule_worktime }}</td>
+                    <td v-model="schedule.worktime"></td>
                 </tr>
                 <tr style="text-align:center">
                     <th><!-- 優先度: -->{{ form.schedule_priority.label_tag }}</th>
-                    <td>
-                    {% for priority in form.schedule_priority %}
-                        <input type="radio" name="priority" value={{ priority }} <!-- v-model="schedule.priority" -->
-                    {% endfor %}
+                    <td v-for="item in priorities">
+                        <input type="radio" name="category" v-model="schedule.item">
                     </td>
                 </tr>
                 <tr style="text-align:center">
                     <th><!-- サボり日: -->{{ form.schedule_ditching.label_tag }}</th>
-                    <td>{{ form.schedule_ditching }}</td>
+                    <td v-model="schedule.ditching"></td>
                 </tr>
              </table>
              <table class="table-add">
@@ -75,16 +71,25 @@
                 el: '#app',
                 data() {
                     return {
-                        schedules: [{ do:{{ form.schedule_do }},
-                                      priority:{{ form.schedule_priority }},
+                        schedules: [{
+                                      do:{{ form.schedule_do }},
+                                      categories:{{ form.schedule_category }},
                                       worktime:{{ form.schedule_worktime }},
-                                      }]
+                                      priorities:{{ form.schedule_priority }},
+                                      ditching:{{ form.schedule_ditching }},
+                                   }]
                     }
-                },
+                }
 
                 methods: {
                     append: function(){
-                        this.users.push({ name: '', email: '' })
+                        this.schedules.push({
+                                      do:{{ form.schedule_do }},
+                                      categories:{{ form.schedule_category }},
+                                      worktime:{{ form.schedule_worktime }},
+                                      priorities:{{ form.schedule_priority }},
+                                      ditching:{{ form.schedule_ditching }},
+                                      })
                     },
                     del: function(index){
                         this.users.splice(index, 1)
