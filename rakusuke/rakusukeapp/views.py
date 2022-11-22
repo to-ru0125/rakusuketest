@@ -14,6 +14,7 @@ import datetime
 import webbrowser
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
+import re
 
 class BaseCalendarMixin:
     """カレンダー関連Mixinの、基底クラス"""
@@ -150,7 +151,6 @@ class MakescheduleView(LoginRequiredMixin,generic.FormView):
     model = RakusukeSchedule
     template_name = 'makeschedule.html'
     form_class = ScheduleCreateForm
-    success_url = reverse_lazy('成功後ページ')
 
     def form_valid(self, form):
         histories = form.save(commit=False)
@@ -162,6 +162,36 @@ class MakescheduleView(LoginRequiredMixin,generic.FormView):
     def form_invalid(self, form):
         messages.error(self.request, "作成に失敗しました。")
         return super().form_invalid(form)
+
+    def post(self, request, *args, **kwrgs):
+        doList = []
+        categoryList = []
+        priorityList = []
+        worktimeList = []
+        ditchingList = []
+
+        for i in request.POST.items():
+            if re.match(r'_*do',i[0]):
+                doList.append(i[1])
+            if re.match(r'_*category', i[0]):
+                categoryList.append(i[1])
+            if re.match(r'_*priority',i[0]):
+                priorityList.append(i[1])
+            if re.match(r'_*worktime', i[0]):
+                worktimeList.append(i[1])
+            if re.match(r'_*ditching',i[0]):
+                ditchingList.append(i[1])
+
+            for i in range(len(doList)):
+                entireinformation = EntireInformation(
+                    schedule_do = doList[i],
+                    schedule_category = categoryList[i],
+                    schedule_priority = priorityList[i],
+                    schedule_worktime = worktimeList[i],
+                    schedule_ditching = ditchingList[i],
+                )
+            entireinformation.save()
+        return redirect(to='/index')
 
 class SubjectView(LoginRequiredMixin,generic.FormView):
     # 科目一覧画面表示

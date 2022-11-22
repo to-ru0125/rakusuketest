@@ -3,6 +3,14 @@ from .models import RakusukeSubject
 from .models import RakusukeFixed
 from django import forms
 
+FIELD_NAME_MAPPING = {
+        'schedule_do': 'schedule_do_0',
+        'schedule_category': 'schedule_category_0',
+        'schedule_worktime': 'schedule_worktime_0',
+        'schedule_priority': 'schedule_priority_0',
+        'schedule_ditching': 'schedule_ditching_0',
+}
+
 class ScheduleCreateForm(forms.ModelForm):
     class Meta:
         model = RakusukeSchedule
@@ -15,6 +23,11 @@ class ScheduleCreateForm(forms.ModelForm):
             super().__init__(*args, **kwargs)
             for field in self.fields.values():
                 field.widget.attrs['class'] = 'form-control'
+
+        def add_prefix(self, field_name):
+            field_name = FIELD_NAME_MAPPING.get(field_name, field_name)
+            return super(ScheduleCreateForm, self).add_prefix(field_name)
+
 
 class SubjectCreateForm(forms.ModelForm):
     class Meta:

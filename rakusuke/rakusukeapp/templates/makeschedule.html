@@ -6,9 +6,6 @@
    <head>
      <meta charset="utf-8">
      <link ref="stylesheet" href="mystyle.css">
-     <!-- ここにJavaScriptを読み込むコード -->
-     <script src="{% static 'js/script.js' %}"></script>
-     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
    </head>
    {% block header%}
     <header class="masthead text-center text-black">
@@ -23,39 +20,44 @@
 
    {% block contents %}
     <section>
-    　<div id="app">
         <form method="POST" enctype="multipart/form-data">
              {% csrf_token %}
-             <table v-for="(index, schedule) in schedules" v-bind:key="schedule.id">
-                <tr style="text-align:center">
-                    <th><!-- やるべきこと: -->{{ form.schedule_do.label_tag }}</th>
-                    <td v-model="schedule.do"></td>
-                </tr>
-                <tr style="text-align:center">
-                    <th><!-- カテゴリ: -->{{ form.schedule_category.label_tag }}</th>
-                    <td v-for="item in categories">
-                        <input type="radio" name="category" v-model="schedule.item">
-                    </td>
-                </tr>
-                <tr style="text-align:center">
-                    <th><!-- 1日の作業時間: -->{{ form.schedule_worktime.label_tag }}</th>
-                    <td v-model="schedule.worktime"></td>
-                </tr>
-                <tr style="text-align:center">
-                    <th><!-- 優先度: -->{{ form.schedule_priority.label_tag }}</th>
-                    <td v-for="item in priorities">
-                        <input type="radio" name="category" v-model="schedule.item">
-                    </td>
-                </tr>
-                <tr style="text-align:center">
-                    <th><!-- サボり日: -->{{ form.schedule_ditching.label_tag }}</th>
-                    <td v-model="schedule.ditching"></td>
-                </tr>
-             </table>
+            <div id="list">
+                 <table class="list_var">
+                    <tr style="text-align:center">
+                        <th><!-- やるべきこと: -->{{ form.schedule_do.label_tag }}</th>
+                        <td><input name="schedule_do_0" id="schedule_do_0"></td>
+                    </tr>
+                    <tr style="text-align:center">
+                        <th><!-- カテゴリ: -->{{ form.schedule_category.label_tag }}</th>
+                        <td>
+                            {% for category in form.schedule_category %}
+                                <input type="radio" name="schedule_category_0" id="schedule_category_0">
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr style="text-align:center">
+                        <th><!-- 1日の作業時間: -->{{ form.schedule_worktime.label_tag }}</th>
+                        <td><input name="schedule_worktime_0" id="schedule_worktime_0"></td>
+                    </tr>
+                    <tr style="text-align:center">
+                        <th><!-- 優先度: -->{{ form.schedule_priority.label_tag }}</th>
+                        <td>
+                            {% for priority in form.schedule_priority %}
+                                <input type="radio" name="schedule_priority_0" id="schedule_priority_0">
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr style="text-align:center">
+                        <th><!-- サボり日: -->{{ form.schedule_ditching.label_tag }}</th>
+                        <td><input name="schedule_worktime_0" id="schedule_worktime_0"></td>
+                    </tr>
+                 </table>
+             </div>
              <table class="table-add">
                  <tr>
                      <td>
-                         <button name="addFormBtn" v-on:click="append" class="add">
+                         <button name="addFormBtn" class="list_add">
                             <img src="{% static 'assets/img/appendButton.png' %}"></img>
                          </button>
                      </td>
@@ -64,39 +66,13 @@
              <button class="left-btn" onclick="location.href='#'" >戻る</button>
              <button class="right-btn" type="submit" onclick="location.href='#'" >作成</button>
           </form>
-        </div>
 
-        <script>
-            new Vue({
-                el: '#app',
-                data(): {
-                    return {
-                        schedules: [{
-                                      do:{{ form.schedule_do }},
-                                      categories:{{ form.schedule_category }},
-                                      worktime:{{ form.schedule_worktime }},
-                                      priorities:{{ form.schedule_priority }},
-                                      ditching:{{ form.schedule_ditching }},
-                                   }]
-                    }
-                },
 
-                methods: {
-                    append: function(){
-                        this.schedules.push({
-                                      do:{{ form.schedule_do }},
-                                      categories:{{ form.schedule_category }},
-                                      worktime:{{ form.schedule_worktime }},
-                                      priorities:{{ form.schedule_priority }},
-                                      ditching:{{ form.schedule_ditching }},
-                                      })
-                    },
-                    del: function(index){
-                        this.users.splice(index, 1)
-                    },
-                }
-            })
-         </script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery.add-input-area@4.11.0/dist/jquery.add-input-area.min.js" integrity="sha256-yOwGvcRp3I8/XWkeARhJkgdfLREQygbFA5W2bUpM2FY=" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            $('#list').addInputArea();
+        </script>
     </section>
 
     {% endblock %}
