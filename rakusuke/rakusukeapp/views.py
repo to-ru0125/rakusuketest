@@ -146,7 +146,7 @@ class FixedscheduleView(LoginRequiredMixin,generic.FormView):
         messages.error(self.request, "作成に失敗しました。")
         return super().form_invalid(form)
 
-class MakescheduleView(LoginRequiredMixin,generic.CreateView,generic.FormView):
+class MakescheduleView(LoginRequiredMixin,generic.CreateView):
     # スケジュール作成画面表示
     model = RakusukeSchedule
     template_name = 'makeschedule.html'

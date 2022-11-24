@@ -37,11 +37,11 @@
                         </tr>
                         <div class="list_var">
                             <tr style="text-align:center">
-                                <th><!-- やるべきこと: -->{{ form.schedule_do.label_tag }}</th>
+                                <th>やるべきこと:</th>
                                 <td><input name="schedule_do_0" id="schedule_do_0"></td>
                             </tr>
                             <tr style="text-align:center">
-                                <th><!-- カテゴリ: -->{{ form.schedule_category.label_tag }}</th>
+                                <th>カテゴリ:</th>
                                 <td>
                                     {% for category in form.schedule_category %}
                                         <label>{{ category }}</label>
@@ -50,11 +50,11 @@
                                 </td>
                             </tr>
                             <tr style="text-align:center">
-                                <th><!-- 1日の作業時間: -->{{ form.schedule_worktime.label_tag }}</th>
+                                <th>1日の作業時間:</th>
                                 <td><input name="schedule_worktime_0" id="schedule_worktime_0"></td>
                             </tr>
                             <tr style="text-align:center">
-                                <th><!-- 優先度: -->{{ form.schedule_priority.label_tag }}</th>
+                                <th>優先度:</th>
                                 <td>
                                     {% for priority in form.schedule_priority %}
                                         <label>{{ priority }}</label>
