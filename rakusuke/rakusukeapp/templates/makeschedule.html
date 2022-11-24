@@ -24,6 +24,7 @@
              {% csrf_token %}
             <div id="list">
                  <table class="list_var">
+
                     <tr style="text-align:center">
                         <th><!-- やるべきこと: -->{{ form.schedule_do.label_tag }}</th>
                         <td><input name="schedule_do_0" id="schedule_do_0"></td>
@@ -32,6 +33,7 @@
                         <th><!-- カテゴリ: -->{{ form.schedule_category.label_tag }}</th>
                         <td>
                             {% for category in form.schedule_category %}
+                                <label>{{ category }}</label>
                                 <input type="radio" name="schedule_category_0" id="schedule_category_0">
                             {% endfor %}
                         </td>
@@ -44,6 +46,7 @@
                         <th><!-- 優先度: -->{{ form.schedule_priority.label_tag }}</th>
                         <td>
                             {% for priority in form.schedule_priority %}
+                                <label>{{ priority }}</label>
                                 <input type="radio" name="schedule_priority_0" id="schedule_priority_0">
                             {% endfor %}
                         </td>
