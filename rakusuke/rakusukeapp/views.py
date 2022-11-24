@@ -146,29 +146,17 @@ class FixedscheduleView(LoginRequiredMixin,generic.FormView):
         messages.error(self.request, "作成に失敗しました。")
         return super().form_invalid(form)
 
-class MakescheduleView(LoginRequiredMixin,generic.FormView):
+class MakescheduleView(LoginRequiredMixin,generic.CreateView):
     # スケジュール作成画面表示
     model = RakusukeSchedule
     template_name = 'makeschedule.html'
     form_class = ScheduleCreateForm
-
-    def form_valid(self, form):
-        histories = form.save(commit=False)
-        histories.user = self.request.user
-        histories.save()
-        messages.success(self.request, '作成しました。')
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
-        messages.error(self.request, "作成に失敗しました。")
-        return super().form_invalid(form)
 
     def post(self, request, *args, **kwrgs):
         doList = []
         categoryList = []
         priorityList = []
         worktimeList = []
-        ditchingList = []
 
         for i in request.POST.items():
             if re.match(r'_*do',i[0]):
@@ -179,19 +167,20 @@ class MakescheduleView(LoginRequiredMixin,generic.FormView):
                 priorityList.append(i[1])
             if re.match(r'_*worktime', i[0]):
                 worktimeList.append(i[1])
-            if re.match(r'_*ditching',i[0]):
-                ditchingList.append(i[1])
 
             for i in range(len(doList)):
-                entireinformation = EntireInformation(
+                rakusukeschedule = RakusukeSchedule.objects.create(
                     schedule_do = doList[i],
                     schedule_category = categoryList[i],
                     schedule_priority = priorityList[i],
                     schedule_worktime = worktimeList[i],
-                    schedule_ditching = ditchingList[i],
                 )
-            entireinformation.save()
-        return redirect(to='/index')
+                rakusukeschedule.save()
+        return reverse_lazy('rakusukeapp:index')
+
+    def form_invalid(self, form):
+        messages.error(self.request, "作成に失敗しました。")
+        return super().form_invalid(form)
 
 class SubjectView(LoginRequiredMixin,generic.FormView):
     # 科目一覧画面表示

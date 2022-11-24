@@ -21,10 +21,15 @@
    {% block contents %}
     <section>
         <form method="POST" enctype="multipart/form-data">
-             {% csrf_token %}
+            {% csrf_token %}
             <div id="list">
                  <table class="list_var">
-
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="button" name="delFormBtn" class="list_del " value="×">
+                        </td>
+                    </tr>
                     <tr style="text-align:center">
                         <th><!-- やるべきこと: -->{{ form.schedule_do.label_tag }}</th>
                         <td><input name="schedule_do_0" id="schedule_do_0"></td>
@@ -69,7 +74,6 @@
              <button class="left-btn" onclick="location.href='#'" >戻る</button>
              <button class="right-btn" type="submit" onclick="location.href='#'" >作成</button>
           </form>
-
 
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery.add-input-area@4.11.0/dist/jquery.add-input-area.min.js" integrity="sha256-yOwGvcRp3I8/XWkeARhJkgdfLREQygbFA5W2bUpM2FY=" crossorigin="anonymous"></script>

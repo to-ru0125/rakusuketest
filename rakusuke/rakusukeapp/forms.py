@@ -8,7 +8,6 @@ FIELD_NAME_MAPPING = {
         'schedule_category': 'schedule_category_0',
         'schedule_worktime': 'schedule_worktime_0',
         'schedule_priority': 'schedule_priority_0',
-        'schedule_ditching': 'schedule_ditching_0',
 }
 
 class ScheduleCreateForm(forms.ModelForm):
@@ -18,7 +17,7 @@ class ScheduleCreateForm(forms.ModelForm):
                   'schedule_category',
                   'schedule_worktime',
                   'schedule_priority',
-                  'schedule_ditching')
+                  )
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             for field in self.fields.values():
