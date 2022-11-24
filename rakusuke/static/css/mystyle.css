@@ -107,8 +107,3 @@ nav div div ul {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-black-rgb), var(--bs-bg-opacity)) !important;
 }
-
-input[type="button" name="delFormBtn"] {
-position: relative;
-right: 5px;
-}

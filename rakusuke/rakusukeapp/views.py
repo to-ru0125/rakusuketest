@@ -146,11 +146,12 @@ class FixedscheduleView(LoginRequiredMixin,generic.FormView):
         messages.error(self.request, "作成に失敗しました。")
         return super().form_invalid(form)
 
-class MakescheduleView(LoginRequiredMixin,generic.CreateView):
+class MakescheduleView(LoginRequiredMixin,generic.CreateView,generic.FormView):
     # スケジュール作成画面表示
     model = RakusukeSchedule
     template_name = 'makeschedule.html'
     form_class = ScheduleCreateForm
+    success_url = reverse_lazy('rakusukeapp:index')
 
     def post(self, request, *args, **kwrgs):
         doList = []
@@ -168,15 +169,16 @@ class MakescheduleView(LoginRequiredMixin,generic.CreateView):
             if re.match(r'_*worktime', i[0]):
                 worktimeList.append(i[1])
 
-            for i in range(len(doList)):
-                rakusukeschedule = RakusukeSchedule.objects.create(
-                    schedule_do = doList[i],
-                    schedule_category = categoryList[i],
-                    schedule_priority = priorityList[i],
-                    schedule_worktime = worktimeList[i],
-                )
-                rakusukeschedule.save()
-        return reverse_lazy('rakusukeapp:index')
+        for i in range(len(doList)):
+            rakusukeschedule = RakusukeSchedule.objects.create(
+                schedule_do = doList[i],
+                schedule_category = categoryList[i],
+                schedule_priority = priorityList[i],
+                schedule_worktime = worktimeList[i],
+            )
+            rakusukeschedule.save()
+
+        return redirect('rakusukeapp:index')
 
     def form_invalid(self, form):
         messages.error(self.request, "作成に失敗しました。")
