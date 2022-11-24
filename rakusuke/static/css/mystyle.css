@@ -107,3 +107,8 @@ nav div div ul {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-black-rgb), var(--bs-bg-opacity)) !important;
 }
+
+#id_fixed_do {
+  width: 190px;
+  height: 30px
+}

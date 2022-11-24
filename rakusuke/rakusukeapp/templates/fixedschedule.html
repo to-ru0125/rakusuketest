@@ -41,7 +41,12 @@
                 </tr>
                 <tr style="text-align:center">
                     <th><!-- 適応日: -->{{ form.fixed_adaptation.label_tag }}</th>
-                    <td>{{ form.fixed_adaptation }}</td>
+                    <td>
+                            {% for category in form.fixed_adaptation %}
+                                <label>{{ category }}</label>
+                                <input type="radio" name="fixed_adaptation_0" id="fixed_adaptation_0">
+                            {% endfor %}
+                        </td>
                 </tr>
              </table>
              <table class="table-add">
@@ -53,7 +58,7 @@
                      </td>
                  </tr>
              </table>
-             <button class="left-btn" onclick="location.href='#'" >戻る</button>
+             <button class="left-btn" onclick="location.href='http://127.0.0.1:8000/'" >戻る</button>
              <button class="right-btn" type="submit" onclick="location.href='#'" >作成</button>
           </form>
         </div>
