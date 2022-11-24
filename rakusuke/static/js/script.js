@@ -1,9 +1,7 @@
-function appendForm(){
-
-   <table>
-        <input class="batu" type="button"  />
-        {{ form.as_table }}
-   </table>
-}
-
-appendForm()
+ $(function () {
+          // timedropper
+          $("#id_fixed_start_time").timeDropper({
+              format: "H:mm",
+              setCurrentTime: false,
+          });
+      });
