@@ -10,6 +10,10 @@ FIELD_NAME_MAPPING = {
         'schedule_priority': 'schedule_priority_0',
 }
 
+FIXED_FORM_MAPPING = {
+        'fixed_adaptation': 'fixed_adaptation_0'
+}
+
 class ScheduleCreateForm(forms.ModelForm):
     class Meta:
         model = RakusukeSchedule
@@ -50,3 +54,7 @@ class FixedScheduleForm(forms.ModelForm):
             super().__init__(*args, **kwargs)
             for field in self.fields.values():
                 field.widget.attrs['class'] = 'form-control'
+
+        def add_prefix(self, field_name):
+            field_name = FIXED_FORM_MAPPING.get(field_name, field_name)
+            return super(FixedScheduleForm, self).add_prefix(field_name)
