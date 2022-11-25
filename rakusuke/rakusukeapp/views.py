@@ -16,6 +16,8 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 import re
 
+
+
 class BaseCalendarMixin:
     """カレンダー関連Mixinの、基底クラス"""
     first_weekday = 6  # 0は月曜から、1は火曜から。6なら日曜日からになります。お望みなら、継承したビューで指定してください。
@@ -129,11 +131,20 @@ class OneweekschedulelistView(generic.TemplateView,LoginRequiredMixin):
 #     template_name = "calendar.html"
 
 
-class FixedscheduleView(LoginRequiredMixin,generic.FormView):
+class FixedscheduleView(LoginRequiredMixin,generic.FormView,generic.ListView):
     model = RakusukeFixed
     template_name = 'fixedschedule.html'
     form_class = FixedScheduleForm
     success_url = reverse_lazy('成功後ページ')
+
+    def post(self, request, *args, **kwargs):
+        context = {
+            'fixed_do': request.POST['fixed_do'],
+            'fixed_start_time': request.POST['fixed_start_time'],
+            'fixed_end_time': request.POST['fixed_end_time'],
+
+        }
+        return render(request, 'fixedschedule.html', context)
 
     def form_valid(self, form):
         histories = form.save(commit=False)
@@ -145,6 +156,8 @@ class FixedscheduleView(LoginRequiredMixin,generic.FormView):
     def form_invalid(self, form):
         messages.error(self.request, "作成に失敗しました。")
         return super().form_invalid(form)
+
+
 
 class MakescheduleView(LoginRequiredMixin,generic.CreateView):
     # スケジュール作成画面表示
@@ -183,25 +196,55 @@ class MakescheduleView(LoginRequiredMixin,generic.CreateView):
             messages.error(self.request, "作成に失敗しました。")
             return super().form_invalid(form)
 
-class SubjectView(LoginRequiredMixin,generic.FormView):
+class SubjectListView(LoginRequiredMixin, generic.ListView):
     # 科目一覧画面表示
-    model = RakusukeSubject
     template_name = 'subjectlist.html'
-    form_class = SubjectCreateForm
-    success_url = reverse_lazy('rakusukeapp:subjectlist')
-    paginate_by = 3
+    model = RakusukeSubject
+    # 科目追加
+    # form_class = SubjectCreateForm
+    # success_url = reverse_lazy('rakusukeapp:index')
 
-    def get_queryset(self):
-        diaries = RakusukeSubject.objects.filter(user=self.request.user)#.order_by('-subject_name')
-        return diaries
+    # def get(self, request):
+    #     if form =="":
+    #         get(self,queryset)
+    #     else:
+    #         form_valid(self, form)
+
+    # def get(self,queryset):
+    #     diaries = RakusukeSubject.objects.filter(user=self.request.user)
+    #     return diaries
+    #
+    # def form_valid(self, form):
+    #     rakusukeapp = form.save(commit=False)
+    #     rakusukeapp.user = self.request.user
+    #     rakusukeapp.save()
+    #     return super().form_valid(form)
+    #
+    # def form_invalid(self, form):
+    #     return super().form_invalid(form)
+
+class SubjectCreateView(LoginRequiredMixin, generic.CreateView):
+    # 科目追加
+    model = RakusukeSubject
+    form_class = SubjectCreateForm
+    success_url = reverse_lazy('rakusukeapp:index')
 
     def form_valid(self, form):
-        histories = form.save(commit=False)
-        histories.user = self.request.user
-        histories.save()
-        messages.success(self.request, '作成しました。')
+        rakusukeapp = form.save(commit=False)
+        rakusukeapp.user = self.request.user
+        rakusukeapp.save()
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, "作成に失敗しました。")
         return super().form_invalid(form)
+
+class SubjectUpdateView(LoginRequiredMixin, generic.UpdateView):
+    template_name = 'subjectupdate.html'
+    model = RakusukeSubject
+    fields = '__all__'
+    success_url = reverse_lazy('rakusukeapp:index')
+
+class SubjectDeleteView(LoginRequiredMixin, generic.DeleteView):
+    template_name = 'subjectdelete.html'
+    model = RakusukeSubject
+    success_url = reverse_lazy('rakusukeapp:index')

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}科目一覧 | らく助{% endblock %}
+{% block title %}科目削除 | らく助{% endblock %}
 {% block active_subjectlist_list %}active{% endblock %}
 
 {% block header%}
@@ -17,9 +17,9 @@
 {% block contents %}
 <section>
     <dev>
-        <h1>科目一覧</h1>
+        <h1>科目削除</h1>
         {% for subjname in rakusukesubject_list %}
-            <table border="1">
+            <table>
                 <a class="container h4" color="black" href="{% url 'rakusukeapp:makeschedule' %}">
                     {{ subjname.subject_name }}
                 </a>
@@ -27,11 +27,6 @@
         {% empty %}
             <h2>科目がありません。</h2>
         {% endfor %}
-        <form method="post">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="登録">
-        </form>
     </dev>
 
 </section>

@@ -21,7 +21,7 @@
         <div class="masthead-content">
             <div class="container">
                 <h1 class="masthead-heading mb-0">らく助</h1>
-                <h3 class="masthead-subheading mb-0">固定スケジュール</h3>
+                <h3 class="masthead-subheading mb-0">固定スケジュール作成</h3>
             </div>
         </div>
     </header>
@@ -35,22 +35,22 @@
              <table <!-- v-for="(index, schedule) in schedules" v-bind:key="schedule.id" --> >
                 <tr style="text-align:center">
                     <th><!-- 固定スケジュール: -->{{ form.fixed_do.label_tag }}</th>
-                    <td>{{ form.fixed_do }}</td>
+                    <td><input type="text" name="fixed_do" value="{{ fixed_do }}"></td>
                 </tr>
                 <tr style="text-align:center">
                     <th><!-- 開始時間: -->{{ form.fixed_start_time.label_tag }}</th>
-                    <td><input type="time" name="fixed_start_time"></td>
+                    <td><input type="time" name="fixed_start_time" value="{{ fixed_start_time }}"></td>
                 </tr>
                 <tr style="text-align:center">
                     <th><!-- 終了時間: -->{{ form.fixed_end_time.label_tag }}</th>
-                    <td>{{ form.fixed_end_time }}</td>
+                    <td><input type="time" name="fixed_end_time" value="{{ fixed_end_time }}"></td>
                 </tr>
                 <tr style="text-align:center">
                     <th><!-- 適応日: -->{{ form.fixed_adaptation.label_tag }}</th>
                     <td>
                             {% for category in form.fixed_adaptation %}
                                 <label>{{ category }}</label>
-                                <input type="radio" name="fixed_adaptation_0" id="fixed_adaptation_0">
+                                <input type="radio" name="fixed_adaptation_0" id="fixed_adaptation_0" value="{{ fixed_adaptation_0 }}">
                             {% endfor %}
                         </td>
                 </tr>
