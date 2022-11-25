@@ -27,7 +27,7 @@
     <section>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="form-group" id="list">
+            <div id="list">
                 <table class="list_var">
                     <tr>
                         <td>
@@ -36,7 +36,9 @@
                     </tr>
                     <tr style="text-align:center">
                         <th>やるべきこと:</th>
-                        <td><input type="text" id="list_0" name="do_0"></td>
+                        <td>
+                            <input id="list_0" name="do_0">
+                        </td>
                     </tr>
                     <tr style="text-align:center">
                         <th>カテゴリ:</th>
@@ -48,10 +50,6 @@
                         </td>
                     </tr>
                     <tr style="text-align:center">
-                        <th>1日の作業時間:</th>
-                        <td><input type="text" id="list_0" name="worktime_0"></td>
-                    </tr>
-                    <tr style="text-align:center">
                         <th>優先度:</th>
                         <td>
                             {% for priority in form.schedule_priority %}
@@ -60,17 +58,25 @@
                             {% endfor %}
                         </td>
                     </tr>
+                    <tr style="text-align:center">
+                        <th>1日の作業時間:</th>
+                        <td>
+                            <input id="list_0" name="worktime_0">
+                        </td>
+                    </tr>
                 </table>
             </div>
-            <table>
+            <table class="table-add">
                 <tr>
                     <td>
-                        <input class="list_add" type="image" src="{% static 'assets/img/appendButton.png' %}">
+                        <button class="list_add">
+                            <img src="{% static 'assets/img/appendButton.png' %}">
+                        </button>
                     </td>
                 </tr>
             </table>
             <button type="submit" class="right-btn">作成</button>
         </form>
-        <button class="left-btn" onclick="location.href='{% url  'rakusukeapp:fixedschedule' %}'">戻る</button>
+        <button class="left-btn" onclick="location.href='{% url  'rakusukeapp:index' %}'">戻る</button>
     </section>
 {% endblock %}
