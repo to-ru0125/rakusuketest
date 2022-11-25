@@ -21,11 +21,11 @@ class ScheduleCreateForm(forms.ModelForm):
                   'schedule_category',
                   'schedule_worktime',
                   'schedule_priority',
-                  )
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            for field in self.fields.values():
-                field.widget.attrs['class'] = 'form-control'
+        )
+        # def __init__(self, *args, **kwargs):
+        #     super().__init__(*args, **kwargs)
+        #     for field in self.fields.values():
+        #         field.widget.attrs['class'] = 'form-control'
 
         def add_prefix(self, field_name):
             field_name = FIELD_NAME_MAPPING.get(field_name, field_name)
