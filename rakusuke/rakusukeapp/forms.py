@@ -5,10 +5,10 @@ from django import forms
 from django.contrib.admin.widgets import AdminDateWidget
 
 FIELD_NAME_MAPPING = {
-        'schedule_do': 'schedule_do_0',
-        'schedule_category': 'schedule_category_0',
-        'schedule_worktime': 'schedule_worktime_0',
-        'schedule_priority': 'schedule_priority_0',
+        'schedule_do': 'do_0',
+        'schedule_category': 'category_0',
+        'schedule_worktime': 'worktime_0',
+        'schedule_priority': 'priority_0',
 }
 
 FIXED_FORM_MAPPING = {
@@ -23,10 +23,10 @@ class ScheduleCreateForm(forms.ModelForm):
                   'schedule_worktime',
                   'schedule_priority',
         )
-        # def __init__(self, *args, **kwargs):
-        #     super().__init__(*args, **kwargs)
-        #     for field in self.fields.values():
-        #         field.widget.attrs['class'] = 'form-control'
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            for field in self.fields.values():
+                field.widget.attrs['class'] = 'form-control'
 
         def add_prefix(self, field_name):
             field_name = FIELD_NAME_MAPPING.get(field_name, field_name)

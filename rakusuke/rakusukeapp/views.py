@@ -151,6 +151,7 @@ class MakescheduleView(LoginRequiredMixin,generic.CreateView):
     model = RakusukeSchedule
     template_name = 'makeschedule.html'
     form_class = ScheduleCreateForm
+    success_url = reverse_lazy('rakusukeapp:index')
 
     def post(self, request, *args, **kwrgs):
         doList = []
@@ -159,13 +160,13 @@ class MakescheduleView(LoginRequiredMixin,generic.CreateView):
         worktimeList = []
 
         for i in request.POST.items():
-            if re.match(r'_*do',i[0]):
+            if re.match(r'do_*',i[0]):
                 doList.append(i[1])
-            if re.match(r'_*category', i[0]):
+            if re.match(r'category_*', i[0]):
                 categoryList.append(i[1])
-            if re.match(r'_*priority',i[0]):
+            if re.match(r'priority_*',i[0]):
                 priorityList.append(i[1])
-            if re.match(r'_*worktime', i[0]):
+            if re.match(r'worktime_*', i[0]):
                 worktimeList.append(i[1])
 
         for i in range(len(doList)):
