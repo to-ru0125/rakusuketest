@@ -23,14 +23,12 @@
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <table id="list">
-                    <tr>
-                        <td>
-                        </td>
-                        <td>
-                            <button class="list_del">×</button>
-                        </td>
-                    </tr>
                     <div class="list_var">
+                        <tr>
+                            <td>
+                                <button class="list_del">×</button>
+                            </td>
+                        </tr>
                         <tr style="text-align:center">
                             <th>やるべきこと:</th>
                             <td><input name="schedule_do_0" id="schedule_do_0"></td>

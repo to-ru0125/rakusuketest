@@ -1,13 +1,8 @@
 from django.views import generic
-from .models import RakusukeSchedule
-from .models import RakusukeDetail
-from .models import RakusukeSubject
-from .models import RakusukeFixed
+from .models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from .forms import ScheduleCreateForm
-from .forms import SubjectCreateForm
-from .forms import FixedScheduleForm
+from .forms import *
 import calendar
 from collections import deque
 import datetime
@@ -146,7 +141,7 @@ class FixedscheduleView(LoginRequiredMixin,generic.FormView):
         messages.error(self.request, "作成に失敗しました。")
         return super().form_invalid(form)
 
-class MakescheduleView(LoginRequiredMixin,generic.CreateView):
+class MakescheduleView(LoginRequiredMixin,generic.CreateView,generic.FormView):
     # スケジュール作成画面表示
     model = RakusukeSchedule
     template_name = 'makeschedule.html'
@@ -162,11 +157,11 @@ class MakescheduleView(LoginRequiredMixin,generic.CreateView):
         for i in request.POST.items():
             if re.match(r'_*do',i[0]):
                 doList.append(i[1])
-            if re.match(r'_*category', i[0]):
+            if re.match(r'_*category',i[0]):
                 categoryList.append(i[1])
             if re.match(r'_*priority',i[0]):
                 priorityList.append(i[1])
-            if re.match(r'_*worktime', i[0]):
+            if re.match(r'_*worktime',i[0]):
                 worktimeList.append(i[1])
 
         for i in range(len(doList)):
