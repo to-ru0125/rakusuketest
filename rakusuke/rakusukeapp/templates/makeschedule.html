@@ -6,11 +6,6 @@
    <head>
      <meta charset="utf-8">
      <link ref="stylesheet" href="mystyle.css">
-     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/jquery.add-input-area@4.11.0/dist/jquery.add-input-area.min.js" integrity="sha256-yOwGvcRp3I8/XWkeARhJkgdfLREQygbFA5W2bUpM2FY=" crossorigin="anonymous"></script>
-     <script type="text/javascript">
-           $('#list').addInputArea();
-     </script>
    </head>
    {% block header%}
     <header class="masthead text-center text-black">
@@ -27,53 +22,58 @@
         <section>
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                     <table id="list">
-                        <tr>
+                <table id="list">
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <button class="list_del">×</button>
+                        </td>
+                    </tr>
+                    <div class="list_var">
+                        <tr style="text-align:center">
+                            <th>やるべきこと:</th>
+                            <td><input name="schedule_do_0" id="schedule_do_0"></td>
+                        </tr>
+                        <tr style="text-align:center">
+                            <th>カテゴリ:</th>
                             <td>
-                            </td>
-                            <td>
-                                <button class="list_del">×</button>
+                                {% for category in form.schedule_category %}
+                                    <label>{{ category }}</label>
+                                    <input type="radio" name="schedule_category_0" id="schedule_category_0">
+                                {% endfor %}
                             </td>
                         </tr>
-                        <div class="list_var">
-                            <tr style="text-align:center">
-                                <th>やるべきこと:</th>
-                                <td><input name="schedule_do_0" id="schedule_do_0"></td>
-                            </tr>
-                            <tr style="text-align:center">
-                                <th>カテゴリ:</th>
-                                <td>
-                                    {% for category in form.schedule_category %}
-                                        <label>{{ category }}</label>
-                                        <input type="radio" name="schedule_category_0" id="schedule_category_0">
-                                    {% endfor %}
-                                </td>
-                            </tr>
-                            <tr style="text-align:center">
-                                <th>1日の作業時間:</th>
-                                <td><input name="schedule_worktime_0" id="schedule_worktime_0"></td>
-                            </tr>
-                            <tr style="text-align:center">
-                                <th>優先度:</th>
-                                <td>
-                                    {% for priority in form.schedule_priority %}
-                                        <label>{{ priority }}</label>
-                                        <input type="radio" name="schedule_priority_0" id="schedule_priority_0">
-                                    {% endfor %}
-                                </td>
-                            </tr>
-                        </div>
-                     </table>
-                     <table class="table-add">
-                         <tr>
-                             <td>
-                                 <input type="image" src="{% static 'assets/img/appendButton.png' %}"  class="list_add">
-                             </td>
-                         </tr>
-                     </table>
-                <button class="left-btn" onclick="location.href='#'" >戻る</button>
-                <button class="right-btn" type="submit">作成</button>
+                        <tr style="text-align:center">
+                            <th>1日の作業時間:</th>
+                            <td><input name="schedule_worktime_0" id="schedule_worktime_0"></td>
+                        </tr>
+                        <tr style="text-align:center">
+                            <th>優先度:</th>
+                            <td>
+                                {% for priority in form.schedule_priority %}
+                                   <label>{{ priority }}</label>
+                                   <input type="radio" name="schedule_priority_0" id="schedule_priority_0">
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    </div>
+                </table>
+                <table class="table-add">
+                    <tr>
+                        <td>
+                            <input type="image" class="list_add" src="{% static 'assets/img/appendButton.png' %}">
+                        </td>
+                    </tr>
+                </table>
+                <input class="right-btn" type="submit" value="作成">
             </form>
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/jquery.add-input-area@4.11.0/dist/jquery.add-input-area.min.js" integrity="sha256-yOwGvcRp3I8/XWkeARhJkgdfLREQygbFA5W2bUpM2FY=" crossorigin="anonymous"></script>
+            <script type="text/javascript">
+                $('#list').addInputArea();
+            </script>
+            <input type="button" class="left-btn" onclick="location.href='#'" value="戻る">
         </section>
     {% endblock %}
 
