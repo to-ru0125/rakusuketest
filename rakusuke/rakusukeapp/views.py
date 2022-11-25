@@ -16,6 +16,8 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 import re
 
+
+
 class BaseCalendarMixin:
     """カレンダー関連Mixinの、基底クラス"""
     first_weekday = 6  # 0は月曜から、1は火曜から。6なら日曜日からになります。お望みなら、継承したビューで指定してください。
@@ -129,11 +131,20 @@ class OneweekschedulelistView(generic.TemplateView,LoginRequiredMixin):
 #     template_name = "calendar.html"
 
 
-class FixedscheduleView(LoginRequiredMixin,generic.FormView):
+class FixedscheduleView(LoginRequiredMixin,generic.FormView,generic.ListView):
     model = RakusukeFixed
     template_name = 'fixedschedule.html'
     form_class = FixedScheduleForm
     success_url = reverse_lazy('成功後ページ')
+
+    def post(self, request, *args, **kwargs):
+        context = {
+            'fixed_do': request.POST['fixed_do'],
+            'fixed_start_time': request.POST['fixed_start_time'],
+            'fixed_end_time': request.POST['fixed_end_time'],
+
+        }
+        return render(request, 'fixedschedule.html', context)
 
     def form_valid(self, form):
         histories = form.save(commit=False)
@@ -145,6 +156,8 @@ class FixedscheduleView(LoginRequiredMixin,generic.FormView):
     def form_invalid(self, form):
         messages.error(self.request, "作成に失敗しました。")
         return super().form_invalid(form)
+
+
 
 class MakescheduleView(LoginRequiredMixin,generic.CreateView):
     # スケジュール作成画面表示
