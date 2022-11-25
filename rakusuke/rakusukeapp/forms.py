@@ -36,10 +36,10 @@ class SubjectCreateForm(forms.ModelForm):
     class Meta:
         model = RakusukeSubject
         fields = ('subject_name',)
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            for field in self.fields.values():
-                field.widget.attrs['class'] = 'form-control'
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
 
 
 class FixedScheduleForm(forms.ModelForm):
