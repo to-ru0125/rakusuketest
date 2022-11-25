@@ -2,6 +2,7 @@ from .models import RakusukeSchedule
 from .models import RakusukeSubject
 from .models import RakusukeFixed
 from django import forms
+from django.contrib.admin.widgets import AdminDateWidget
 
 FIELD_NAME_MAPPING = {
         'schedule_do': 'schedule_do_0',
