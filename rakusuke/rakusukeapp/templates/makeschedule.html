@@ -2,77 +2,75 @@
 {% load static %}
 {% block title %}らくらくスケジュール生成アプリ | らく助{% endblock %}
 
-<html lang="ja" dir="ltr" type="text/javascript">
-   <head>
+{% block head %}
      <meta charset="utf-8">
      <link ref="stylesheet" href="mystyle.css">
-   </head>
-   {% block header%}
-    <header class="masthead text-center text-black">
-        <div class="masthead-content">
-            <div class="container">
-                <h1 class="masthead-heading mb-0">らく助</h1>
-                <h3 class="masthead-subheading mb-0">スケジュール作成</h3>
-            </div>
-        </div>
-    </header>
-    {% endblock %}
+     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/jquery.add-input-area@4.11.0/dist/jquery.add-input-area.min.js" integrity="sha256-yOwGvcRp3I8/XWkeARhJkgdfLREQygbFA5W2bUpM2FY=" crossorigin="anonymous"></script>
+     <script type="text/javascript">
+        $('#list').addInputArea();
+     </script>
+{% endblock %}
 
-    {% block contents %}
-        <section>
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <table id="list">
-                    <div class="list_var">
-                        <tr>
-                            <td>
-                                <button class="list_del">×</button>
-                            </td>
-                        </tr>
-                        <tr style="text-align:center">
-                            <th>やるべきこと:</th>
-                            <td><input name="schedule_do_0" id="schedule_do_0"></td>
-                        </tr>
-                        <tr style="text-align:center">
-                            <th>カテゴリ:</th>
-                            <td>
-                                {% for category in form.schedule_category %}
-                                    <label>{{ category }}</label>
-                                    <input type="radio" name="schedule_category_0" id="schedule_category_0">
-                                {% endfor %}
-                            </td>
-                        </tr>
-                        <tr style="text-align:center">
-                            <th>1日の作業時間:</th>
-                            <td><input name="schedule_worktime_0" id="schedule_worktime_0"></td>
-                        </tr>
-                        <tr style="text-align:center">
-                            <th>優先度:</th>
-                            <td>
-                                {% for priority in form.schedule_priority %}
-                                   <label>{{ priority }}</label>
-                                   <input type="radio" name="schedule_priority_0" id="schedule_priority_0">
-                                {% endfor %}
-                            </td>
-                        </tr>
-                    </div>
-                </table>
-                <table class="table-add">
+{% block header%}
+<header class="masthead text-center text-black">
+    <div class="masthead-content">
+        <div class="container">
+            <h1 class="masthead-heading mb-0">らく助</h1>
+            <h3 class="masthead-subheading mb-0">スケジュール作成</h3>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block contents %}
+    <section>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group" id="list">
+                <table class="list_var">
                     <tr>
                         <td>
-                            <input type="image" class="list_add" src="{% static 'assets/img/appendButton.png' %}">
+                            <input class="list_del" type="button" value="×">
+                        </td>
+                    </tr>
+                    <tr style="text-align:center">
+                        <th>やるべきこと:</th>
+                        <td><input type="text" id="list_0" name="do_0"></td>
+                    </tr>
+                    <tr style="text-align:center">
+                        <th>カテゴリ:</th>
+                        <td>
+                            {% for category in form.schedule_category %}
+                                <label>{{ category }}</label>
+                                <input type="radio" id="list_0" name="category_0">
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr style="text-align:center">
+                        <th>1日の作業時間:</th>
+                        <td><input type="text" id="list_0" name="worktime_0"></td>
+                    </tr>
+                    <tr style="text-align:center">
+                        <th>優先度:</th>
+                        <td>
+                            {% for priority in form.schedule_priority %}
+                               <label>{{ priority }}</label>
+                               <input type="radio" id="list_0" name="priority_0">
+                            {% endfor %}
                         </td>
                     </tr>
                 </table>
-                <input class="right-btn" type="submit" value="作成">
-            </form>
-            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/jquery.add-input-area@4.11.0/dist/jquery.add-input-area.min.js" integrity="sha256-yOwGvcRp3I8/XWkeARhJkgdfLREQygbFA5W2bUpM2FY=" crossorigin="anonymous"></script>
-            <script type="text/javascript">
-                $('#list').addInputArea();
-            </script>
-            <input type="button" class="left-btn" onclick="location.href='#'" value="戻る">
-        </section>
-    {% endblock %}
-
-</html>
+            </div>
+            <table>
+                <tr>
+                    <td>
+                        <input class="list_add" type="image" src="{% static 'assets/img/appendButton.png' %}">
+                    </td>
+                </tr>
+            </table>
+            <button type="submit" class="right-btn">作成</button>
+        </form>
+        <button class="left-btn" onclick="location.href='{% url  'rakusukeapp:fixedschedule' %}'">戻る</button>
+    </section>
+{% endblock %}

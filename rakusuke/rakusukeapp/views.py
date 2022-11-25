@@ -160,13 +160,13 @@ class MakescheduleView(LoginRequiredMixin,generic.CreateView):
         worktimeList = []
 
         for i in request.POST.items():
-            if re.match(r'_*do',i[0]):
+            if re.match(r'do_*',i[0]):
                 doList.append(i[1])
-            if re.match(r'_*category', i[0]):
+            if re.match(r'category_*', i[0]):
                 categoryList.append(i[1])
-            if re.match(r'_*priority',i[0]):
+            if re.match(r'priority_*',i[0]):
                 priorityList.append(i[1])
-            if re.match(r'_*worktime', i[0]):
+            if re.match(r'worktime_*', i[0]):
                 worktimeList.append(i[1])
 
         for i in range(len(doList)):
@@ -177,12 +177,11 @@ class MakescheduleView(LoginRequiredMixin,generic.CreateView):
                 schedule_worktime = worktimeList[i],
             )
             rakusukeschedule.save()
-
         return redirect('rakusukeapp:index')
 
-    def form_invalid(self, form):
-        messages.error(self.request, "作成に失敗しました。")
-        return super().form_invalid(form)
+        def form_invalid(self, form):
+            messages.error(self.request, "作成に失敗しました。")
+            return super().form_invalid(form)
 
 class SubjectListView(LoginRequiredMixin, generic.ListView):
     # 科目一覧画面表示
