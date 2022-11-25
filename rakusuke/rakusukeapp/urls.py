@@ -12,6 +12,7 @@ urlpatterns = [
     path('fixedschedule/',views.FixedscheduleView.as_view(),name="fixedschedule"),
     path('makeschedule/',views.MakescheduleView.as_view(),name="makeschedule"),
     path('calendar-detail/<int:year>/<int:month>/<int:day>/',views.CalendarDetailView.as_view(),name="calendardetail"),
-    path('subjectlist/',views.SubjectView.as_view(),name="subjectlist"),
+    path('subjectlist/',views.SubjectListView.as_view(),name="subjectlist"),
+    path('subjectupdate/',views.SubjectUpdateView.as_view(),name="subjectupdate"),
     # path('calender-detail/<int:pk>',views.CalendarDetailView.as_view(),name="calender_detail")
 ]

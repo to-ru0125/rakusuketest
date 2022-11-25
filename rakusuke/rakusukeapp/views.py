@@ -184,25 +184,55 @@ class MakescheduleView(LoginRequiredMixin,generic.CreateView):
         messages.error(self.request, "作成に失敗しました。")
         return super().form_invalid(form)
 
-class SubjectView(LoginRequiredMixin,generic.FormView):
+class SubjectListView(LoginRequiredMixin, generic.ListView):
     # 科目一覧画面表示
-    model = RakusukeSubject
     template_name = 'subjectlist.html'
-    form_class = SubjectCreateForm
-    success_url = reverse_lazy('rakusukeapp:subjectlist')
-    paginate_by = 3
+    model = RakusukeSubject
+    # 科目追加
+    # form_class = SubjectCreateForm
+    # success_url = reverse_lazy('rakusukeapp:index')
 
-    def get_queryset(self):
-        diaries = RakusukeSubject.objects.filter(user=self.request.user)#.order_by('-subject_name')
-        return diaries
+    # def get(self, request):
+    #     if form =="":
+    #         get(self,queryset)
+    #     else:
+    #         form_valid(self, form)
+
+    # def get(self,queryset):
+    #     diaries = RakusukeSubject.objects.filter(user=self.request.user)
+    #     return diaries
+    #
+    # def form_valid(self, form):
+    #     rakusukeapp = form.save(commit=False)
+    #     rakusukeapp.user = self.request.user
+    #     rakusukeapp.save()
+    #     return super().form_valid(form)
+    #
+    # def form_invalid(self, form):
+    #     return super().form_invalid(form)
+
+class SubjectCreateView(LoginRequiredMixin, generic.CreateView):
+    # 科目追加
+    model = RakusukeSubject
+    form_class = SubjectCreateForm
+    success_url = reverse_lazy('rakusukeapp:index')
 
     def form_valid(self, form):
-        histories = form.save(commit=False)
-        histories.user = self.request.user
-        histories.save()
-        messages.success(self.request, '作成しました。')
+        rakusukeapp = form.save(commit=False)
+        rakusukeapp.user = self.request.user
+        rakusukeapp.save()
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, "作成に失敗しました。")
         return super().form_invalid(form)
+
+class SubjectUpdateView(LoginRequiredMixin, generic.UpdateView):
+    template_name = 'subjectupdate.html'
+    model = RakusukeSubject
+    fields = '__all__'
+    success_url = reverse_lazy('rakusukeapp:index')
+
+class SubjectDeleteView(LoginRequiredMixin, generic.DeleteView):
+    template_name = 'subjectdelete.html'
+    model = RakusukeSubject
+    success_url = reverse_lazy('rakusukeapp:index')
