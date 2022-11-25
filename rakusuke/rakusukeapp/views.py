@@ -1,8 +1,13 @@
 from django.views import generic
-from .models import *
+from .models import RakusukeSchedule
+from .models import RakusukeDetail
+from .models import RakusukeSubject
+from .models import RakusukeFixed
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from .forms import *
+from .forms import ScheduleCreateForm
+from .forms import SubjectCreateForm
+from .forms import FixedScheduleForm
 import calendar
 from collections import deque
 import datetime
@@ -156,11 +161,11 @@ class MakescheduleView(LoginRequiredMixin,generic.CreateView):
         for i in request.POST.items():
             if re.match(r'_*do',i[0]):
                 doList.append(i[1])
-            if re.match(r'_*category',i[0]):
+            if re.match(r'_*category', i[0]):
                 categoryList.append(i[1])
             if re.match(r'_*priority',i[0]):
                 priorityList.append(i[1])
-            if re.match(r'_*worktime',i[0]):
+            if re.match(r'_*worktime', i[0]):
                 worktimeList.append(i[1])
 
         for i in range(len(doList)):

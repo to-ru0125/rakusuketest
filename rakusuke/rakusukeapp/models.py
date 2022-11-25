@@ -1,5 +1,7 @@
 from django.db import models
 from accounts.models import CustomUser
+
+
 import datetime
 from django import forms
 
@@ -45,8 +47,8 @@ class RakusukeFunny( models.Model):
         return self.title
 
 class RakusukeSubject(models.Model):
-    user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.PROTECT)
     subject_name = models.TextField(verbose_name='科目名')
+    user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.PROTECT)
 
     class Meta:
         verbose_name_plural = '科目テーブル'

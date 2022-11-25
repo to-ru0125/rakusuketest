@@ -2,6 +2,7 @@ from .models import RakusukeSchedule
 from .models import RakusukeSubject
 from .models import RakusukeFixed
 from django import forms
+from django.contrib.admin.widgets import AdminDateWidget
 
 FIELD_NAME_MAPPING = {
         'schedule_do': 'schedule_do_0',
@@ -36,10 +37,10 @@ class SubjectCreateForm(forms.ModelForm):
     class Meta:
         model = RakusukeSubject
         fields = ('subject_name',)
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            for field in self.fields.values():
-                field.widget.attrs['class'] = 'form-control'
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
 
 
 class FixedScheduleForm(forms.ModelForm):
