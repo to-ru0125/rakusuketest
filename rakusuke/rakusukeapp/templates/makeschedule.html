@@ -5,11 +5,6 @@
 {% block head %}
      <meta charset="utf-8">
      <link ref="stylesheet" href="mystyle.css">
-     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/jquery.add-input-area@4.11.0/dist/jquery.add-input-area.min.js" integrity="sha256-yOwGvcRp3I8/XWkeARhJkgdfLREQygbFA5W2bUpM2FY=" crossorigin="anonymous"></script>
-     <script type="text/javascript">
-        $('#list').addInputArea();
-     </script>
 {% endblock %}
 
 {% block header%}
@@ -24,51 +19,51 @@
 {% endblock %}
 
 {% block contents %}
-    <form method="POST" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div id="list">
-            <table class="list_var">
-                <tr>
-                    <td>
-                        <input class="list_del" type="button" value="×">
-                    </td>
-                </tr>
-                <tr style="text-align:center">
-                    <th>やるべきこと:</th>
-                    <td>
-                        <input id="list_0" name="schedule_do_0">
-                    </td>
-                </tr>
-                <tr style="text-align:center">
-                    <th>カテゴリ:</th>
-                    <td>
-                        {% for category in form.schedule_category %}
-                            <label>{{ category }}</label>
-                            <input type="radio" id="list_0" name="schedule_category_0">
-                        {% endfor %}
-                    </td>
-                </tr>
-                <tr style="text-align:center">
-                    <th>優先度:</th>
-                    <td>
-                        {% for priority in form.schedule_priority %}
-                           <label>{{ priority }}</label>
-                           <input type="radio" id="list_0" name="schedule_priority_0">
-                        {% endfor %}
-                    </td>
-                </tr>
-                <tr style="text-align:center">
-                    <th>1日の作業時間:</th>
-                    <td>
-                        <input id="list_0" name="schedule_worktime_0">
-                    </td>
-                </tr>
-            </table>
+            <div class="list_var">
+                <table>
+                    <tr style="text-align:center">
+                        <th>やるべきこと:</th>
+                        <td>
+                                <input type="text" id="list_0" name="schedule_do_0">
+                        </td>
+                    </tr>
+                    <tr style="text-align:center">
+                        <th>カテゴリ:</th>
+                        <td>
+                            {% for category in form.schedule_category %}
+                                <input type="radio" id="list_0" name="schedule_category_0" value="{{ category }}">
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr style="text-align:center">
+                        <th>優先度:</th>
+                        <td>
+                            {% for priority in form.schedule_priority %}
+                               <input type="radio" id="list_0" name="schedule_priority_0" value="{{ priority }}">
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr style="text-align:center">
+                        <th>1日の作業時間:</th>
+                        <td>
+                               <input type="text" id="list_0" name="schedule_worktime_0">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                               <button class="list_del">×</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <table class="table-add">
+        <table type="text-add">
             <tr>
                 <td>
-                    <button class="list_add">
+                    <button value="" type="button" class="list_add">
                         <img src="{% static 'assets/img/appendButton.png' %}">
                     </button>
                 </td>
@@ -77,4 +72,9 @@
         <button type="submit" class="right-btn">作成</button>
     </form>
     <button class="left-btn" onclick="location.href='{% url  'rakusukeapp:index' %}'">戻る</button>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.add-input-area@4.11.0/dist/jquery.add-input-area.min.js" integrity="sha256-yOwGvcRp3I8/XWkeARhJkgdfLREQygbFA5W2bUpM2FY=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    $('#list').addInputArea();
+    </script>
 {% endblock %}

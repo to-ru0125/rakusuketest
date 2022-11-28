@@ -5,10 +5,10 @@ from django import forms
 from django.contrib.admin.widgets import AdminDateWidget
 
 FIELD_NAME_MAPPING = {
-        'schedule_do': 'schedule_do_0',
-        'schedule_category': 'schedule_category_0',
-        'schedule_worktime': 'schedule_worktime_0',
-        'schedule_priority': 'schedule_priority_0',
+        'schedule_do':'schedule_do_0',
+        'schedule_category':'schedule_category_0',
+        'schedule_worktime':'schedule_worktime_0',
+        'schedule_priority':'schedule_priority_0',
 }
 
 FIXED_FORM_MAPPING = {
@@ -18,15 +18,20 @@ FIXED_FORM_MAPPING = {
 class ScheduleCreateForm(forms.ModelForm):
     class Meta:
         model = RakusukeSchedule
-        fields = ('schedule_do',
-                  'schedule_category',
-                  'schedule_worktime',
-                  'schedule_priority',
+        fields = (
+            '__all__'
         )
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             for field in self.fields.values():
                 field.widget.attrs['class'] = 'form-control'
+
+        def form_valid(self, form):
+            histories = form.save(commit=False)
+            histories.user = self.request.user
+            histories.save()
+            messages.success(self.request, '作成しました。')
+            return super().form_valid(form)
 
         def add_prefix(self, field_name):
             field_name = FIELD_NAME_MAPPING.get(field_name, field_name)
@@ -55,6 +60,13 @@ class FixedScheduleForm(forms.ModelForm):
             super().__init__(*args, **kwargs)
             for field in self.fields.values():
                 field.widget.attrs['class'] = 'form-control'
+
+        def form_valid(self, form):
+            histories = form.save(commit=False)
+            histories.user = self.request.user
+            histories.save()
+            messages.success(self.request, '作成しました。')
+            return super().form_valid(form)
 
         def add_prefix(self, field_name):
             field_name = FIXED_FORM_MAPPING.get(field_name, field_name)
