@@ -3,6 +3,7 @@ from .models import RakusukeSchedule
 from .models import RakusukeDetail
 from .models import RakusukeSubject
 from .models import RakusukeFixed
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .forms import ScheduleCreateForm
@@ -15,7 +16,6 @@ import webbrowser
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 import re
-
 
 
 class BaseCalendarMixin:
@@ -39,23 +39,24 @@ class BaseCalendarMixin:
         week_names.rotate(-self.first_weekday)  # リスト内の要素を右に1つずつ移動...なんてときは、dequeを使うと中々面白いです
         return week_names
 
+
 class MonthCalendarMixin(BaseCalendarMixin):
-# カレンダー機能
-#     月間カレンダーの機能を提供するMixin
+    # カレンダー機能
+    #     月間カレンダーの機能を提供するMixin
 
     def get_previous_month(self, date):
         # 前月を返す
         if date.month == 1:
-            return date.replace(year=date.year-1, month=12, day=1)
+            return date.replace(year=date.year - 1, month=12, day=1)
         else:
-            return date.replace(month=date.month-1, day=1)
+            return date.replace(month=date.month - 1, day=1)
 
     def get_next_month(self, date):
         # 次月を返す
         if date.month == 12:
-            return date.replace(year=date.year+1, month=1, day=1)
+            return date.replace(year=date.year + 1, month=1, day=1)
         else:
-            return date.replace(month=date.month+1, day=1)
+            return date.replace(month=date.month + 1, day=1)
 
     def get_now_month(self, date):
         # 今月を返す
@@ -97,10 +98,13 @@ class MonthCalendarMixin(BaseCalendarMixin):
         }
         return calendar_data
 
-class CalendarDetailView(LoginRequiredMixin,generic.DetailView):
+
+class CalendarDetailView(LoginRequiredMixin, generic.DetailView):
     model = RakusukeDetail
     template_name = 'calendar_datail.html'
-class CalendarView(MonthCalendarMixin, generic.TemplateView,LoginRequiredMixin):
+
+
+class CalendarView(MonthCalendarMixin, generic.TemplateView, LoginRequiredMixin):
     """月間カレンダーを表示するビュー"""
     template_name = "calendar.html"
 
@@ -110,17 +114,18 @@ class CalendarView(MonthCalendarMixin, generic.TemplateView,LoginRequiredMixin):
         context.update(calendar_context)
         return context
 
+
 class IndexView(generic.TemplateView):
     # ホーム画面表示
     template_name = "index.html"
 
 
-class OnedayschedulelistView(generic.TemplateView,LoginRequiredMixin):
+class OnedayschedulelistView(generic.TemplateView, LoginRequiredMixin):
     # 一日のスケジュール表示
     template_name = "onedayschedulelist.html"
 
 
-class OneweekschedulelistView(generic.TemplateView,LoginRequiredMixin):
+class OneweekschedulelistView(generic.TemplateView, LoginRequiredMixin):
     # 週のスケジュール表示
     template_name = "oneweekschedulelist.html"
 
@@ -131,40 +136,41 @@ class OneweekschedulelistView(generic.TemplateView,LoginRequiredMixin):
 #     template_name = "calendar.html"
 
 
-class FixedscheduleView(LoginRequiredMixin,generic.FormView,generic.ListView):
-    model = RakusukeFixed
-    template_name = 'fixedschedule.html'
-    form_class = FixedScheduleForm
-    success_url = reverse_lazy('成功後ページ')
+# class FixedscheduleView(LoginRequiredMixin,generic.FormView,generic.ListView):
+#     model = RakusukeFixed
+#     template_name = 'fixedschedule.html'
+#     form_class = FixedScheduleForm
+#     success_url = reverse_lazy('成功後ページ')
+#
+#     def post(self, request, *args, **kwargs):
+#         context = {
+#             'fixed_do': request.POST['fixed_do'],
+#             'fixed_start_time': request.POST['fixed_start_time'],
+#             'fixed_end_time': request.POST['fixed_end_time'],
+#
+#         }
+#         return render(request, 'fixedschedule.html', context)
+#
+#     def form_valid(self, form):
+#         histories = form.save(commit=False)
+#         histories.user = self.request.user
+#         histories.save()
+#         messages.success(self.request, '作成しました。')
+#         return super().form_valid(form)
+#
+#     def form_invalid(self, form):
+#         messages.error(self.request, "作成に失敗しました。")
+#         return super().form_invalid(form)
 
-    def post(self, request, *args, **kwargs):
-        context = {
-            'fixed_do': request.POST['fixed_do'],
-            'fixed_start_time': request.POST['fixed_start_time'],
-            'fixed_end_time': request.POST['fixed_end_time'],
 
-        }
-        return render(request, 'fixedschedule.html', context)
-
-    def form_valid(self, form):
-        histories = form.save(commit=False)
-        histories.user = self.request.user
-        histories.save()
-        messages.success(self.request, '作成しました。')
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
-        messages.error(self.request, "作成に失敗しました。")
-        return super().form_invalid(form)
-
-class MakescheduleView(LoginRequiredMixin,generic.CreateView):
+class MakescheduleView(LoginRequiredMixin, generic.CreateView):
     # スケジュール作成画面表示
+    model = RakusukeSchedule
     template_name = 'makeschedule.html'
     form_class = ScheduleCreateForm
     success_url = reverse_lazy('rakusukeapp:index')
 
     def post(self, request, *args, **kwrgs):
-        print(request)
         doList = []
         categoryList = []
         priorityList = []
@@ -182,10 +188,10 @@ class MakescheduleView(LoginRequiredMixin,generic.CreateView):
 
         for i in range(len(doList)):
             rakusukeschedule = RakusukeSchedule.objects.create(
-                schedule_do = doList[i],
-                schedule_category = categoryList[i],
-                schedule_priority = priorityList[i],
-                schedule_worktime = worktimeList[i],
+                schedule_do=doList[i],
+                schedule_category=categoryList[i],
+                schedule_priority=priorityList[i],
+                schedule_worktime=worktimeList[i],
             )
             rakusukeschedule.save()
         return redirect('rakusukeapp:index')
@@ -194,38 +200,25 @@ class MakescheduleView(LoginRequiredMixin,generic.CreateView):
             messages.error(self.request, "作成に失敗しました。")
             return super().form_invalid(form)
 
+
 class SubjectListView(LoginRequiredMixin, generic.ListView):
     # 科目一覧画面表示
     template_name = 'subjectlist.html'
     model = RakusukeSubject
+
+class DetailListView(LoginRequiredMixin, generic.ListView):
+    # 科目一覧画面表示
+    template_name = 'detaillist.html'
+    model = RakusukeDetail
+
+    def get_queryset(self, **kwargs):
+        diaries = RakusukeDetail.objects.filter(user=self.request.user, subject_id=self.request.subject)
+        return diaries
+
+class DetailCreateView(LoginRequiredMixin, generic.CreateView):
     # 科目追加
-    # form_class = SubjectCreateForm
-    # success_url = reverse_lazy('rakusukeapp:index')
-
-    # def get(self, request):
-    #     if form =="":
-    #         get(self,queryset)
-    #     else:
-    #         form_valid(self, form)
-
-    # def get(self,queryset):
-    #     diaries = RakusukeSubject.objects.filter(user=self.request.user)
-    #     return diaries
-    #
-    # def form_valid(self, form):
-    #     rakusukeapp = form.save(commit=False)
-    #     rakusukeapp.user = self.request.user
-    #     rakusukeapp.save()
-    #     return super().form_valid(form)
-    #
-    # def form_invalid(self, form):
-    #     return super().form_invalid(form)
-
-class SubjectCreateView(LoginRequiredMixin, generic.CreateView):
-    # 科目追加
-    model = RakusukeSubject
-    form_class = SubjectCreateForm
-    success_url = reverse_lazy('rakusukeapp:index')
+    template_name = 'detailcreate.html'
+    model = RakusukeDetail
 
     def form_valid(self, form):
         rakusukeapp = form.save(commit=False)
@@ -236,13 +229,71 @@ class SubjectCreateView(LoginRequiredMixin, generic.CreateView):
     def form_invalid(self, form):
         return super().form_invalid(form)
 
+
+class SubjectCreateView(LoginRequiredMixin, generic.CreateView):
+    # 科目追加
+    template_name = 'subjectcreate.html'
+    form_class = SubjectCreateForm
+    success_url = reverse_lazy('rakusukeapp:subjectlist')
+
+    def form_valid(self, form):
+        rakusukeapp = form.save(commit=False)
+        rakusukeapp.user = self.request.user
+        rakusukeapp.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
+
 class SubjectUpdateView(LoginRequiredMixin, generic.UpdateView):
-    template_name = 'subjectupdate.html'
+    template_name = 'subjectcreate.html'
     model = RakusukeSubject
     fields = '__all__'
     success_url = reverse_lazy('rakusukeapp:index')
+
 
 class SubjectDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'subjectdelete.html'
     model = RakusukeSubject
     success_url = reverse_lazy('rakusukeapp:index')
+
+
+class FixedCreateView(LoginRequiredMixin, generic.CreateView):
+    model = RakusukeFixed
+    template_name = 'fixed_create.html'
+    form_class = FixedScheduleForm
+    success_url = reverse_lazy('rakusukeapp:fixed_list')
+
+    def form_valid(self, form):
+        raku = form.save(commit=False)
+        raku.user = self.request.user
+        raku.save()
+        messages.success(self.request, "固定スケジュールを作成しました")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "固定スケジュールの作成に失敗しました")
+        return super().form_valid(form)
+
+
+class FixedListView(LoginRequiredMixin, generic.ListView):
+    model = RakusukeFixed
+    template_name = 'fixed_list.html'
+    # 一つのページに何個こてすけを表示するか設定
+    paginate_by = 50
+
+    def get_queryset(self):
+        diaries = RakusukeFixed.objects.filter(user=self.request.user).order_by('-fixed_start_time')
+        return diaries
+
+    # def get_queryset(self):
+    #     q_word = self.request.GET.get('query')
+    #
+    #     if q_word:
+    #         blog_list = Blog.objects.filter(
+    #             Q(category__icontains=q_word)).order_by('-updated_at')
+    #
+    #     else:
+    #         blog_list = Blog.objects.all()
+    #     return blog_list

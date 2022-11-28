@@ -18,8 +18,10 @@ FIXED_FORM_MAPPING = {
 class ScheduleCreateForm(forms.ModelForm):
     class Meta:
         model = RakusukeSchedule
-        fields = (
-            '__all__'
+        fields = ('schedule_do',
+                  'schedule_category',
+                  'schedule_worktime',
+                  'schedule_priority',
         )
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
@@ -42,6 +44,7 @@ class SubjectCreateForm(forms.ModelForm):
     class Meta:
         model = RakusukeSubject
         fields = ('subject_name',)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
@@ -51,7 +54,8 @@ class SubjectCreateForm(forms.ModelForm):
 class FixedScheduleForm(forms.ModelForm):
     class Meta:
         model = RakusukeFixed
-        fields =('fixed_do',
+        fields =('user',
+                 'fixed_do',
                  'fixed_start_time',
                  'fixed_end_time',
                  'fixed_adaptation')

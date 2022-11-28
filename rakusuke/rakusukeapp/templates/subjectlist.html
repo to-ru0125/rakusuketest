@@ -20,7 +20,7 @@
         <h1>科目一覧</h1>
         {% for subjname in rakusukesubject_list %}
             <table border="1">
-                <a class="container h4" color="black" href="{% url 'rakusukeapp:makeschedule' %}">
+                <a class="container h4" color="black" href="{% url 'rakusukeapp:detaillist' %}">
                     {{ subjname.subject_name }}
                 </a>
             </table>
@@ -30,7 +30,7 @@
         <form method="post">
             {% csrf_token %}
             {{ form }}
-            <input type="submit" value="登録">
+            <a class="btn" href="{% url 'rakusukeapp:subjectcreate'%}">科目作成</a>
         </form>
     </dev>
 
