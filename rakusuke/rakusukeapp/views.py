@@ -173,13 +173,13 @@ class MakescheduleView(LoginRequiredMixin,generic.CreateView):
         worktimeList = []
 
         for i in request.POST.items():
-            if re.match(r'do_*',i[0]):
+            if re.match(r'schedule_do_*',i[0]):
                 doList.append(i[1])
-            if re.match(r'category_*', i[0]):
+            if re.match(r'schedule_category_*', i[0]):
                 categoryList.append(i[1])
-            if re.match(r'priority_*',i[0]):
+            if re.match(r'schedule_priority_*',i[0]):
                 priorityList.append(i[1])
-            if re.match(r'worktime_*', i[0]):
+            if re.match(r'schedule_worktime_*', i[0]):
                 worktimeList.append(i[1])
 
         for i in range(len(doList)):
