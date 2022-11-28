@@ -16,5 +16,8 @@ urlpatterns = [
     path('calendar-detail/<int:year>/<int:month>/<int:day>/',views.CalendarDetailView.as_view(),name="calendardetail"),
     path('subjectlist/',views.SubjectListView.as_view(),name="subjectlist"),
     path('subjectupdate/',views.SubjectUpdateView.as_view(),name="subjectupdate"),
+    path('subjectcreate/',views.SubjectCreateView.as_view(),name="subjectcreate"),
+    path('detaillist/',views.DetailListView.as_view(),name="detaillist"),
+    path('subjectcreate/',views.SubjectCreateView.as_view(),name="subjectcreate"),
     # path('calender-detail/<int:pk>',views.CalendarDetailView.as_view(),name="calender_detail")
 ]

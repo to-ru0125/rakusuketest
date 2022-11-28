@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}詳細一覧 | らく助{% endblock %}
+{% block active_detaillist_list %}active{% endblock %}
+
+{% block header%}
+<header class="masthead text-center text-black">
+    <div class="masthead-content">
+        <div class="container">
+            <link rel="stylesheet" href="mystyle.css">
+            <h1 class="masthead-heading mb-0">らく助</h1>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+
+{% block contents %}
+<section>
+    <dev>
+        <h1>詳細一覧</h1>
+        {% for detaname in rakusukedetail_list %}
+            <table border="1">
+                <a class="container h4">
+                    {{ detaname.detail_name }}
+                </a>
+            </table>
+        {% empty %}
+            <h2>詳細がありません。</h2>
+        {% endfor %}
+    </dev>
+
+</section>
+{% endblock %}

@@ -205,35 +205,36 @@ class SubjectListView(LoginRequiredMixin, generic.ListView):
     # 科目一覧画面表示
     template_name = 'subjectlist.html'
     model = RakusukeSubject
+
+class DetailListView(LoginRequiredMixin, generic.ListView):
+    # 科目一覧画面表示
+    template_name = 'detaillist.html'
+    model = RakusukeDetail
+
+    def get_queryset(self, **kwargs):
+        diaries = RakusukeDetail.objects.filter(user=self.request.user, subject_id=self.request.subject)
+        return diaries
+
+class DetailCreateView(LoginRequiredMixin, generic.CreateView):
     # 科目追加
-    # form_class = SubjectCreateForm
-    # success_url = reverse_lazy('rakusukeapp:index')
+    template_name = 'detailcreate.html'
+    model = RakusukeDetail
 
-    # def get(self, request):
-    #     if form =="":
-    #         get(self,queryset)
-    #     else:
-    #         form_valid(self, form)
+    def form_valid(self, form):
+        rakusukeapp = form.save(commit=False)
+        rakusukeapp.user = self.request.user
+        rakusukeapp.save()
+        return super().form_valid(form)
 
-    # def get(self,queryset):
-    #     diaries = RakusukeSubject.objects.filter(user=self.request.user)
-    #     return diaries
-    #
-    # def form_valid(self, form):
-    #     rakusukeapp = form.save(commit=False)
-    #     rakusukeapp.user = self.request.user
-    #     rakusukeapp.save()
-    #     return super().form_valid(form)
-    #
-    # def form_invalid(self, form):
-    #     return super().form_invalid(form)
+    def form_invalid(self, form):
+        return super().form_invalid(form)
 
 
 class SubjectCreateView(LoginRequiredMixin, generic.CreateView):
     # 科目追加
-    model = RakusukeSubject
+    template_name = 'subjectcreate.html'
     form_class = SubjectCreateForm
-    success_url = reverse_lazy('rakusukeapp:index')
+    success_url = reverse_lazy('rakusukeapp:subjectlist')
 
     def form_valid(self, form):
         rakusukeapp = form.save(commit=False)
@@ -246,7 +247,7 @@ class SubjectCreateView(LoginRequiredMixin, generic.CreateView):
 
 
 class SubjectUpdateView(LoginRequiredMixin, generic.UpdateView):
-    template_name = 'subjectupdate.html'
+    template_name = 'subjectcreate.html'
     model = RakusukeSubject
     fields = '__all__'
     success_url = reverse_lazy('rakusukeapp:index')
