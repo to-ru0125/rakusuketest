@@ -17,11 +17,61 @@
             <form method="POST" enctype='multipart/form-data'>
                 <h1>固定スケジュール登録</h1>
                 {% csrf_token %}
-                <table class="table">
-                    {{ form.as_table }}
+                <div id="list">
+                    <div class="list_var">
+                        <table>
+                            <tr style="text-align:center">
+                                <th>やるべきこと:</th>
+                                <td>
+                                        <input type="text" id="list_0" name="fixed_do_0">
+                                </td>
+                            </tr>
+                            <tr style="text-align:center">
+                                <th>開始時刻:</th>
+                                <td>
+                                    <input type="time" id="list_0" name="fixed_start_time_0">
+                                </td>
+                            </tr>
+                            <tr style="text-align:center">
+                                <th>終了時刻:</th>
+                                <td>
+                                    <input type="time" id="list_0" name="fixed_end_time_0">
+                                </td>
+                            </tr>
+                            <tr style="text-align:center">
+                                <th>適応日:</th>
+                                <td>
+                                    <select type="hidden" id="list_0" name="fixed_adaptation_0">
+                                    {% for adapter in form.fixed_adaptation %}
+                                       {{ adapter }}
+                                    {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                       <button class="list_del">×</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <table type="text-add">
+                    <tr>
+                        <td>
+                            <button value="" type="button" class="list_add">
+                                <img src="{% static 'assets/img/appendButton.png' %}">
+                            </button>
+                        </td>
+                    </tr>
                 </table>
                 <button class="btn btn-primary" type="submit">作成</button>
             </form>
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/jquery.add-input-area@4.11.0/dist/jquery.add-input-area.min.js" integrity="sha256-yOwGvcRp3I8/XWkeARhJkgdfLREQygbFA5W2bUpM2FY=" crossorigin="anonymous"></script>
+            <script type="text/javascript">
+            $('#list').addInputArea();
+            </script>
         </div>
     </div>
 </div>
