@@ -5,6 +5,7 @@ from django import forms
 from django.contrib.admin.widgets import AdminDateWidget
 
 FIELD_NAME_MAPPING = {
+        'schedule_date':'schedule_date_0',
         'schedule_do':'schedule_do_0',
         'schedule_category':'schedule_category_0',
         'schedule_worktime':'schedule_worktime_0',
@@ -21,7 +22,8 @@ FIXED_FORM_MAPPING = {
 class ScheduleCreateForm(forms.ModelForm):
     class Meta:
         model = RakusukeSchedule
-        fields = ('schedule_do',
+        fields = ('schedule_date',
+                  'schedule_do',
                   'schedule_category',
                   'schedule_worktime',
                   'schedule_priority',
