@@ -17,7 +17,6 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 import re
 
-
 class BaseCalendarMixin:
     """カレンダー関連Mixinの、基底クラス"""
     first_weekday = 6  # 0は月曜から、1は火曜から。6なら日曜日からになります。お望みなら、継承したビューで指定してください。
@@ -260,17 +259,36 @@ class SubjectDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 
 class FixedCreateView(LoginRequiredMixin, generic.CreateView):
-    model = RakusukeFixed
     template_name = 'fixed_create.html'
     form_class = FixedScheduleForm
     success_url = reverse_lazy('rakusukeapp:fixed_list')
 
-    def form_valid(self, form):
-        raku = form.save(commit=False)
-        raku.user = self.request.user
-        raku.save()
-        messages.success(self.request, "固定スケジュールを作成しました")
-        return super().form_valid(form)
+    def post(self, request, *args, **kwrgs):
+        doList = []
+        startTimeList = []
+        endTimeList = []
+        adaptationList = []
+
+        for i in request.POST.items():
+            if re.match(r'fixed_do_*', i[0]):
+                doList.append(i[1])
+            if re.match(r'fixed_start_time_*', i[0]):
+                startTimeList.append(i[1])
+            if re.match(r'fixed_end_time_*', i[0]):
+                endTimeList.append(i[1])
+            if re.match(r'fixed_adaptation_*', i[0]):
+                adaptationList.append(i[1])
+
+        for i in range(len(doList)):
+            fixedschedule = RakusukeFixed.objects.create(
+                fixed_do=doList[i],
+                fixed_start_time=startTimeList[i],
+                fixed_end_time=endTimeList[i],
+                fixed_adaptation=adaptationList[i],
+                user=self.request.user,
+            )
+            fixedschedule.save()
+        return redirect(self.success_url)
 
     def form_invalid(self, form):
         messages.error(self.request, "固定スケジュールの作成に失敗しました")

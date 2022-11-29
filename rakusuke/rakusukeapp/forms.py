@@ -12,7 +12,10 @@ FIELD_NAME_MAPPING = {
 }
 
 FIXED_FORM_MAPPING = {
-        'fixed_adaptation': 'fixed_adaptation_0'
+    'fixed_do':'fixed_do_0',
+    'fixed_start_time':'fixed_start_time_0',
+    'fixed_end_time':'fixed_end_time_0',
+    'fixed_adaptation':'fixed_adaptation_0',
 }
 
 class ScheduleCreateForm(forms.ModelForm):
@@ -54,23 +57,17 @@ class SubjectCreateForm(forms.ModelForm):
 class FixedScheduleForm(forms.ModelForm):
     class Meta:
         model = RakusukeFixed
-        fields =('user',
+        fields =(
                  'fixed_do',
                  'fixed_start_time',
                  'fixed_end_time',
-                 'fixed_adaptation')
+                 'fixed_adaptation'
+        )
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             for field in self.fields.values():
                 field.widget.attrs['class'] = 'form-control'
-
-        def form_valid(self, form):
-            histories = form.save(commit=False)
-            histories.user = self.request.user
-            histories.save()
-            messages.success(self.request, '作成しました。')
-            return super().form_valid(form)
 
         def add_prefix(self, field_name):
             field_name = FIXED_FORM_MAPPING.get(field_name, field_name)
