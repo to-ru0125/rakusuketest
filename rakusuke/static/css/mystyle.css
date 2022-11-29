@@ -113,3 +113,9 @@ nav div div ul {
   width: 190px;
   height: 30px
 }
+
+input[type="radio"] , input[type="checkbox"]{
+   -webkit-transform: scale(1.5);
+   transform: scale(1.5);
+   margin-right: 0.5em;
+}

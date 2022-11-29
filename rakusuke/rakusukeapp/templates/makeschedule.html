@@ -25,7 +25,13 @@
             <div class="list_var">
                 <table>
                     <tr style="text-align:center">
-                        <th>やるべきこと:</th>
+                        <th>日付:</th>
+                        <td>
+                                <input type="date" id="list_0" name="schedule_date_0">
+                        </td>
+                    </tr>
+                    <tr style="text-align:center">
+                        <th>やること:</th>
                         <td>
                                 <input type="text" id="list_0" name="schedule_do_0">
                         </td>
@@ -33,20 +39,23 @@
                     <tr style="text-align:center">
                         <th>カテゴリ:</th>
                         <td>
-                            {% for category in form.schedule_category %}
-                                <input type="radio" id="list_0" name="schedule_category_0" value="{{ category }}">
-                            {% endfor %}
+                            <input type="radio" id="list_0" name="schedule_category_0" value="1">
+                            <label>勉強</label>
+                            <input type="radio" id="list_0" name="schedule_category_0" value="2" checked>
+                            <label>遊び</label>
+                            <input type="radio" id="list_0" name="schedule_category_0" value="3">
+                            <label>その他</label>
                         </td>
                     </tr>
                     <tr style="text-align:center">
                         <th>優先度:</th>
                         <td>
-                            <select type="radio">
-                            <input type="radio" id="list_0" name="schedule_priority_0">
-                            {% for priority in form.schedule_priority %}
-
-                            {% endfor %}
-                            </select>
+                            <input type="radio" id="list_0" name="schedule_priority_0" value="1">
+                            <label>強</label>
+                            <input type="radio" id="list_0" name="schedule_priority_0" value="2" checked>
+                            <label>中</label>
+                            <input type="radio" id="list_0" name="schedule_priority_0" value="3">
+                            <label>弱</label>
                         </td>
                     </tr>
                     <tr style="text-align:center">
@@ -57,8 +66,8 @@
                     </tr>
                     <tr>
                         <td>
-                               <button class="list_del">×
-                               </button>
+                            {% if id="list_0"
+                               <button class="list_del" id="list_0">×</button>
                         </td>
                     </tr>
                 </table>
