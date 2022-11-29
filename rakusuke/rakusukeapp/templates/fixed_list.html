@@ -13,14 +13,14 @@
     <div class="row">
         <div class="my-div-style w-100">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <h1>固定スケジュール一覧</h1>
+                <h2>固定スケジュール一覧</h2>
                 <div class="clearfix my-div-style">
                     <a class="btn btn-primary float-right" href="{% url 'rakusukeapp:fixed_create' %}">固定スケジュール追加</a>
                 </div>
 
                 {% for schedulefixed in rakusukefixed_list %}
                     <div class="post-preview">
-                        <a href="#">
+                        <a href="{% url 'rakusukeapp:fixed_detail' schedulefixed.pk %}">
 
                           <h2 class="post-fixed_do">
                             {{ schedulefixed.fixed_do }}

@@ -306,13 +306,7 @@ class FixedListView(LoginRequiredMixin, generic.ListView):
         diaries = RakusukeFixed.objects.filter(user=self.request.user).order_by('-fixed_start_time')
         return diaries
 
-    # def get_queryset(self):
-    #     q_word = self.request.GET.get('query')
-    #
-    #     if q_word:
-    #         blog_list = Blog.objects.filter(
-    #             Q(category__icontains=q_word)).order_by('-updated_at')
-    #
-    #     else:
-    #         blog_list = Blog.objects.all()
-    #     return blog_list
+class FixedDetailView(LoginRequiredMixin,generic.DetailView):
+    model = RakusukeFixed
+    template_name = 'fixed_detail.html'
+
