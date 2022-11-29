@@ -191,6 +191,7 @@ class MakescheduleView(LoginRequiredMixin, generic.CreateView):
                 schedule_category=categoryList[i],
                 schedule_priority=priorityList[i],
                 schedule_worktime=worktimeList[i],
+                user=self.request.user,
             )
             rakusukeschedule.save()
         return redirect('rakusukeapp:index')

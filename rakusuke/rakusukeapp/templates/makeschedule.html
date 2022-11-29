@@ -41,9 +41,12 @@
                     <tr style="text-align:center">
                         <th>優先度:</th>
                         <td>
+                            <select type="radio">
+                            <input type="radio" id="list_0" name="schedule_priority_0">
                             {% for priority in form.schedule_priority %}
-                               <input type="radio" id="list_0" name="schedule_priority_0" value="{{ priority }}">
+
                             {% endfor %}
+                            </select>
                         </td>
                     </tr>
                     <tr style="text-align:center">
