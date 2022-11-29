@@ -41,7 +41,7 @@
                         <td>
                             <input type="radio" id="list_0" name="schedule_category_0" value="1">
                             <label>勉強</label>
-                            <input type="radio" id="list_0" name="schedule_category_0" value="2">
+                            <input type="radio" id="list_0" name="schedule_category_0" value="2" checked>
                             <label>遊び</label>
                             <input type="radio" id="list_0" name="schedule_category_0" value="3">
                             <label>その他</label>
@@ -52,7 +52,7 @@
                         <td>
                             <input type="radio" id="list_0" name="schedule_priority_0" value="1">
                             <label>強</label>
-                            <input type="radio" id="list_0" name="schedule_priority_0" value="2">
+                            <input type="radio" id="list_0" name="schedule_priority_0" value="2" checked>
                             <label>中</label>
                             <input type="radio" id="list_0" name="schedule_priority_0" value="3">
                             <label>弱</label>
@@ -66,8 +66,9 @@
                     </tr>
                     <tr>
                         <td>
-                            {% if '#list_0' is not True %}
+                            {% if id == "list_0" %}
                               <button class="list_del" id="list_0">×</button>
+                            {% else %}
                             {% endif %}
                         </td>
                     </tr>
