@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}科目削除 | らく助{% endblock %}
-{% block active_subjectlist_list %}active{% endblock %}
+{% block title %}詳細追加 | らく助{% endblock %}
+{% block active_detaillist_list %}active{% endblock %}
 
 {% block header%}
 <header class="masthead text-center text-black">
@@ -17,11 +17,11 @@
 {% block contents %}
 <section>
     <dev>
-        <h1>科目を削除しますか？</h1>
+        <h1>詳細追加</h1>
         <form method="post">
             {% csrf_token %}
             {{ form }}
-            <input type="submit" value="削除">
+            <input type="submit" value="登録">
         </form>
     </dev>
 

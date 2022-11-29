@@ -18,7 +18,17 @@
 <section>
     <dev>
         <h1>詳細一覧</h1>
-        {% for detaname in rakusukedetail_list %}
+        {% for trf in detailpk %}
+            <a class="btn" href="{% url 'rakusukeapp:detailcreate' trf.id %}">詳細作成</a>
+            <br>
+        {% endfor %}
+        {% for detaname in rakusukedetail %}
+            {% if forloop.first %}
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                </form>
+            {% endif %}
             <table border="1">
                 <a class="container h4">
                     {{ detaname.detail_name }}

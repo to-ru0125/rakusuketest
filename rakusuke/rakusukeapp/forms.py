@@ -1,6 +1,7 @@
 from .models import RakusukeSchedule
 from .models import RakusukeSubject
 from .models import RakusukeFixed
+from .models import RakusukeDetail
 from django import forms
 from django.contrib.admin.widgets import AdminDateWidget
 
@@ -49,6 +50,21 @@ class SubjectCreateForm(forms.ModelForm):
     class Meta:
         model = RakusukeSubject
         fields = ('subject_name',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
+
+PostCreateFormSet = forms.modelformset_factory(
+    RakusukeSubject, form=SubjectCreateForm, extra=1
+)
+
+class DetailCreateForm(forms.ModelForm):
+    class Meta:
+        model = RakusukeDetail
+        fields = ('detail_name',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

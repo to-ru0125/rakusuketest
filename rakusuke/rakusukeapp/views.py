@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .forms import ScheduleCreateForm
 from .forms import SubjectCreateForm
+from .forms import DetailCreateForm
 from .forms import FixedScheduleForm
 import calendar
 from collections import deque
@@ -16,7 +17,8 @@ import webbrowser
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 import re
-
+from django.db.models import Prefetch
+from . import models
 class BaseCalendarMixin:
     """カレンダー関連Mixinの、基底クラス"""
     first_weekday = 6  # 0は月曜から、1は火曜から。6なら日曜日からになります。お望みなら、継承したビューで指定してください。
@@ -206,28 +208,20 @@ class SubjectListView(LoginRequiredMixin, generic.ListView):
     template_name = 'subjectlist.html'
     model = RakusukeSubject
 
+    def get_queryset(self):
+        diaries = RakusukeSubject.objects.filter(user=self.request.user)
+        return diaries
+
 class DetailListView(LoginRequiredMixin, generic.ListView):
     # 科目一覧画面表示
     template_name = 'detaillist.html'
     model = RakusukeDetail
 
-    def get_queryset(self, **kwargs):
-        diaries = RakusukeDetail.objects.filter(user=self.request.user, subject_id=self.request.subject)
-        return diaries
-
-class DetailCreateView(LoginRequiredMixin, generic.CreateView):
-    # 科目追加
-    template_name = 'detailcreate.html'
-    model = RakusukeDetail
-
-    def form_valid(self, form):
-        rakusukeapp = form.save(commit=False)
-        rakusukeapp.user = self.request.user
-        rakusukeapp.save()
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
-        return super().form_invalid(form)
+    def get_context_data(self, **kwargs):
+        context = super(DetailListView, self).get_context_data(**kwargs)
+        context['rakusukedetail'] = RakusukeDetail.objects.filter(user=self.request.user, subject_id=self.kwargs['pk'])
+        context['detailpk'] = RakusukeSubject.objects.filter(id=self.kwargs['pk'])
+        return context
 
 
 class SubjectCreateView(LoginRequiredMixin, generic.CreateView):
@@ -245,6 +239,23 @@ class SubjectCreateView(LoginRequiredMixin, generic.CreateView):
     def form_invalid(self, form):
         return super().form_invalid(form)
 
+class DetailCreateView(LoginRequiredMixin, generic.CreateView):
+    # 科目追加
+    template_name = 'detailcreate.html'
+    form_class = DetailCreateForm
+    success_url = reverse_lazy('rakusukeapp:subjectlist' )
+
+    def form_valid(self, form):
+        rakusukeapp = form.save(commit=False)
+        rakusukeapp.user = self.request.user
+        rakusukeapp.subject_id = RakusukeSubject.objects.get(id=self.kwargs.get('subject_id_id'))
+        rakusukeapp.detail_achieved = 0
+        rakusukeapp.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
 
 class SubjectUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = 'subjectcreate.html'
@@ -253,10 +264,29 @@ class SubjectUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy('rakusukeapp:index')
 
 
+class DetailUpdateView(LoginRequiredMixin, generic.UpdateView):
+    template_name = 'detaillist.html'
+    model = RakusukeDetail
+    success_url = reverse_lazy('rakusukeapp:index')
+    form_class = DetailCreateForm
+
+    def get_success_url(self):
+        fields = RakusukeDetail.objects.filter(user=self.request.user, subject_id=self.kwargs['pk'])
+        return reverse_lazy('rakusukeapp:detaillist')
+
+    def form_valid(self, form):
+        messages.success(self.request, '日記を更新しました。')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "日記の更新に失敗しました。")
+        return super().form_invalid(form)
+
+
 class SubjectDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'subjectdelete.html'
     model = RakusukeSubject
-    success_url = reverse_lazy('rakusukeapp:index')
+    success_url = reverse_lazy('rakusukeapp:subjectlist')
 
 
 class FixedCreateView(LoginRequiredMixin, generic.CreateView):
