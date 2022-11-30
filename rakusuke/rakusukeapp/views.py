@@ -357,7 +357,7 @@ class FixedUpdetaView(LoginRequiredMixin,generic.UpdateView):
     form_class = FixedScheduleForm
 
     def get_success_url(self):
-        return reverse_lazy('blog:blog_detail',kwargs={'pk':self.kwargs['pk']})
+        return reverse_lazy('rakusukeapp:fixed_detail',kwargs={'pk':self.kwargs['pk']})
 
     def form_invalid(self, form):
         messages.success(self.request, "固定スケジュールを更新しました")
