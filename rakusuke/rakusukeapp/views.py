@@ -178,7 +178,8 @@ class MakescheduleView(LoginRequiredMixin, generic.CreateView):
         worktimeList = []
 
         for i in request.POST.items():
-
+            if re.match(r'schedule_date_0', i[0]):
+                dateList.append(i[1])
             if re.match(r'schedule_do_*', i[0]):
                 doList.append(i[1])
             if re.match(r'schedule_category_*', i[0]):
@@ -190,7 +191,7 @@ class MakescheduleView(LoginRequiredMixin, generic.CreateView):
 
         for i in range(len(doList)):
             rakusukeschedule = RakusukeSchedule.objects.create(
-                schedule_da
+                schedule_date=dateList[i],
                 schedule_do=doList[i],
                 schedule_category=categoryList[i],
                 schedule_priority=priorityList[i],

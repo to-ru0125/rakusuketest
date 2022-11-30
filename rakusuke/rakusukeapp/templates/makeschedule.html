@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block contents %}
-    <form method="post" action="{% url 'rakusukeapp:tentativeschedule schedule_date_0 ' %}" enctype="multipart/form-data">
+    <form method="post" action="{% url 'rakusukeapp:tentativeschedule schedule_date_0' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <div id="list">
             <div class="list_var">
