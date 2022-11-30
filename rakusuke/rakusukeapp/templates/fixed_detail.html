@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}らくらくスケジュール生成アプリ | らく助{% endblock %}
+
+
+{% block header%}
+<header class="masthead text-center text-black">
+    <div class="masthead-content">
+        <div class="container">
+            <link rel="stylesheet" href="mystyle.css">
+            <h1 class="masthead-heading mb-0">らく助固定スケジュール詳細</h1>
+        </div>
+    </div>
+</header>
+{% endblock %}
+   {% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+
+        <div class="row">
+            <div class="col-3">
+                <strong>固定スケジュール</strong>
+            </div>
+            <div class="col-9">
+                {{ object.fixed_do }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>開始時間</strong>
+            </div>
+            <div class="col-9">
+                {{ object.fixed_start_time }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>終了時間</strong>
+            </div>
+            <div class="col-9">
+                {{ object.fixed_end_time }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <strong>適応曜日</strong>
+            </div>
+            <div class="col-9">
+                {% if object.fixed_adaptation == 1 %}
+                <p>月曜日</p>
+                {% elif object.fixed_adaptation == 2 %}
+                <p>火曜日</p>
+                {% elif object.fixed_adaptation == 3 %}
+                <p>水曜日</p>
+                {% elif object.fixed_adaptation == 4 %}
+                <p>木曜日</p>
+                {% elif object.fixed_adaptation == 5 %}
+                <p>金曜日</p>
+                {% elif object.fixed_adaptation == 6 %}
+                <p>土曜日</p>
+                {% elif object.fixed_adaptation == 7 %}
+                <p>日曜日</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <a class="btn btn-success mt-5 mb-3" href="#">編集</a>
+        <a class="btn btn-danger mt-5 ml-2 mb-3" href="#">削除</a>
+    </div>
+</div>
+{% endblock %}
