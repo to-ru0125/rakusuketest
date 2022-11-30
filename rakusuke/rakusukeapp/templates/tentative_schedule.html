@@ -20,7 +20,15 @@
 
 {% block contents %}
     <table>
-
+        {% for field in fieldslist %}
+        <table>
+            {% for i in field.worktime %}
+            <tr>
+                <td>{{ field.schedule_do }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endfor %}
     </table>
     <button type="submit" class="right-btn">作成</button>
     <button class="left-btn" onclick="location.href='{% url  'rakusukeapp:index' %}'">戻る</button>

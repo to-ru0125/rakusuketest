@@ -293,11 +293,8 @@ class SubjectDeleteView(LoginRequiredMixin, generic.DeleteView):
 class TentativeScheduleView(LoginRequiredMixin,generic.ListView):
     model = RakusukeSchedule
     template_name = 'tentative_schedule.html'
-
-    def get_success_url(self):
-        fields = RakusukeDetail.objects.filter(schedule_date=self.kwargs['schedule_date_0'])
-        return reverse_lazy('rakusukeapp:detaillist')
-
+    field = RakusukeSchedule.objects.latest('created_at')
+    fields = RakusukeSchedule.objects.filter(schedule_date=field.schedule_date)
 
 class FixedCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = 'fixed_create.html'

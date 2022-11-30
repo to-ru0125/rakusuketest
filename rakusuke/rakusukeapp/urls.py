@@ -24,7 +24,7 @@ urlpatterns = [
     path('subjectcreate/',views.SubjectCreateView.as_view(),name="subjectcreate"),
     path('detailcreate/<int:subject_id_id>/',views.DetailCreateView.as_view(),name="detailcreate"),
     path('subjectdelete/<int:pk>',views.SubjectDeleteView.as_view(),name='subjectdelete'),
-    # path('tentative_schedule/<int:date>/', views.TentativeScheduleView.as_view(),
-    #      name="tentativeschedule")
+    path('tentative_schedule/<int:date>/', views.TentativeScheduleView.as_view(),
+         name="tentativeschedule")
     # path('calender-detail/<int:pk>',views.CalendarDetailView.as_view(),name="calender_detail")
 ]
