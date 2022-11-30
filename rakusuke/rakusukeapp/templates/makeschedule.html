@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block contents %}
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" action="{% url 'rakusukeapp:tentativeschedule schedule_date_0 ' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <div id="list">
             <div class="list_var">
@@ -66,10 +66,7 @@
                     </tr>
                     <tr>
                         <td>
-                            {% if id == "list_0" %}
-                              <button class="list_del" id="list_0">×</button>
-                            {% else %}
-                            {% endif %}
+                            <button class="list_del">×</button>
                         </td>
                     </tr>
                 </table>

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}らくらくスケジュール生成アプリ | らく助{% endblock %}
+
+{% block header%}
+<header class="masthead text-center text-black">
+    <div class="masthead-content">
+    </div>
+</header>
+{% endblock %}
+{% block contents %}
+<div class="container">
+    <div class="row">
+        <div class="my-div-style w-100">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <h2>仮スケジュール</h2>
+                <div class="clearfix my-div-style">
+                    <a class="btn btn-primary float-right" href="{% url 'rakusukeapp:fixed_create' %}">固定スケジュール追加</a>
+                </div>
+
+                {% for schedulefixed in rakusukefixed_list %}
+                    <div class="post-preview">
+                        <a href="{% url 'rakusukeapp:fixed_detail' schedulefixed.pk %}">
+
+                          <h2 class="post-fixed_do">
+                            {{ schedulefixed.fixed_do }}
+                          </h2>
+                          <h6 class="post-fixed_start_time">
+                              <nobr>開始時間：{{ schedulefixed.fixed_start_time }}</nobr>
+                          </h6>
+                          <h6 class="post-fixed_end_time">
+                              <nobr>終了時間：{{ schedulefixed.fixed_end_time }}</nobr>
+                        　</h6>
+                        </a>
+                    </div>
+                    <hr class="my-4">
+                    {% empty %}
+                    <p>登録された固定スケジュールがありません。</p>
+                {% endfor %}
+
+
+{% endblock %}
