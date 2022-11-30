@@ -342,3 +342,11 @@ class FixedDetailView(LoginRequiredMixin,generic.DetailView):
     model = RakusukeFixed
     template_name = 'fixed_detail.html'
 
+class FixedDeleteView(LoginRequiredMixin,generic.DeleteView):
+    model = RakusukeFixed
+    template_name = 'fixed_delete.html'
+    success_url = reverse_lazy('rakusukeapp:fixed_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request,"日記を削除しました")
+        return super().delete(request, *args, **kwargs)
