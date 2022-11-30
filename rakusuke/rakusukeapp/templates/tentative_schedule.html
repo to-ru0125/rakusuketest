@@ -3,45 +3,25 @@
 {% block title %}らくらくスケジュール生成アプリ | らく助{% endblock %}
 
 {% block head %}
-    <link ref="stylesheet" href="mystyle.css">
+     <meta charset="utf-8">
+     <link ref="stylesheet" href="mystyle.css">
 {% endblock %}
+
 {% block header%}
-    <header class="masthead text-center text-black">
-        <div class="masthead-content">
+<header class="masthead text-center text-black">
+    <div class="masthead-content">
+        <div class="container">
+            <h1 class="masthead-heading mb-0">らく助</h1>
+            <h3 class="masthead-subheading mb-0">仮スケジュール</h3>
         </div>
-    </header>
+    </div>
+</header>
 {% endblock %}
+
 {% block contents %}
-<div class="container">
-    <div class="row">
-        <div class="my-div-style w-100">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <h2>仮スケジュール</h2>
-                <div class="clearfix my-div-style">
-                    <a class="btn btn-primary float-right" href="{% url 'rakusukeapp:fixed_create' %}">固定スケジュール追加</a>
-                </div>
+    <table>
 
-                {% for schedulefixed in rakusukefixed_list %}
-                    <div class="post-preview">
-                        <a href="{% url 'rakusukeapp:fixed_detail' schedulefixed.pk %}">
-
-                          <h2 class="post-fixed_do">
-                            {{ schedulefixed.fixed_do }}
-                          </h2>
-                          <h6 class="post-fixed_start_time">
-                              <nobr>開始時間：{{ schedulefixed.fixed_start_time }}</nobr>
-                          </h6>
-                          <h6 class="post-fixed_end_time">
-                              <nobr>終了時間：{{ schedulefixed.fixed_end_time }}</nobr>
-                        　</h6>
-                        </a>
-                    </div>
-                    <hr class="my-4">
-                    {% empty %}
-                    <p>登録された固定スケジュールがありません。</p>
-                {% endfor %}
+    </table>
     <button type="submit" class="right-btn">作成</button>
     <button class="left-btn" onclick="location.href='{% url  'rakusukeapp:index' %}'">戻る</button>
-
-
 {% endblock %}
