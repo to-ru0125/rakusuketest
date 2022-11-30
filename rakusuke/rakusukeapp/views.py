@@ -19,6 +19,8 @@ from django.http import HttpResponse
 import re
 from django.db.models import Prefetch
 from . import models
+
+
 class BaseCalendarMixin:
     """カレンダー関連Mixinの、基底クラス"""
     first_weekday = 6  # 0は月曜から、1は火曜から。6なら日曜日からになります。お望みなら、継承したビューで指定してください。
@@ -190,7 +192,6 @@ class MakescheduleView(LoginRequiredMixin, generic.CreateView):
 
         for i in range(len(doList)):
             rakusukeschedule = RakusukeSchedule.objects.create(
-                schedule_da
                 schedule_do=doList[i],
                 schedule_category=categoryList[i],
                 schedule_priority=priorityList[i],
@@ -340,4 +341,30 @@ class FixedListView(LoginRequiredMixin, generic.ListView):
 class FixedDetailView(LoginRequiredMixin,generic.DetailView):
     model = RakusukeFixed
     template_name = 'fixed_detail.html'
+
+
+class FixedDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = RakusukeFixed
+    template_name = 'fixed_delete.html'
+    success_url = reverse_lazy('rakusukeapp:fixed_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request,"固定スケジュールを削除しました")
+        return super().delete(request, *args, **kwargs)
+
+class FixedUpdetaView(LoginRequiredMixin,generic.UpdateView):
+    model = RakusukeFixed
+    template_name = 'fixed_update.html'
+    form_class = FixedScheduleForm
+
+    def get_success_url(self):
+        return reverse_lazy('rakusukeapp:fixed_detail',kwargs={'pk':self.kwargs['pk']})
+
+    def form_invalid(self, form):
+        messages.success(self.request, "日記を更新しました")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "日記の更新に失敗しました")
+        return super().form_valid(form)
 

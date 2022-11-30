@@ -13,6 +13,8 @@ urlpatterns = [
     path('fixed_create/',views.FixedCreateView.as_view(),name="fixed_create"),
     path('fixed_list/',views.FixedListView.as_view(),name="fixed_list"),
     path('fixed_detail/<int:pk>/',views.FixedDetailView.as_view(),name="fixed_detail"),
+    path('fixed_update/<int:pk>/', views.FixedUpdetaView.as_view(), name="fixed_update"),
+    path('fixed_delete/<int:pk>/',views.FixedDeleteView.as_view(),name="fixed_delete"),
     path('makeschedule/',views.MakescheduleView.as_view(),name="makeschedule"),
     path('calendar-detail/<int:year>/<int:month>/<int:day>/',views.CalendarDetailView.as_view(),name="calendardetail"),
     path('subjectlist/',views.SubjectListView.as_view(),name="subjectlist"),
@@ -22,7 +24,7 @@ urlpatterns = [
     path('subjectcreate/',views.SubjectCreateView.as_view(),name="subjectcreate"),
     path('detailcreate/<int:subject_id_id>/',views.DetailCreateView.as_view(),name="detailcreate"),
     path('subjectdelete/<int:pk>',views.SubjectDeleteView.as_view(),name='subjectdelete'),
-    path('tentative_schedule/<int:date>/', views.TentativeScheduleView.as_view(),
-         name="tentativeschedule")
+    # path('tentative_schedule/<int:date>/', views.TentativeScheduleView.as_view(),
+    #      name="tentativeschedule")
     # path('calender-detail/<int:pk>',views.CalendarDetailView.as_view(),name="calender_detail")
 ]
