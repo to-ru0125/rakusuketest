@@ -293,8 +293,8 @@ class SubjectDeleteView(LoginRequiredMixin, generic.DeleteView):
 class TentativeScheduleView(LoginRequiredMixin,generic.ListView):
     model = RakusukeSchedule
     template_name = 'tentative_schedule.html'
-    field = RakusukeSchedule.objects.latest('created_at')
-    fields = RakusukeSchedule.objects.filter(schedule_date=field.schedule_date)
+    field = model.objects.latest('created_at')
+    fields = model.objects.filter(schedule_date=field.schedule_date)
 
 class FixedCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = 'fixed_create.html'
