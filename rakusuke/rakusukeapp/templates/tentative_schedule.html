@@ -2,11 +2,14 @@
 {% load static %}
 {% block title %}らくらくスケジュール生成アプリ | らく助{% endblock %}
 
+{% block head %}
+    <link ref="stylesheet" href="mystyle.css">
+{% endblock %}
 {% block header%}
-<header class="masthead text-center text-black">
-    <div class="masthead-content">
-    </div>
-</header>
+    <header class="masthead text-center text-black">
+        <div class="masthead-content">
+        </div>
+    </header>
 {% endblock %}
 {% block contents %}
 <div class="container">
@@ -37,6 +40,8 @@
                     {% empty %}
                     <p>登録された固定スケジュールがありません。</p>
                 {% endfor %}
+    <button type="submit" class="right-btn">作成</button>
+    <button class="left-btn" onclick="location.href='{% url  'rakusukeapp:index' %}'">戻る</button>
 
 
 {% endblock %}
