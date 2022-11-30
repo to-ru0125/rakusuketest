@@ -290,6 +290,14 @@ class SubjectDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = RakusukeSubject
     success_url = reverse_lazy('rakusukeapp:subjectlist')
 
+class TentativeScheduleView(LoginRequiredMixin,generic.ListView):
+    model = RakusukeSchedule
+    template_name = 'tentative_schedule.html'
+
+    def get_success_url(self):
+        fields = RakusukeDetail.objects.filter(schedule_date=self.kwargs['schedule_date_0'])
+        return reverse_lazy('rakusukeapp:detaillist')
+
 
 class FixedCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = 'fixed_create.html'
@@ -321,12 +329,11 @@ class FixedCreateView(LoginRequiredMixin, generic.CreateView):
                 user=self.request.user,
             )
             fixedschedule.save()
-        return redirect(self.success_url)
+            return redirect(self.success_url)
 
     def form_invalid(self, form):
         messages.error(self.request, "固定スケジュールの作成に失敗しました")
         return super().form_valid(form)
-
 
 class FixedListView(LoginRequiredMixin, generic.ListView):
     model = RakusukeFixed
@@ -338,39 +345,31 @@ class FixedListView(LoginRequiredMixin, generic.ListView):
         diaries = RakusukeFixed.objects.filter(user=self.request.user).order_by('-fixed_start_time')
         return diaries
 
-class FixedDetailView(LoginRequiredMixin,generic.DetailView):
+class FixedDetailView(LoginRequiredMixin, generic.DetailView):
     model = RakusukeFixed
     template_name = 'fixed_detail.html'
 
-class TentativeScheduleView(LoginRequiredMixin,generic.ListView):
-    model = RakusukeSchedule
-    template_name = 'tentative_schedule.html'
+class FixedDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = RakusukeFixed
+    template_name = 'fixed_delete.html'
+    success_url = reverse_lazy('rakusukeapp:fixed_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "固定スケジュールを削除しました")
+        return super().delete(request, *args, **kwargs)
+
+class FixedUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = RakusukeFixed
+    template_name = 'fixed_update.html'
+    form_class = FixedScheduleForm
 
     def get_success_url(self):
-        fields = RakusukeDetail.objects.filter(schedule_date=self.kwargs['schedule_date_0'])
-        return reverse_lazy('rakusukeapp:detaillist')
+        return reverse_lazy('rakusukeapp:fixed_detail', kwargs={'pk': self.kwargs['pk']})
 
-    class FixedDeleteView(LoginRequiredMixin, generic.DeleteView):
-        model = RakusukeFixed
-        template_name = 'fixed_delete.html'
-        success_url = reverse_lazy('rakusukeapp:fixed_list')
+    def form_invalid(self, form):
+        messages.success(self.request, "固定スケジュールを更新しました")
+        return super().form_valid(form)
 
-        def delete(self, request, *args, **kwargs):
-            messages.success(self.request, "固定スケジュールを削除しました")
-            return super().delete(request, *args, **kwargs)
-
-    class FixedUpdetaView(LoginRequiredMixin, generic.UpdateView):
-        model = RakusukeFixed
-        template_name = 'fixed_update.html'
-        form_class = FixedScheduleForm
-
-        def get_success_url(self):
-            return reverse_lazy('blog:blog_detail', kwargs={'pk': self.kwargs['pk']})
-
-        def form_invalid(self, form):
-            messages.success(self.request, "固定スケジュールを更新しました")
-            return super().form_valid(form)
-
-        def form_invalid(self, form):
-            messages.error(self.request, "固定スケジュールの更新に失敗しました")
-            return super().form_valid(form)
+    def form_invalid(self, form):
+        messages.error(self.request, "固定スケジュールの更新に失敗しました")
+        return super().form_valid(form)
