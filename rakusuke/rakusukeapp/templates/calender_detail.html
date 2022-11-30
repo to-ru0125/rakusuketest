@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}らくらくスケジュール生成アプリ | らく助{% endblock %}
+
+
+{% block header%}
+<header class="masthead text-center text-black">
+    <div class="masthead-content">
+        <div class="container">
+            <link rel="stylesheet" href="mystyle.css">
+            <h1 class="masthead-heading mb-0">らく助</h1>
+        </div>
+    </div>
+</header>
+{% endblock %}
+    {% if month_current.month != day.month %}
+                    {{ day | date:"m/d" }}
+                {% else %}
+                    {{ day.day }}
+                {% endif %}
+{% block contents %}
+<section>
+    <h1>固定スケジュール関連はここ</h1>
+</section>
+{% endblock %}
