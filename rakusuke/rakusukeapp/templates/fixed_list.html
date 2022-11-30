@@ -33,7 +33,7 @@
                         　</h6>
                         </a>
                     </div>
-                    <a class="btn btn-success mt-5 mb-3" href="#">編集</a>
+                    <a class="btn btn-success mt-5 mb-3" href="{% url 'rakusukeapp:fixed_update' schedulefixed.pk %}">編集</a>
                     <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'rakusukeapp:fixed_delete' schedulefixed.pk %}">削除</a>
                     <hr class="my-4">
                 {% empty %}
