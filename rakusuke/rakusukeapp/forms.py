@@ -66,6 +66,16 @@ class DetailCreateForm(forms.ModelForm):
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
 
+class DetailCheckForm(forms.ModelForm):
+    class Meta:
+        model = RakusukeDetail
+        fields = ()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
 
 PostCreateFormSet = forms.modelformset_factory(
     RakusukeDetail, form=DetailCreateForm, extra=0

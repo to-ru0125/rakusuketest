@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}詳細編集 | らく助{% endblock %}
+{% block active_subjectlist_list %}active{% endblock %}
+
+{% block header%}
+<header class="masthead text-center text-black">
+    <div class="masthead-content">
+        <div class="container">
+            <link rel="stylesheet" href="mystyle.css">
+            <h1 class="masthead-heading mb-0">らく助</h1>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+
+{% block contents %}
+<section></section>
+
+    <dev>
+        <h1>詳細編集</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden">
+                    {{ form.as_table }}
+                </input>
+                {% if form.detail_achieved == 0 %}
+                    <p>作業済みに変更しますか？</p>
+                {% elif form.detail_achieved == 1 %}
+                    <p>未作業に変更しますか？</p>
+                {% endif %}
+                <a class="btn">キャンセル</a>
+                <button class="btn" type="submit">更新</button>
+            </form>
+    </dev>
+{% endblock %}

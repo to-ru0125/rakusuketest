@@ -18,6 +18,7 @@ urlpatterns = [
     path('makeschedule/',views.MakescheduleView.as_view(),name="makeschedule"),
     path('calendar-detail/<int:year>/<int:month>/<int:day>/',views.CalendarDetailView.as_view(),name="calendardetail"),
     path('subjectlist/',views.SubjectListView.as_view(),name="subjectlist"),
+    path('detaillist/<int:pk>/', views.DetailListView.as_view(), name="detaillist"),
     path('detaillist/<int:subject_id_id>/', views.DetailListView.as_view(), name="detaillist"),
     path('subjectupdate/<int:pk>/', views.SubjectUpdateView.as_view(), name="subjectupdate"),
     path('detailupdate/<int:pk>/',views.DetailUpdateView.as_view(),name="detailupdate"),

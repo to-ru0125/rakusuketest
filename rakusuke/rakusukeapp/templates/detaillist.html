@@ -32,11 +32,18 @@
                 {% endif %}
                 <tr>
                     <td>
-                        <a>チェック(check)</a>
-                        <a href="{% url 'rakusukeapp:detailupdate' detaname.pk %}">チェック(update)</a>
+                        <form method="POST">
+                            {% if detaname.detail_achieved == 0 %}
+                                {% csrf_token %}
+                                <a href="{% url 'rakusukeapp:detailupdate' detaname.pk %}">チェック(To DO)</a>
+                            {% elif detaname.detail_achieved == 1 %}
+                                {% csrf_token %}
+                                <a href="{% url 'rakusukeapp:detailupdate' detaname.pk %}">チェック(Done)</a>
+                            {% endif %}
+                        </form>
                     </td>
                     <td>
-                        <a class="container h4">
+                        <a class="container h4" {% if detaname.detail_achieved == 1 %}style="color:red"{% endif %}>
                             {{ detaname.detail_name }}
                         </a>
                         <a class="container h4">

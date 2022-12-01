@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 from .forms import ScheduleCreateForm
 from .forms import SubjectCreateForm
 from .forms import DetailCreateForm
+from .forms import DetailCheckForm
 from .forms import FixedScheduleForm
 from .forms import PostCreateFormSet
 import calendar
@@ -274,14 +275,18 @@ class SubjectUpdateView(LoginRequiredMixin, generic.UpdateView):
 class DetailUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = 'detailupdate.html'
     model = RakusukeDetail
-    success_url = reverse_lazy('rakusukeapp:index')
-    form_class = DetailCreateForm
+    form_class = DetailCheckForm
     def get_success_url(self):
         return reverse_lazy('rakusukeapp:subjectlist')
+        # detaillist',kwargs=RakusukeDetail.objects.filter(pk=self.kwargs.filter(pk = self.kwargs['pk'])))
         # 本当は詳細一覧(detaillist/<int:pk>)に飛びたい
 
     def form_valid(self, form):
-        messages.success(self.request, '詳細を更新しました。')
+        rakusukeapp = form.save(commit=False)
+        if rakusukeapp.detail_achieved == 0:
+            rakusukeapp.detail_achieved = 1
+        else:
+            rakusukeapp.detail_achieved = 0
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -297,8 +302,8 @@ class SubjectDeleteView(LoginRequiredMixin, generic.DeleteView):
 class TentativeScheduleView(LoginRequiredMixin,generic.ListView):
     model = RakusukeSchedule
     template_name = 'tentative_schedule.html'
-    field = model.objects.latest('created_at')
-    fields = model.objects.filter(schedule_date=field.schedule_date)
+    # field = model.objects.latest('created_at')
+    # fields = model.objects.filter(schedule_date=field.schedule_date)
 
 class DetailDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'detaildelete.html'
