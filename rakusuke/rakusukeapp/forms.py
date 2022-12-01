@@ -56,11 +56,6 @@ class SubjectCreateForm(forms.ModelForm):
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
 
-
-PostCreateFormSet = forms.modelformset_factory(
-    RakusukeSubject, form=SubjectCreateForm, extra=1
-)
-
 class DetailCreateForm(forms.ModelForm):
     class Meta:
         model = RakusukeDetail
@@ -70,6 +65,11 @@ class DetailCreateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
+
+
+PostCreateFormSet = forms.modelformset_factory(
+    RakusukeDetail, form=DetailCreateForm, extra=0
+)
 
 
 class FixedScheduleForm(forms.ModelForm):
@@ -82,11 +82,11 @@ class FixedScheduleForm(forms.ModelForm):
                  'fixed_adaptation'
         )
 
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            for field in self.fields.values():
-                field.widget.attrs['class'] = 'form-control'
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
 
-        def add_prefix(self, field_name):
-            field_name = FIXED_FORM_MAPPING.get(field_name, field_name)
-            return super(FixedScheduleForm, self).add_prefix(field_name)
+    def add_prefix(self, field_name):
+        field_name = FIXED_FORM_MAPPING.get(field_name, field_name)
+        return super(FixedScheduleForm, self).add_prefix(field_name)

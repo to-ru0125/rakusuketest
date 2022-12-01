@@ -10,6 +10,7 @@ from .forms import ScheduleCreateForm
 from .forms import SubjectCreateForm
 from .forms import DetailCreateForm
 from .forms import FixedScheduleForm
+from .forms import PostCreateFormSet
 import calendar
 from collections import deque
 import datetime
@@ -222,7 +223,7 @@ class DetailListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(DetailListView, self).get_context_data(**kwargs)
         context['rakusukedetail'] = RakusukeDetail.objects.filter(user=self.request.user, subject_id=self.kwargs['pk'])
-        context['detailpk'] = RakusukeSubject.objects.filter(id=self.kwargs['pk'])
+        context['detailpk'] = self.kwargs['pk']
         return context
 
 
@@ -246,6 +247,8 @@ class DetailCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = 'detailcreate.html'
     form_class = DetailCreateForm
     success_url = reverse_lazy('rakusukeapp:subjectlist' )
+    def get_success_url(self):
+        return reverse_lazy('rakusukeapp:detaillist',kwargs={'pk':self.kwargs.get('subject_id_id')})
 
     def form_valid(self, form):
         rakusukeapp = form.save(commit=False)
@@ -260,28 +263,29 @@ class DetailCreateView(LoginRequiredMixin, generic.CreateView):
 
 
 class SubjectUpdateView(LoginRequiredMixin, generic.UpdateView):
-    template_name = 'subjectcreate.html'
+    template_name = 'subjectupdate.html'
     model = RakusukeSubject
-    fields = '__all__'
-    success_url = reverse_lazy('rakusukeapp:index')
+    form_class = SubjectCreateForm
+
+    def get_success_url(self):
+        return reverse_lazy('rakusukeapp:subjectlist')
 
 
 class DetailUpdateView(LoginRequiredMixin, generic.UpdateView):
-    template_name = 'detaillist.html'
+    template_name = 'detailupdate.html'
     model = RakusukeDetail
     success_url = reverse_lazy('rakusukeapp:index')
     form_class = DetailCreateForm
-
     def get_success_url(self):
-        fields = RakusukeDetail.objects.filter(user=self.request.user, subject_id=self.kwargs['pk'])
-        return reverse_lazy('rakusukeapp:detaillist')
+        return reverse_lazy('rakusukeapp:subjectlist')
+        # 本当は詳細一覧(detaillist/<int:pk>)に飛びたい
 
     def form_valid(self, form):
-        messages.success(self.request, '日記を更新しました。')
+        messages.success(self.request, '詳細を更新しました。')
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, "日記の更新に失敗しました。")
+        messages.error(self.request, "詳細の更新に失敗しました。")
         return super().form_invalid(form)
 
 
@@ -295,6 +299,40 @@ class TentativeScheduleView(LoginRequiredMixin,generic.ListView):
     template_name = 'tentative_schedule.html'
     field = model.objects.latest('created_at')
     fields = model.objects.filter(schedule_date=field.schedule_date)
+
+class DetailDeleteView(LoginRequiredMixin, generic.DeleteView):
+    template_name = 'detaildelete.html'
+    model = RakusukeDetail
+
+    def get_success_url(self):
+        return reverse_lazy('rakusukeapp:subjectlist')
+        # 本当は詳細一覧(detaillist/<int:pk>)に飛びたい
+
+
+def redirect_view():
+    redirect_url = reverse('namespace:name')
+    parameters = urlencode(dict(param_a=param_a,
+                                param_b=param_b,
+                                param_c=param_c))
+    url = f'{redirect_url}?{parameters}'
+    return redirect(url)
+    rakusukeapp = form.save(commit=False)
+    rakusukeapp.user = self.request.user
+    rakusukeapp.subject_id = RakusukeSubject.objects.get(id=self.kwargs.get('subject_id_id'))
+    rakusukeapp.detail_achieved = 0
+    fields = RakusukeDetail.objects.filter(user=request.user, subject_id=kwargs['pk'])
+    if objects.fields.detail_achieved == 0:
+        objects.fields.detail_achieved = 1
+    else:
+        objects.fields.detail_achieved = 0
+    response = redirect('/subjectlist/')
+    print(type(response))
+    rakusukeapp.save()
+    return response
+    return super().form_valid(form)
+# def redirect_success(request):
+#     return HttpResponse("リダイレクト成功")
+
 
 class FixedCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = 'fixed_create.html'

@@ -18,25 +18,36 @@
 <section>
     <dev>
         <h1>詳細一覧</h1>
-        {% for trf in detailpk %}
-            <a class="btn" href="{% url 'rakusukeapp:detailcreate' trf.id %}">詳細作成</a>
-            <br>
-        {% endfor %}
-        {% for detaname in rakusukedetail %}
-            {% if forloop.first %}
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form }}
-                </form>
+            <a class="btn" href="{% url 'rakusukeapp:subjectlist' %}">戻る</a>
+            {% if detailpk != ""  %}
+                <a class="btn" href="{% url 'rakusukeapp:detailcreate' detailpk %}">詳細作成</a>
             {% endif %}
-            <table border="1">
-                <a class="container h4">
-                    {{ detaname.detail_name }}
-                </a>
-            </table>
-        {% empty %}
-            <h2>詳細がありません。</h2>
-        {% endfor %}
+        <table>
+            <tr>
+                <td>科目名</td>
+            </tr>
+            {% for detaname in rakusukedetail %}
+                <tr>
+                    <td>
+                        <a>チェック(check)</a>
+                        <a href="{% url 'rakusukeapp:detailupdate' detaname.pk %}">チェック(update)</a>
+                    </td>
+                    <td>
+                        <a class="container h4">
+                            {{ detaname.detail_name }}
+                        </a>
+                        <a class="container h4">
+                            {{ detaname.detail_achieved }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'rakusukeapp:detaildelete' detaname.pk %}">削除</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <h2>詳細がありません。</h2>
+            {% endfor %}
+        </table>
     </dev>
 
 </section>

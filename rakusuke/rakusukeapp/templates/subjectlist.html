@@ -23,16 +23,25 @@
             {{ form }}
             <a class="btn" href="{% url 'rakusukeapp:subjectcreate'%}">科目作成</a>
         </form>
-        {% for subjname in rakusukesubject_list %}
-            <table border="1">
-                <a class="container h4" color="black" href="{% url 'rakusukeapp:detaillist' subjname.pk %}">
-                    {{ subjname.subject_name }}
-                </a>
-                <input type="submit" href="{% url 'rakusukeapp:subjectdelete' subjname.pk %}" value="削除">
-            </table>
-        {% empty %}
-            <h2>科目がありません。</h2>
-        {% endfor %}
+        <table>
+            <tr>
+                <td>科目名</td>
+                <td></td>
+            </tr>
+            {% for subjname in rakusukesubject_list %}
+                <tr>
+                    <td>
+                        <a class="container h4" color="black" href="{% url 'rakusukeapp:detaillist' subjname.pk %}">
+                            {{ subjname.subject_name }}
+                        </a>
+                    </td>
+                    <td><a class="btn" href="{% url 'rakusukeapp:subjectupdate' subjname.pk %}">編集</a></td>
+                    <td><a href="{% url 'rakusukeapp:subjectdelete' subjname.pk %}">削除</a></td>
+                </tr>
+            {% empty %}
+                <h2>科目がありません。</h2>
+            {% endfor %}
+        </table>
     </dev>
 
 </section>
