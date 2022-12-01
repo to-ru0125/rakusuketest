@@ -5,6 +5,9 @@
 {% block head %}
      <meta charset="utf-8">
      <link ref="stylesheet" href="mystyle.css">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 {% endblock %}
 
 {% block header%}
@@ -19,74 +22,87 @@
 {% endblock %}
 
 {% block contents %}
-    <form method="post" action="{% url 'rakusukeapp:tentativeschedule' %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div id="list">
-            <div class="list_var">
-                <table>
-                    <tr style="text-align:center">
-                        <th>日付:</th>
-                        <td>
-                                <input type="date" id="list_0" name="schedule_date_0">
-                        </td>
-                    </tr>
-                    <tr style="text-align:center">
-                        <th>やること:</th>
-                        <td>
-                                <input type="text" id="list_0" name="schedule_do_0">
-                        </td>
-                    </tr>
-                    <tr style="text-align:center">
-                        <th>カテゴリ:</th>
-                        <td>
-                            <input type="radio" id="list_0" name="schedule_category_0" value="1">
-                            <label>勉強</label>
-                            <input type="radio" id="list_0" name="schedule_category_0" value="2" checked>
-                            <label>遊び</label>
-                            <input type="radio" id="list_0" name="schedule_category_0" value="3">
-                            <label>その他</label>
-                        </td>
-                    </tr>
-                    <tr style="text-align:center">
-                        <th>優先度:</th>
-                        <td>
-                            <input type="radio" id="list_0" name="schedule_priority_0" value="1">
-                            <label>強</label>
-                            <input type="radio" id="list_0" name="schedule_priority_0" value="2" checked>
-                            <label>中</label>
-                            <input type="radio" id="list_0" name="schedule_priority_0" value="3">
-                            <label>弱</label>
-                        </td>
-                    </tr>
-                    <tr style="text-align:center">
-                        <th>1日の作業時間:</th>
-                        <td>
-                               <input type="text" id="list_0" name="schedule_worktime_0">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button class="list_del">×</button>
-                        </td>
-                    </tr>
-                </table>
+    <div id="app">
+        <form method="post" action="{% url 'rakusukeapp:tentativeschedule' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div id="list">
+                <div class="list_var">
+                    <table>
+                        <tr style="text-align:center">
+                            <th>日付:</th>
+                            <td>
+                                <div id="#">
+                                    {% if id == "list_0" %}
+                                </div>
+                                    <input type="date" id="list_0" name="schedule_date_0">
+                                <div>
+                                    {% else %}
+                                </div>
+                                <div>
+                                    {% endif %}
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr style="text-align:center">
+                            <th>やること:</th>
+                            <td>
+                                    <input type="text" id="list_0" name="schedule_do_0">
+                            </td>
+                        </tr>
+                        <tr style="text-align:center">
+                            <th>カテゴリ:</th>
+                            <td>
+                                <input type="radio" id="list_0" name="schedule_category_0" value="1">
+                                <label>勉強</label>
+                                <input type="radio" id="list_0" name="schedule_category_0" value="2" checked>
+                                <label>遊び</label>
+                                <input type="radio" id="list_0" name="schedule_category_0" value="3">
+                                <label>その他</label>
+                            </td>
+                        </tr>
+                        <tr style="text-align:center">
+                            <th>優先度:</th>
+                            <td>
+                                <input type="radio" id="list_0" name="schedule_priority_0" value="1">
+                                <label>強</label>
+                                <input type="radio" id="list_0" name="schedule_priority_0" value="2" checked>
+                                <label>中</label>
+                                <input type="radio" id="list_0" name="schedule_priority_0" value="3">
+                                <label>弱</label>
+                            </td>
+                        </tr>
+                        <tr style="text-align:center">
+                            <th>1日の作業時間:</th>
+                            <td>
+                                   <input type="text" id="list_0" name="schedule_worktime_0">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="list_del">×</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-        </div>
-        <table type="text-add">
-            <tr>
-                <td>
-                    <button value="" type="button" class="list_add">
-                        <img src="{% static 'assets/img/appendButton.png' %}">
-                    </button>
-                </td>
-            </tr>
-        </table>
-        <button type="submit" class="right-btn">作成</button>
-    </form>
-    <button class="left-btn" onclick="location.href='{% url  'rakusukeapp:index' %}'">戻る</button>
+            <table type="text-add">
+                <tr>
+                    <td>
+                        <button value="" type="button" class="list_add">
+                            <img src="{% static 'assets/img/appendButton.png' %}">
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit" class="right-btn">作成</button>
+        </form>
+        <button class="left-btn" onclick="location.href='{% url  'rakusukeapp:index' %}'">戻る</button>
+    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery.add-input-area@4.11.0/dist/jquery.add-input-area.min.js" integrity="sha256-yOwGvcRp3I8/XWkeARhJkgdfLREQygbFA5W2bUpM2FY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.add-input-area@4.11.0/dist/jquery.add-input-area.min.js"
+            integrity="sha256-yOwGvcRp3I8/XWkeARhJkgdfLREQygbFA5W2bUpM2FY=" crossorigin="anonymous"></script>
     <script type="text/javascript">
-    $('#list').addInputArea();
+        $('#list').addInputArea();
     </script>
 {% endblock %}
