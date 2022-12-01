@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 from .forms import ScheduleCreateForm
 from .forms import SubjectCreateForm
 from .forms import DetailCreateForm
+from .forms import DetailCheckForm
 from .forms import FixedScheduleForm
 from .forms import PostCreateFormSet
 import calendar
@@ -278,13 +279,17 @@ class DetailUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = 'detailupdate.html'
     model = RakusukeDetail
     success_url = reverse_lazy('rakusukeapp:index')
-    form_class = DetailCreateForm
+    form_class = DetailCheckForm
     def get_success_url(self):
         return reverse_lazy('rakusukeapp:subjectlist')
         # 本当は詳細一覧(detaillist/<int:pk>)に飛びたい
 
     def form_valid(self, form):
-        rakusukeapp.detail_achieved = 0
+        diaries = form.save(commit=False)
+        if diaries.detail_achieved == 0:
+            diaries.detail_achieved = 1
+        elif diaries.detail_achieved == 1:
+            diaries.detail_achieved = 0
         return super().form_valid(form)
 
     def form_invalid(self, form):
