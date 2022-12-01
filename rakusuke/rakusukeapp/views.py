@@ -177,7 +177,6 @@ class MakescheduleView(LoginRequiredMixin, generic.CreateView):
         categoryList = []
         priorityList = []
         worktimeList = []
-        userList = []
 
         for i in request.POST.items():
             if re.match(r'schedule_date_0', i[0]):
@@ -190,7 +189,6 @@ class MakescheduleView(LoginRequiredMixin, generic.CreateView):
                 priorityList.append(i[1])
             if re.match(r'schedule_worktime_*', i[0]):
                 worktimeList.append(i[1])
-            userList.append(self.request.user)
 
         for i in range(len(doList)):
             rakusukeschedule = RakusukeSchedule.objects.create(
@@ -199,10 +197,9 @@ class MakescheduleView(LoginRequiredMixin, generic.CreateView):
                 schedule_category=categoryList[i],
                 schedule_priority=priorityList[i],
                 schedule_worktime=worktimeList[i],
-                user=userList[i],,
+                user=self.request.user,
             )
             rakusukeschedule.save()
-        return redirect(self.success_url)
 
         def form_invalid(self, form):
             messages.error(self.request, "作成に失敗しました。")
@@ -284,7 +281,7 @@ class DetailUpdateView(LoginRequiredMixin, generic.UpdateView):
         # 本当は詳細一覧(detaillist/<int:pk>)に飛びたい
 
     def form_valid(self, form):
-        rakusukeapp.detail_achieved = 0
+        messages.success(self.request, '詳細を更新しました。')
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -300,8 +297,8 @@ class SubjectDeleteView(LoginRequiredMixin, generic.DeleteView):
 class TentativeScheduleView(LoginRequiredMixin,generic.ListView):
     model = RakusukeSchedule
     template_name = 'tentative_schedule.html'
-    # field = RakusukeSchedule.objects.latest('created_at')
-    # fields = RakusukeSchedule.objects.filter(schedule_date=field.schedule_date)
+    # field = model.objects.latest('created_at')
+    # fields = model.objects.filter(schedule_date=field.schedule_date)
 
 class DetailDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'detaildelete.html'
@@ -333,8 +330,8 @@ def redirect_view():
     rakusukeapp.save()
     return response
     return super().form_valid(form)
-    # def redirect_success(request):
-    #     return HttpResponse("リダイレクト成功")
+# def redirect_success(request):
+#     return HttpResponse("リダイレクト成功")
 
 
 class FixedCreateView(LoginRequiredMixin, generic.CreateView):

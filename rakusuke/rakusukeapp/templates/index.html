@@ -19,25 +19,6 @@
                         <li>
                             <a class="btn" href="{% url 'rakusukeapp:makeschedule' %}">スケジュールを作成する</a>
                             <a class="btn" href="{% url 'rakusukeapp:calendar' %}">スケジュールを見る</a>
-
-                            <h6>動画を見る</h6>
-                            <h7>ひかきん</h7></br>
-                            <iframe width="300"
-                                src="https://www.youtube.com/embed/2Li5jhNIRIs"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></br>
-
-                            <h7>よねつ</h7></br>
-                            <iframe width="300"
-                                src="https://www.youtube.com/embed/1sjtSgdbsAg"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></br>
-
-                            <h7>レッツゴー</h7></br>
-                            <iframe width="300"
-                                src="https://www.youtube.com/embed/MeIr__26dAw"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></br>
                         </li>
                     {% else %}
                         <li>
@@ -56,8 +37,57 @@
 
 
 {% block contents %}
+{% if user.is_authenticated %}
 <section>
+    <h2>ランダムスケジュールが完成後登録済みスケジュールを表示</h2>
+    <h2>今日のスケジュール</h2>
+    <h3>| ス ケ ジ ュ ー ル |</h3>
+    <h3>| ス ケ ジ ュ ー ル |</h3>
+    <h3>| ス ケ ジ ュ ー ル |</h3>
+    <h3>| ス ケ ジ ュ ー ル |</h3>
+    <h3>| ス ケ ジ ュ ー ル |</h3>
+    <h3>| ス ケ ジ ュ ー ル |</h3>
+    <h3>| ス ケ ジ ュ ー ル |</h3><br>
+
+    <!-- 折り畳み展開ポインタ -->
+    <div onclick="obj=document.getElementById('open').style; obj.display=(obj.display=='none')?'block':'none';">
+        <a style="cursor:pointer;"><h4>初めての方はここをクリック！▽</h4></a><br>
+    </div>
+    <!--// 折り畳み展開ポインタ -->
+
+    <!-- 折り畳まれ部分 -->
+    <div id="open" style="display:none;clear:both;">
+
+        <!--ここの部分が折りたたまれる＆展開される部分になります。
+        自由に記述してください。-->
+        <h2>らくらくスケジュール生成アプリ【らく助】の基本的な使用手順</h2><br>
+        <h3>スケジュールを登録する</h3>
+        <h5>１、ホーム画面の<a class="link" href="{% url 'rakusukeapp:makeschedule' %}">スケジュールを作成する</a>をクリック</h5>
+        <h5>２、必要な予定を入力！</h5>
+        <h6>★フォーム下部の+ボタンを押すと複数個の予定を登録できます★</h6>
+        <h5>３、ランダムスケジュール完成！ホーム画面の<a class="link" href="{% url 'rakusukeapp:calendar' %}">スケジュールを見る</a>を確認してみよう！</h5><br>
+        <h3>より良いスケジュールを作る為には</h3>
+        <h5>１、右上に表示されている三本線のボタンをクリック</h5>
+        <h5>２、表示されたメニューから<a class="link" href="{% url 'rakusukeapp:fixed_create' %}">固定スケジュールを登録する</a>をクリック</h5>
+        <h5>３、日々の睡眠時間等予定を入れたくない理由と時間を入力！</h5>
+        <h6>😢一週間分の固定スケジュールを登録するときはお手数おかけしますが適応日をずらして7個入力してください😢</h6>
+        <h5>４、スケジュールを再び作成してみよう！</h5>
+        <h5>５、固定スケジュールが反映されてより快適なスケジュールの完成！</h5><br>
+        <h3>固定スケジュールの登録内容を変更したいときは</h3>
+        <h5>１、右上に表示されている三本線のボタンをクリック</h5>
+        <h5>２、表示されたメニューから<a class="link" href="{% url 'rakusukeapp:fixed_list' %}">固定スケジュールを確認する</a>をクリック</h5>
+        <h5>３、変更したい固定スケジュールの下にある編集ボタンをクリック</h5>
+        <h5>４、変更したい内容を入力しよう！</h5>
+        <h5>５、変更内容が入力出来たら左下にある更新ボタンをクリック</h5>
+        <h5>６、固定スケジュールの登録内容が変更されているぞ！</h5>
+        <h6>★一覧画面で文字が青いところをクリックすると詳細画面がみれます※大して見る価値がないですなんで作ったんだろこれ★</h6>
+
+
+
+    </div>
+    <!--// 折り畳まれ部分 -->
 
 
 </section>
+{% endif %}
 {% endblock %}
