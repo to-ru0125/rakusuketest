@@ -18,12 +18,13 @@ urlpatterns = [
     path('makeschedule/',views.MakescheduleView.as_view(),name="makeschedule"),
     path('calendar-detail/<int:year>/<int:month>/<int:day>/',views.CalendarDetailView.as_view(),name="calendardetail"),
     path('subjectlist/',views.SubjectListView.as_view(),name="subjectlist"),
-    path('detaillist/<int:pk>/',views.DetailListView.as_view(),name="detaillist"),
-    path('subjectupdate/',views.SubjectUpdateView.as_view(),name="subjectupdate"),
+    path('detaillist/<int:subject_id_id>/', views.DetailListView.as_view(), name="detaillist"),
+    path('subjectupdate/<int:pk>/', views.SubjectUpdateView.as_view(), name="subjectupdate"),
     path('detailupdate/<int:pk>/',views.DetailUpdateView.as_view(),name="detailupdate"),
     path('subjectcreate/',views.SubjectCreateView.as_view(),name="subjectcreate"),
     path('detailcreate/<int:subject_id_id>/',views.DetailCreateView.as_view(),name="detailcreate"),
     path('subjectdelete/<int:pk>',views.SubjectDeleteView.as_view(),name='subjectdelete'),
+    path('detaildelete/<int:pk>',views.DetailDeleteView.as_view(),name='detaildelete'),
     path('tentative_schedule/', views.TentativeScheduleView.as_view(),name="tentativeschedule"),
     # path('calender-detail/<int:pk>',views.CalendarDetailView.as_view(),name="calender_detail")
 ]

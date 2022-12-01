@@ -23,10 +23,13 @@
                 <a class="btn" href="{% url 'rakusukeapp:detailcreate' detailpk %}">詳細作成</a>
             {% endif %}
         <table>
-            <tr>
-                <td>科目名</td>
-            </tr>
             {% for detaname in rakusukedetail %}
+                {% if forloop.first %}
+                    <tr>
+                        <td>詳細名</td>
+                        <td></td>
+                    </tr>
+                {% endif %}
                 <tr>
                     <td>
                         <a>チェック(check)</a>

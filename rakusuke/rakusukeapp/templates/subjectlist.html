@@ -24,11 +24,13 @@
             <a class="btn" href="{% url 'rakusukeapp:subjectcreate'%}">科目作成</a>
         </form>
         <table>
-            <tr>
-                <td>科目名</td>
-                <td></td>
-            </tr>
             {% for subjname in rakusukesubject_list %}
+                {% if forloop.first %}
+                    <tr>
+                        <td>科目名</td>
+                        <td></td>
+                    </tr>
+                {% endif %}
                 <tr>
                     <td>
                         <a class="container h4" color="black" href="{% url 'rakusukeapp:detaillist' subjname.pk %}">
