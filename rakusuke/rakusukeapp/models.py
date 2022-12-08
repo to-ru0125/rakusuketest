@@ -15,7 +15,6 @@ class RakusukeSchedule(models.Model):
     schedule_worktime = models.IntegerField(verbose_name='１日の作業時間')
     schedule_ditching = models.TextField(verbose_name='サボり日', blank=True, null=True)
     schedule_category = models.IntegerField(verbose_name='カテゴリ')
-    schedule_achieved = models.IntegerField(verbose_name='スケジュール達成済み')
     schedule_subject = models.TextField(verbose_name='科目')
     created_at = models.DateTimeField(verbose_name='作成日時', auto_now_add=True)
 

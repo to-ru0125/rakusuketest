@@ -168,9 +168,9 @@ class OneweekschedulelistView(generic.TemplateView, LoginRequiredMixin):
 
 class MakescheduleView(LoginRequiredMixin, generic.CreateView):
     # スケジュール作成画面表示
-    model = RakusukeSchedule
     template_name = 'makeschedule.html'
     form_class = ScheduleCreateForm
+    success_url = reverse_lazy('rakusukeapp:tentativeschedule')
 
     def post(self, request, *args, **kwrgs):
         dateList = []
@@ -181,7 +181,7 @@ class MakescheduleView(LoginRequiredMixin, generic.CreateView):
         userList = []
 
         for i in request.POST.items():
-            if re.match(r'schedule_date_0', i[0]):
+            if re.match(r'schedule_date_*', i[0]):
                 dateList.append(i[1])
             if re.match(r'schedule_do_*', i[0]):
                 doList.append(i[1])
@@ -303,10 +303,12 @@ class SubjectDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy('rakusukeapp:subjectlist')
 
 class TentativeScheduleView(LoginRequiredMixin,generic.ListView):
-    model = RakusukeSchedule
     template_name = 'tentative_schedule.html'
-    # field = RakusukeSchedule.objects.latest('created_at')
-    # fields = RakusukeSchedule.objects.filter(schedule_date=field.schedule_date)
+    try:
+        keyword = RakusukeSchedule.objects.distinct('created_at').latest('created_at')
+        fields = RakusukeSchedule.objects.filter(schedule_date=keyword.schedule_date).order_by('?')
+    except RakusukeSchedule.DoesNotExist:
+        comment = None
 
 class DetailDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'detaildelete.html'
@@ -317,29 +319,29 @@ class DetailDeleteView(LoginRequiredMixin, generic.DeleteView):
         # 本当は詳細一覧(detaillist/<int:pk>)に飛びたい
 
 
-def redirect_view():
-    redirect_url = reverse('namespace:name')
-    parameters = urlencode(dict(param_a=param_a,
-                                param_b=param_b,
-                                param_c=param_c))
-    url = f'{redirect_url}?{parameters}'
-    return redirect(url)
-    rakusukeapp = form.save(commit=False)
-    rakusukeapp.user = self.request.user
-    rakusukeapp.subject_id = RakusukeSubject.objects.get(id=self.kwargs.get('subject_id_id'))
-    rakusukeapp.detail_achieved = 0
-    fields = RakusukeDetail.objects.filter(user=request.user, subject_id=kwargs['pk'])
-    if objects.fields.detail_achieved == 0:
-        objects.fields.detail_achieved = 1
-    else:
-        objects.fields.detail_achieved = 0
-    response = redirect('/subjectlist/')
-    print(type(response))
-    rakusukeapp.save()
-    return response
-    return super().form_valid(form)
-    # def redirect_success(request):
-    #     return HttpResponse("リダイレクト成功")
+    def redirect_view():
+        redirect_url = reverse('namespace:name')
+        parameters = urlencode(dict(param_a=param_a,
+                                    param_b=param_b,
+                                    param_c=param_c))
+        url = f'{redirect_url}?{parameters}'
+        return redirect(url)
+        rakusukeapp = form.save(commit=False)
+        rakusukeapp.user = self.request.user
+        rakusukeapp.subject_id = RakusukeSubject.objects.get(id=self.kwargs.get('subject_id_id'))
+        rakusukeapp.detail_achieved = 0
+        fields = RakusukeDetail.objects.filter(user=request.user, subject_id=kwargs['pk'])
+        if objects.fields.detail_achieved == 0:
+            objects.fields.detail_achieved = 1
+        else:
+            objects.fields.detail_achieved = 0
+        response = redirect('/subjectlist/')
+        print(type(response))
+        rakusukeapp.save()
+        return response
+        return super().form_valid(form)
+        # def redirect_success(request):
+        #     return HttpResponse("リダイレクト成功")
 
 
 class FixedCreateView(LoginRequiredMixin, generic.CreateView):

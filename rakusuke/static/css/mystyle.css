@@ -72,26 +72,18 @@ nav div div ul {
 }
 
 .right-btn {
-  position: absolute;
   border-radius: 1em;
-  margin: auto;
   width: 100px;
   height: 60px;
-  right: 10px;
-  bottom: 150px;
 }
 .navbar-dark .navbar-toggler{
   /* 枠線 */
   border-color: rgba(212, 108, 228, 1);
 }
 .left-btn {
-  position: absolute;
   border-radius: 1em;
-  margin: auto;
   width: 100px;
   height: 60px;
-  left: 10px;
-  bottom: 150px;
 }
 
 #id_schedule_do, #id_schedule_ditching {

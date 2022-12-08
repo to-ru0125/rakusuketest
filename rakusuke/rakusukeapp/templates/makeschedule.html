@@ -23,7 +23,7 @@
 
 {% block contents %}
     <div id="app">
-        <form method="post" action="{% url 'rakusukeapp:tentativeschedule' %}" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div id="list">
                 <div class="list_var">
@@ -31,17 +31,7 @@
                         <tr style="text-align:center">
                             <th>日付:</th>
                             <td>
-                                <div id="#">
-                                    {% if id == "list_0" %}
-                                </div>
                                     <input type="date" id="list_0" name="schedule_date_0">
-                                <div id="#">
-                                    {% else %}
-                                </div>
-                                <div id="#">
-                                    {% endif %}
-                                </div>
-
                             </td>
                         </tr>
                         <tr style="text-align:center">
@@ -53,23 +43,23 @@
                         <tr style="text-align:center">
                             <th>カテゴリ:</th>
                             <td>
-                                <input type="radio" id="list_0" name="schedule_category_0" value="1">
                                 <label>勉強</label>
-                                <input type="radio" id="list_0" name="schedule_category_0" value="2" checked>
+                                <input type="radio" id="list_0" name="schedule_category_0" value="1">
                                 <label>遊び</label>
-                                <input type="radio" id="list_0" name="schedule_category_0" value="3">
+                                <input type="radio" id="list_0" name="schedule_category_0" value="2" checked>
                                 <label>その他</label>
+                                <input type="radio" id="list_0" name="schedule_category_0" value="3">
                             </td>
                         </tr>
                         <tr style="text-align:center">
                             <th>優先度:</th>
                             <td>
-                                <input type="radio" id="list_0" name="schedule_priority_0" value="1">
                                 <label>強</label>
-                                <input type="radio" id="list_0" name="schedule_priority_0" value="2" checked>
+                                <input type="radio" id="list_0" name="schedule_priority_0" value="1">
                                 <label>中</label>
-                                <input type="radio" id="list_0" name="schedule_priority_0" value="3">
+                                <input type="radio" id="list_0" name="schedule_priority_0" value="2" checked>
                                 <label>弱</label>
+                                <input type="radio" id="list_0" name="schedule_priority_0" value="3">
                             </td>
                         </tr>
                         <tr style="text-align:center">
@@ -95,8 +85,9 @@
                     </td>
                 </tr>
             </table>
-            <button type="submit" class="btn">作成</button>
+            <button type="submit" class="right-btn">作成</button>
         </form>
+        <button onclick="location.href='{% url 'rakusukeapp:index' %}'" class="left-btn">戻る</button>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery.add-input-area@4.11.0/dist/jquery.add-input-area.min.js"
