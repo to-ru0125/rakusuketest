@@ -1,0 +1,25 @@
+
+
+h2 {
+  text-align: center
+}
+h3 {
+  text-align: center
+}
+h5 {
+  margin-left: 490px;
+}
+h6 {
+  margin-left: 510px;
+}
+
+h4.hover-test{
+    color:#4169e1;
+    font-size: 23px;
+    margin-left: 60px;
+}
+h4.hover-test:hover{
+	color: #4682b4;
+	font-size: 25px;
+	font-weight: bold;
+}

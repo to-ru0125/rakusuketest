@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}らくらくスケジュール生成アプリ | らく助{% endblock %}
-
+{% block head %}
+<!--<link rel="stylesheet" type="text/css" href="{% static 'css/pc.css' %}">-->
+<link rel="stylesheet" type="text/css" media="only screen and (max-device-width:480px)" href="{% static 'css/phone.css' %}">
+<link rel="stylesheet" type="text/css" media="screen and (min-device-width:481px)" href="{% static 'css/pc.css' %}" />
+{% endblock %}
 
 {% block header%}
-    {{ month_current | date:"Y年m月" }}
+ {{ month_current | date:"Y年m月" }}
+
 <header class="masthead text-center text-black">
     <div class="masthead-content">
         <div class="container">
@@ -39,19 +45,19 @@
 {% block contents %}
 {% if user.is_authenticated %}
 <section>
-    <h2>ランダムスケジュールが完成後登録済みスケジュールを表示</h2>
+    <h2>本日は{% now "F" %}{% now "j" %}日({% now "l" %})です</h2>
     <h2>今日のスケジュール</h2>
-    <h3>| ス ケ ジ ュ ー ル |</h3>
-    <h3>| ス ケ ジ ュ ー ル |</h3>
-    <h3>| ス ケ ジ ュ ー ル |</h3>
-    <h3>| ス ケ ジ ュ ー ル |</h3>
-    <h3>| ス ケ ジ ュ ー ル |</h3>
-    <h3>| ス ケ ジ ュ ー ル |</h3>
-    <h3>| ス ケ ジ ュ ー ル |</h3><br>
+    <h2>| ス ケ ジ ュ ー ル |</h2>
+    <h2>| ス ケ ジ ュ ー ル |</h2>
+    <h2>| ス ケ ジ ュ ー ル |</h2>
+    <h2>| ス ケ ジ ュ ー ル |</h2>
+    <h2>| ス ケ ジ ュ ー ル |</h2>
+    <h2>| ス ケ ジ ュ ー ル |</h2>
+    <h2>| ス ケ ジ ュ ー ル |</h2><br>
 
     <!-- 折り畳み展開ポインタ -->
     <div onclick="obj=document.getElementById('open').style; obj.display=(obj.display=='none')?'block':'none';">
-        <a style="cursor:pointer;"><h4>初めての方はここをクリック！▽</h4></a><br>
+        <a style="cursor:pointer;"><h4 class="hover-test">初めての方はここをクリック！▽</h4></a><br>
     </div>
     <!--// 折り畳み展開ポインタ -->
 
@@ -60,7 +66,7 @@
 
         <!--ここの部分が折りたたまれる＆展開される部分になります。
         自由に記述してください。-->
-        <h2>らくらくスケジュール生成アプリ【らく助】の基本的な使用手順</h2><br>
+        <h2 class="midasi">【らく助】の基本的な使用手順</h2><br>
         <h3>スケジュールを登録する</h3>
         <h5>１、ホーム画面の<a class="link" href="{% url 'rakusukeapp:makeschedule' %}">スケジュールを作成する</a>をクリック</h5>
         <h5>２、必要な予定を入力！</h5>
@@ -89,5 +95,6 @@
 
 
 </section>
+
 {% endif %}
 {% endblock %}
