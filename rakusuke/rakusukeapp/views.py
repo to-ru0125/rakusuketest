@@ -166,7 +166,7 @@ class OneweekschedulelistView(generic.TemplateView, LoginRequiredMixin):
 #         return super().form_invalid(form)
 
 
-class MakescheduleView(LoginRequiredMixin, generic.CreateView):
+class MakescheduleView(LoginRequiredMixin, request, generic.CreateView):
     # スケジュール作成画面表示
     template_name = 'makeschedule.html'
     form_class = ScheduleCreateForm
