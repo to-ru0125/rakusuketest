@@ -166,48 +166,48 @@ class OneweekschedulelistView(generic.TemplateView, LoginRequiredMixin):
 #         return super().form_invalid(form)
 
 
-class MakescheduleView(LoginRequiredMixin, request, generic.CreateView):
-    # スケジュール作成画面表示
-    template_name = 'makeschedule.html'
-    form_class = ScheduleCreateForm
-    success_url = reverse_lazy('rakusukeapp:tentativeschedule')
-
-    def post(self, request, *args, **kwrgs):
-        dateList = []
-        doList = []
-        categoryList = []
-        priorityList = []
-        worktimeList = []
-        userList = []
-
-        for i in request.POST.items():
-            if re.match(r'schedule_date_*', i[0]):
-                dateList.append(i[1])
-            if re.match(r'schedule_do_*', i[0]):
-                doList.append(i[1])
-            if re.match(r'schedule_category_*', i[0]):
-                categoryList.append(i[1])
-            if re.match(r'schedule_priority_*', i[0]):
-                priorityList.append(i[1])
-            if re.match(r'schedule_worktime_*', i[0]):
-                worktimeList.append(i[1])
-            userList.append(self.request.user)
-
-        for i in range(len(doList)):
-            rakusukeschedule = RakusukeSchedule.objects.create(
-                schedule_date=dateList[i],
-                schedule_do=doList[i],
-                schedule_category=categoryList[i],
-                schedule_priority=priorityList[i],
-                schedule_worktime=worktimeList[i],
-                user=userList[i],
-            )
-            rakusukeschedule.save()
-        return redirect(self.success_url)
-
-        def form_invalid(self, form):
-            messages.error(self.request, "作成に失敗しました。")
-            return super().form_invalid(form)
+# class MakescheduleView(LoginRequiredMixin, request, generic.CreateView):
+#     # スケジュール作成画面表示
+#     template_name = 'makeschedule.html'
+#     form_class = ScheduleCreateForm
+#     success_url = reverse_lazy('rakusukeapp:tentativeschedule')
+#
+#     def post(self, request, *args, **kwrgs):
+#         dateList = []
+#         doList = []
+#         categoryList = []
+#         priorityList = []
+#         worktimeList = []
+#         userList = []
+#
+#         for i in request.POST.items():
+#             if re.match(r'schedule_date_*', i[0]):
+#                 dateList.append(i[1])
+#             if re.match(r'schedule_do_*', i[0]):
+#                 doList.append(i[1])
+#             if re.match(r'schedule_category_*', i[0]):
+#                 categoryList.append(i[1])
+#             if re.match(r'schedule_priority_*', i[0]):
+#                 priorityList.append(i[1])
+#             if re.match(r'schedule_worktime_*', i[0]):
+#                 worktimeList.append(i[1])
+#             userList.append(self.request.user)
+#
+#         for i in range(len(doList)):
+#             rakusukeschedule = RakusukeSchedule.objects.create(
+#                 schedule_date=dateList[i],
+#                 schedule_do=doList[i],
+#                 schedule_category=categoryList[i],
+#                 schedule_priority=priorityList[i],
+#                 schedule_worktime=worktimeList[i],
+#                 user=userList[i],
+#             )
+#             rakusukeschedule.save()
+#         return redirect(self.success_url)
+#
+#         def form_invalid(self, form):
+#             messages.error(self.request, "作成に失敗しました。")
+#             return super().form_invalid(form)
 
 
 class SubjectListView(LoginRequiredMixin, generic.ListView):
