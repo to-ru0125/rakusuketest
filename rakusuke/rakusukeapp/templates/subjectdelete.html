@@ -19,10 +19,8 @@
     <dev>
         <h1>科目を削除しますか？</h1>
         <form method="post">
-            {% csrf_token %}
-            {{ form }}
             <a class="btn" href="{% url 'rakusukeapp:subjectlist' %}">キャンセル</a>
-            <input type="submit" value="削除">
+            <button class="btn" type="submit">削除</button>
         </form>
     </dev>
 

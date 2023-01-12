@@ -21,9 +21,6 @@ class RakusukeSchedule(models.Model):
     class Meta:
         verbose_name_plural = 'スケジュールテーブル'
 
-    def __str__(self):
-        return self.title
-
 
 class RakusukeFunny(models.Model):
     user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.PROTECT)
@@ -37,7 +34,7 @@ class RakusukeFunny(models.Model):
 
 
 class RakusukeSubject(models.Model):
-    subject_name = models.TextField(verbose_name='科目名')
+    subject_name = models.TextField(verbose_name='科目名', max_length=10)
     user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.PROTECT)
 
     class Meta:

@@ -47,6 +47,7 @@ class ScheduleCreateForm(forms.ModelForm):
 
 
 class SubjectCreateForm(forms.ModelForm):
+    subject_name = forms.CharField(label='科目名', max_length=10)
     class Meta:
         model = RakusukeSubject
         fields = ('subject_name',)
@@ -57,6 +58,7 @@ class SubjectCreateForm(forms.ModelForm):
             field.widget.attrs['class'] = 'form-control'
 
 class DetailCreateForm(forms.ModelForm):
+    detail_name = forms.CharField(label='詳細名', max_length=20)
     class Meta:
         model = RakusukeDetail
         fields = ('detail_name',)

@@ -12,6 +12,14 @@
     </div>
 </header>
 <section>
-    <h1>固定スケジュール関連はここ</h1>
+    <h1>一日のスケジュール確認</h1>
+    {% for schedule in thisDay %}
+        <div class="post-preview">
+            <h2 class="post-title">
+                {{ schedule.schedule_do }}
+            </h2>
+        </div>
+        <hr>
+    {% endfor %}
 </section>
 {% endblock %}
