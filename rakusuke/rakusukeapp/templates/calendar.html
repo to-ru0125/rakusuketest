@@ -1,13 +1,19 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}スケジュール日時選択画面 | らく助{% endblock %}
+{% block head %}
+<!--<link rel="stylesheet" type="text/css" href="{% static 'css/pc_index.css' %}">-->
 
+<link rel="stylesheet" type="text/css" media="only screen and (max-device-width:480px)" href="{% static 'css/phone_index.css' %}">
+<link rel="stylesheet" type="text/css" media="screen and (min-device-width:481px)" href="{% static 'css/pc_index.css' %}" />
+{% endblock %}
 
 {% block header%}
 <header class="masthead text-center text-black">
     <div class="masthead-content">
         <div class="container">
             <link rel="stylesheet" href="mystyle.css">
-            <h1 class="masthead-heading mb-0">らく助</h1>
+            <h2 class="masthead-heading mb-0">らく助:月間カレンダー</h2>
         </div>
     </div>
 </header>
@@ -15,8 +21,9 @@
 
 
 {% block contents %}
+ <p class="calender-y-m">
     {{ month_current | date:"Y年m月" }}
-
+ </p>
     <table class="table">
         <thead>
         <tr>
@@ -48,6 +55,6 @@
         </tbody>
     </table>
 
-    <a class="btn" href="{% url 'rakusukeapp:calendar' month_previous.year month_previous.month %}">前月</a>
-    <a class="btn" href="{% url 'rakusukeapp:calendar' month_next.year month_next.month %}">次月</a>
+    <a type="button" class="btn prev-month" href="{% url 'rakusukeapp:calendar' month_previous.year month_previous.month %}">前月</a>
+    <a type="button" class="btn next-month" href="{% url 'rakusukeapp:calendar' month_next.year month_next.month %}">次月</a>
 {% endblock %}
