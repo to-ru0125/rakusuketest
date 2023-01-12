@@ -29,22 +29,40 @@ h4.hover-test:hover{
 }
 header{
     padding: 30px;
-    color:#FFFFFF;
-    background-color:#8B0000;
+    background: #fff3b8;
 
 }
 section{
-
-    background-image: url(..static\assets\img\haikei.jpg);
-  /* 画像を常に天地左右の中央に配置 */
-    background-position: center center;
-  /* 画像をタイル状に繰り返し表示しない */
-    background-repeat: no-repeat;
-  /* コンテンツの高さが画像の高さより大きい時、動かないように固定 */
-    background-attachment: fixed;
-  /* 表示するコンテナの大きさに基づいて、背景画像を調整 */
-    background-size: cover;
-  /* 背景画像が読み込まれる前に表示される背景のカラー */
-    /*background-color: #FFE4B5;*/
-    /**/
+    padding: 30px 0px 0px 0px;
+    background-color: #fff0f5;
 }
+
+footer {
+    background: linear-gradient(70deg, #98623c, #98623c);
+}
+
+p.footer-text {
+    color: white;
+    text-align: center;
+}
+
+
+a.btn.btn-link {
+      display: inline-block;
+  padding: 7px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  color: #FFF;
+  background-image: linear-gradient(45deg, #FFC107 0%, #ff8b5f 100%);
+  transition: .4s;
+
+}
+
+
+a.btn.btn-link:active {
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+  border-bottom: none;
+}
+
