@@ -320,6 +320,15 @@ class TentativeScheduleView(LoginRequiredMixin,generic.ListView):
         context['rakusukeschedule'] = \
             RakusukeSchedule.objects.filter(user=self.request.user, schedule_date=datum.schedule_date).order_by('?')
         return context
+    #
+    # def form_valid(self, form):
+    #     rakusukeapp = form.save(commit=False)
+    #     rakusukeapp.user = self.request.user
+    #     rakusukeapp.save()
+    #     return super().form_valid(form)
+    #
+    # def form_invalid(self, form):
+    #     return super().form_invalid(form)
 
 class DetailDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'detaildelete.html'
