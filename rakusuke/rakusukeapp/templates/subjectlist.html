@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}科目一覧 | らく助{% endblock %}
 {% block active_subjectlist_list %}active{% endblock %}
+
+{% block head %}
+<!--<link rel="stylesheet" type="text/css" href="{% static 'css/pc_index.css' %}">-->
+
+<link rel="stylesheet" type="text/css" media="only screen and (max-device-width:480px)" href="{% static 'css/phone_index.css' %}">
+<link rel="stylesheet" type="text/css" media="screen and (min-device-width:481px)" href="{% static 'css/pc_index.css' %}" />
+{% endblock %}
 
 {% block header%}
 <header class="masthead text-center text-black">
@@ -8,6 +16,7 @@
         <div class="container">
             <link rel="stylesheet" href="mystyle.css">
             <h1 class="masthead-heading mb-0">らく助</h1>
+            <h3>科目一覧</h3>
         </div>
     </div>
 </header>
@@ -16,14 +25,14 @@
 
 {% block contents %}
 <section>
-    <dev>
-        <h1>科目一覧</h1>
+    <dev align="center">
+
         <form method="post">
             {% csrf_token %}
             {{ form }}
-            <a class="btn" href="{% url 'rakusukeapp:subjectcreate'%}">科目作成</a>
+            <a type="button" class="btn sub-create"  href="{% url 'rakusukeapp:subjectcreate'%}">科目作成</a>
         </form>
-        <table>
+        <table class="subj">
             {% for subjname in rakusukesubject_list %}
                 {% if forloop.first %}
                     <tr>
@@ -37,8 +46,8 @@
                             {{ subjname.subject_name }}
                         </a>
                     </td>
-                    <td><a class="btn" href="{% url 'rakusukeapp:subjectupdate' subjname.pk %}">編集</a></td>
-                    <td><a class="btn" href="{% url 'rakusukeapp:subjectdelete' subjname.pk %}">削除</a></td>
+                    <td><a type="button" class="btn update-btn" href="{% url 'rakusukeapp:subjectupdate' subjname.pk %}">編集</a></td>
+                    <td><a type="button" class="btn delete-btn" href="{% url 'rakusukeapp:subjectdelete' subjname.pk %}">削除</a></td>
                 </tr>
             {% empty %}
                 <h2>科目がありません。</h2>
