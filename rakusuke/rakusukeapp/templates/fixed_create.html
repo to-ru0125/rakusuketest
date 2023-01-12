@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block title %}らく助{% endblock %}
 
 {% block active_diary_list %}active{% endblock %}
+{% block head %}
+<!--<link rel="stylesheet" type="text/css" href="{% static 'css/pc_index.css' %}">-->
 
+<link rel="stylesheet" type="text/css" media="only screen and (max-device-width:480px)" href="{% static 'css/phone_index.css' %}">
+<link rel="stylesheet" type="text/css" media="screen and (min-device-width:481px)" href="{% static 'css/pc_index.css' %}" />
+{% endblock %}
 {% block header %}
     <header class="masthead2">
+        <h1>らく助</h1>
+        <h3>固定スケジュール登録</h3>
     </header>
 {% endblock %}
 
@@ -15,7 +21,6 @@
     <div class="row">
         <div class="my-div-style w-100">
             <form method="POST" enctype='multipart/form-data'>
-                <h2>固定スケジュール登録</h2>
                 {% csrf_token %}
                 <div id="list">
                     <div class="list_var">
@@ -65,7 +70,8 @@
                         </td>
                     </tr>
                 </table>
-                <button class="btn btn-primary" type="submit">作成</button>
+                <button class="btn fixed_create" type="submit">作成</button>
+                <button class="btn back-page" onclick="history.back()"　type="button">戻る</button>
             </form>
             <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/jquery.add-input-area@4.11.0/dist/jquery.add-input-area.min.js" integrity="sha256-yOwGvcRp3I8/XWkeARhJkgdfLREQygbFA5W2bUpM2FY=" crossorigin="anonymous"></script>

@@ -1,5 +1,6 @@
 h1 {
   vertical-align : middle;
+  text-align:center;
 }
 
 h2 {
@@ -10,6 +11,9 @@ h3 {
 }
 h5 {
   margin-left: 490px;
+}
+.text-link {
+color: #0095d9;
 }
 h6 {
   margin-left: 510px;
@@ -32,11 +36,10 @@ header{
 }
 section{
     padding: 30px 0px 0px 0px;
-    background-color: #fff0f5;
 }
 
 footer {
-    background: linear-gradient(70deg, #98623c, #98623c);
+    background: linear-gradient(70deg, #24140e, #24140e);
 }
 
 p.footer-text {
@@ -62,7 +65,7 @@ a.btn.btn-link:active {
   border-bottom: none;
 }
 /*ここまで*/
-/*カレンダー画面青ボタン*/
+/*カレンダー画面先月ボタン*/
 a.btn.prev-month {
   display: inline-block;
   padding: 0.5em 1em;
@@ -74,7 +77,7 @@ a.btn.prev-month {
   border-bottom: solid 3px #5e7fca;
   position: relative;
   bottom: 10px;
-  left: 50px;
+  left: 10%;
 }
 a.btn.prev-month:active {
   -webkit-transform: translateY(4px);
@@ -82,6 +85,9 @@ a.btn.prev-month:active {
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
   border-bottom: none;
 }
+/*ここまで*/
+
+/*カレンダー画面来月ボタン*/
 a.btn.next-month {
   display: inline-block;
   padding: 0.5em 1em;
@@ -91,9 +97,9 @@ a.btn.next-month {
   background-image: linear-gradient(#6795fd 0%, #67ceff 100%);
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
   border-bottom: solid 3px #5e7fca;
-  position: relative; /* relativeを指定 */
+  position: relative;
   bottom: 10px;
-  left: 1335px;
+  left: 80%;
 }
 a.btn.next-month:active {
   -webkit-transform: translateY(4px);
@@ -108,5 +114,57 @@ a.btn.next-month:active {
  font-weight:bold;
 }
 
+/*固定スケジュール登録画面ボタン*/
+button.btn.fixed_create {
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  border-radius: 4px;
+  color: #ffffff;
+  background-image: linear-gradient(#6795fd 0%, #67ceff 100%);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+  border-bottom: solid 3px #5e7fca;
+  position: relative; /* relativeを指定 */
+  bottom: 10px;
+  left: 80%;
+
+}
+button.btn.fixed_create:active {
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+  border-bottom: none;
+}
+/*ここまで*/
+
+/*固定スケジュール登録画面戻るボタン*/
+button.btn.back-page {
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  border-radius: 4px;
+  color: #ffffff;
+  background-image: linear-gradient(#6795fd 0%, #67ceff 100%);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+  border-bottom: solid 3px #5e7fca;
+  position: relative; /* relativeを指定 */
+  bottom: 10px;
+  left: 10%;
+
+}
+button.btn.back-page:active {
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+  border-bottom: none;
+}
+/*ここまで*/
+
+
+/*固定スケジュールフォームのｃｓｓ*/
+div.list_var {
+ margin: 20px;
+}
+/*ここまで*/
 
 
