@@ -167,4 +167,12 @@ div.list_var {
 }
 /*ここまで*/
 
+/*固定スケジュール一覧*/
+h2.post-fixed_do {
+    text-align:left;
+}
+h6.post-fixed_start_time {
+    text-align:left
+}
+
 
