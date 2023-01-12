@@ -102,10 +102,19 @@ class MonthCalendarMixin(BaseCalendarMixin):
         return calendar_data
 
 
-class CalendarDetailView(LoginRequiredMixin, generic.DetailView):
-    model = RakusukeDetail
+class CalendarDetailView(LoginRequiredMixin, generic.ListView):
+    model = RakusukeSchedule
     template_name = 'calendar_datail.html'
 
+    def get_queryset(self):
+        day = self.kwargs.get('day')
+        month = self.kwargs.get('month')
+        year = self.kwargs.get('year')
+        thatDay = year + '-' + month + '-' + day
+    #yearなどがintなのにstrの「-」つかってんじゃねーよと
+
+        diaries = RakusukeSubject.objects.filter(user=self.request.user, schedule_date=thatDay)
+        return diaries
 
 class CalendarView(MonthCalendarMixin, generic.TemplateView, LoginRequiredMixin):
     """月間カレンダーを表示するビュー"""
