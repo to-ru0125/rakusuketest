@@ -19,17 +19,19 @@
 {% endblock %}
 
 {% block contents %}
-    <table>
-        {% for field in fieldslist %}
+    <form method="POST" enctype="multipart/form-data">
         <table>
-            {% for i in field.worktime %}
-            <tr>
-                <td>{{ field.schedule_do }}</td>
-            </tr>
+            {% for field in rakusukeschedule %}
+            <table>
+                {% for i in field.worktime %}
+                <tr>
+                    <td><input value="{{ field.schedule_do }}" disabled></td>
+                </tr>
+                {% endfor %}
+            </table>
             {% endfor %}
         </table>
-        {% endfor %}
-    </table>
-    <button type="submit" class="right-btn">作成</button>
+        <button type="submit" class="right-btn">作成</button>
+    </form>
     <button class="left-btn" onclick="location.href='{% url  'rakusukeapp:index' %}'">戻る</button>
 {% endblock %}

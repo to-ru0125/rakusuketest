@@ -25,15 +25,17 @@
     <div id="app">
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
+            <table>
+                <tr style="text-align:center">
+                    <th>日付:</th>
+                    <td>
+                        <input type="date" name="schedule_date">
+                    </td>
+                </tr>
+            </table>
             <div id="list">
                 <div class="list_var">
                     <table>
-                        <tr style="text-align:center">
-                            <th>日付:</th>
-                            <td>
-                                    <input type="date" id="list_0" name="schedule_date_0">
-                            </td>
-                        </tr>
                         <tr style="text-align:center">
                             <th>やること:</th>
                             <td>

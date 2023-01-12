@@ -1,3 +1,4 @@
+import requests
 from django.views import generic
 from .models import RakusukeSchedule
 from .models import RakusukeDetail
@@ -190,8 +191,7 @@ class MakescheduleView(LoginRequiredMixin, generic.CreateView):
         userList = []
 
         for i in request.POST.items():
-            if re.match(r'schedule_date_*', i[0]):
-                dateList.append(i[1])
+            dateList.append(request.POST.get('schedule_date'))
             if re.match(r'schedule_do_*', i[0]):
                 doList.append(i[1])
             if re.match(r'schedule_category_*', i[0]):
@@ -313,11 +313,13 @@ class SubjectDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class TentativeScheduleView(LoginRequiredMixin,generic.ListView):
     template_name = 'tentative_schedule.html'
-    try:
-        keyword = RakusukeSchedule.objects.distinct('created_at').latest('created_at')
-        fields = RakusukeSchedule.objects.filter(schedule_date=keyword.schedule_date).order_by('?')
-    except RakusukeSchedule.DoesNotExist:
-        comment = None
+    model = RakusukeSchedule
+    def get_context_data(self, **kwargs):
+        context = super(TentativeScheduleView, self).get_context_data(**kwargs)
+        datum = RakusukeSchedule.objects.latest('created_at')
+        context['rakusukeschedule'] = \
+            RakusukeSchedule.objects.filter(user=self.request.user, schedule_date=datum.schedule_date).order_by('?')
+        return context
 
 class DetailDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'detaildelete.html'
@@ -429,4 +431,4 @@ class FixedUpdateView(LoginRequiredMixin, generic.UpdateView):
         return super().form_valid(form)
 
 # class ScheduleDateView(LoginRequiredMixin, generic.CreateView):
-#
+#     template_name = 'createdate.html'
